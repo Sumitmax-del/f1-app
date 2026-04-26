@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-f1-red: #E10600;
+  --color-f1-red-dark: #B30500;
+  --color-f1-dark: #15151E;
+  --color-f1-darker: #0D0D14;
+  --color-f1-carbon: #1E1E2E;
+  --color-f1-carbon-light: #2A2A3E;
+  --color-f1-silver: #C0C0C0;
+  --color-f1-gray: #38384D;
+  --color-f1-gray-light: #6B6B8D;
+  --color-f1-white: #F5F5F5;
+  --color-redbull: #3671C6;
+  --color-mclaren: #FF8000;
+  --color-ferrari: #E8002D;
+  --color-mercedes: #27F4D2;
+  --color-astonmartin: #229971;
+  --color-alpine: #FF87BC;
+  --color-haas: #B6BABD;
+  --color-racingbulls: #6692FF;
+  --color-sauber: #52E252;
+  --color-williams: #64C4FF;
+  --font-sans: 'Titillium Web', system-ui, sans-serif;
+  --font-display: 'Orbitron', monospace;
+}
+
+:root {
+  --background: #15151E;
+  --foreground: #F5F5F5;
+}
+
+.light {
+  --background: #F0F0F5;
+  --foreground: #15151E;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #E10600 #1E1E2E;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1E1E2E;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #E10600;
+  border-radius: 3px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Titillium Web', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(30, 30, 46, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(225, 6, 0, 0.15);
+  border-radius: 16px;
+}
+
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Glow effects */
+.glow-red {
+  box-shadow: 0 0 20px rgba(225, 6, 0, 0.3), 0 0 60px rgba(225, 6, 0, 0.1);
+}
+
+.glow-red-sm {
+  box-shadow: 0 0 10px rgba(225, 6, 0, 0.2);
+}
+
+/* Racing stripe */
+.racing-stripe {
+  position: relative;
+  overflow: hidden;
+}
+
+.racing-stripe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #E10600, #FF4444, #E10600);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #E10600, #FF4444, #FF6B6B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated background grid */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(225, 6, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225, 6, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Pulse animation for live indicator */
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.live-pulse {
+  animation: pulse-live 1.5s ease-in-out infinite;
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(225, 6, 0, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Checkered flag pattern */
+.checkered {
+  background-image:
+    linear-gradient(45deg, #2A2A3E 25%, transparent 25%),
+    linear-gradient(-45deg, #2A2A3E 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #2A2A3E 75%),
+    linear-gradient(-45deg, transparent 75%, #2A2A3E 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}
+
+/* Team color bar - left border accent */
+.team-color-bar {
+  position: relative;
+}
+.team-color-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--team-color, #E10600);
+}
+
+/* Tire compound colors */
+.tire-soft { color: #FF3333; background: rgba(255, 51, 51, 0.15); }
+.tire-medium { color: #FFC300; background: rgba(255, 195, 0, 0.15); }
+.tire-hard { color: #FFFFFF; background: rgba(255, 255, 255, 0.15); }
+.tire-inter { color: #43B02A; background: rgba(67, 176, 42, 0.15); }
+.tire-wet { color: #0072C6; background: rgba(0, 114, 198, 0.15); }
+
+/* Number counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Position change highlight */
+@keyframes posGain {
+  0% { background: rgba(67, 176, 42, 0.3); }
+  100% { background: transparent; }
+}
+
+@keyframes posLoss {
+  0% { background: rgba(225, 6, 0, 0.3); }
+  100% { background: transparent; }
+}
+
+.pos-gain { animation: posGain 2s ease-out; }
+.pos-loss { animation: posLoss 2s ease-out; }
