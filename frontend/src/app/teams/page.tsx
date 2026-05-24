@@ -5,14 +5,34 @@ import { motion } from 'framer-motion';
 import { getTeams } from '@/lib/api';
 import Link from 'next/link';
 import { ChevronRight, Users } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function TeamsPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
   const [teams, setTeams] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getTeams().then(t => { setTeams(t || []); setLoading(false); }).catch(() => setLoading(false));
-  }, []);
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    if (user) {
+      getTeams().then(t => { setTeams(t || []); setLoading(false); }).catch(() => setLoading(false));
+    }
+  }, [user]);
+
+  if (authLoading || !user) {
+    return (
+      <div className="min-h-screen grid-bg flex items-center justify-center">
+        <div className="shimmer w-48 h-2 rounded-full" />
+      </div>
+    );
+  }
 
   const maxPoints = Math.max(...teams.map(t => t.points || 0), 1);
 
@@ -21,7 +41,7 @@ export default function TeamsPage() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">Constructors</p>
-          <h1 className="text-4xl sm:text-5xl font-display font-black text-white">TEAMS</h1>
+          <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>TEAMS</h1>
         </motion.div>
 
         <div className="space-y-4">
@@ -55,12 +75,12 @@ export default function TeamsPage() {
 
                     {/* Team info */}
                     <div className="flex-1">
-                      <h3 className="text-lg font-bold text-white group-hover:text-white/90">{team.name}</h3>
-                      <p className="text-xs text-[#6B6B8D]">{team.nationality}</p>
+                      <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{team.name}</h3>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{team.nationality}</p>
                       {/* Drivers */}
                       <div className="flex items-center gap-3 mt-2">
-                        <Users size={12} className="text-[#6B6B8D]" />
-                        <span className="text-xs text-[#6B6B8D]">
+                        <Users size={12} style={{ color: 'var(--text-secondary)' }} />
+                        <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                           {team.drivers?.map((d: any) => `${d.givenName} ${d.familyName}`).join(' • ') || 'Loading...'}
                         </span>
                       </div>
@@ -69,7 +89,7 @@ export default function TeamsPage() {
                     {/* Points */}
                     <div className="flex items-center gap-4 sm:gap-6">
                       <div className="hidden sm:block w-48">
-                        <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+                        <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${((team.points || 0) / maxPoints) * 100}%` }}
@@ -80,10 +100,10 @@ export default function TeamsPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-display font-bold text-white">{team.points}</p>
-                        <p className="text-[10px] text-[#6B6B8D] uppercase tracking-wider">Points</p>
+                        <p className="text-2xl font-display font-bold" style={{ color: 'var(--text-primary)' }}>{team.points}</p>
+                        <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Points</p>
                       </div>
-                      <ChevronRight size={18} className="text-[#6B6B8D] group-hover:text-white transition-colors" />
+                      <ChevronRight size={18} className="transition-colors" style={{ color: 'var(--text-secondary)' }} />
                     </div>
                   </div>
                 </div>

@@ -55,7 +55,7 @@ export default function HomePage() {
             <span className="text-white font-display font-black text-xl">F1</span>
           </div>
           <div className="shimmer h-1 w-48 rounded-full mx-auto mb-3" />
-          <p className="text-[#6B6B8D] text-sm font-semibold">Loading race data...</p>
+          <p className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>Loading race data...</p>
         </motion.div>
       </div>
     );
@@ -75,10 +75,10 @@ export default function HomePage() {
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">
               2025 Season
             </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-white leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-tight" style={{ color: 'var(--text-primary)' }}>
               FORMULA <span className="gradient-text">ONE</span>
             </h1>
-            <p className="text-[#6B6B8D] mt-2 text-sm sm:text-base max-w-lg">
+            <p className="mt-2 text-sm sm:text-base max-w-lg" style={{ color: 'var(--text-secondary)' }}>
               Live timing, standings, and race data. Your complete F1 command center.
             </p>
           </motion.div>

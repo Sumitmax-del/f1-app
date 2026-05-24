@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SocketProvider } from "@/context/SocketContext";
+import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/layout/Navbar";
 
 export const metadata: Metadata = {
@@ -19,12 +20,14 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <SocketProvider>
-            <Navbar />
-            <main className="flex-1 pt-16">
-              {children}
-            </main>
-          </SocketProvider>
+          <AuthProvider>
+            <SocketProvider>
+              <Navbar />
+              <main className="flex-1 pt-16">
+                {children}
+              </main>
+            </SocketProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

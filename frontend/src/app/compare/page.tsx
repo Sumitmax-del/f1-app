@@ -43,19 +43,24 @@ export default function ComparePage() {
 
   const DriverSelector = ({ value, onChange, label }: { value: string; onChange: (v: string) => void; label: string }) => (
     <div className="relative">
-      <label className="text-[10px] text-[#6B6B8D] uppercase tracking-widest font-bold mb-1 block">{label}</label>
+      <label className="text-[10px] uppercase tracking-widest font-bold mb-1 block" style={{ color: 'var(--text-secondary)' }}>{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-4 py-3 rounded-xl bg-[#1E1E2E] border border-white/5 text-white text-sm appearance-none focus:outline-none focus:border-[#E10600]/50 cursor-pointer"
+        className="w-full px-4 py-3 rounded-xl border appearance-none focus:outline-none focus:border-[#E10600]/50 cursor-pointer"
+        style={{
+          background: 'var(--countdown-bg)',
+          borderColor: 'var(--border)',
+          color: 'var(--text-primary)'
+        }}
       >
         {drivers.map(d => (
-          <option key={d.driverId} value={d.driverId}>
+          <option key={d.driverId} value={d.driverId} style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
             {d.givenName} {d.familyName} — {d.team?.name}
           </option>
         ))}
       </select>
-      <ChevronDown size={14} className="absolute right-3 bottom-3.5 text-[#6B6B8D] pointer-events-none" />
+      <ChevronDown size={14} className="absolute right-3 bottom-3.5 pointer-events-none" style={{ color: 'var(--text-secondary)' }} />
     </div>
   );
 
@@ -65,29 +70,29 @@ export default function ComparePage() {
     const flag = NATIONALITY_FLAGS[driver.nationality] || '🏁';
     return (
       <div className="glass-card p-6 text-center">
-        <div className="w-20 h-20 rounded-xl mx-auto mb-4 flex items-center justify-center text-3xl font-display font-bold text-white border-2"
-          style={{ background: `${teamColor}20`, borderColor: `${teamColor}40` }}
+        <div className="w-20 h-20 rounded-xl mx-auto mb-4 flex items-center justify-center text-3xl font-display font-bold border-2"
+          style={{ background: `${teamColor}20`, borderColor: `${teamColor}40`, color: 'var(--text-primary)' }}
         >
           {driver.code}
         </div>
-        <h3 className="text-lg font-bold text-white">{driver.givenName} <span className="uppercase">{driver.familyName}</span></h3>
+        <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{driver.givenName} <span className="uppercase">{driver.familyName}</span></h3>
         <div className="flex items-center justify-center gap-2 mt-1">
           <div className="w-2 h-2 rounded-full" style={{ background: teamColor }} />
-          <span className="text-xs text-[#6B6B8D]">{driver.team?.name}</span>
+          <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{driver.team?.name}</span>
           <span className="text-lg ml-1">{flag}</span>
         </div>
-        <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5">
+        <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
           <div>
-            <p className="text-xl font-display font-bold text-white">{driver.points || 0}</p>
-            <p className="text-[10px] text-[#6B6B8D] uppercase">Points</p>
+            <p className="text-xl font-display font-bold" style={{ color: 'var(--text-primary)' }}>{driver.points || 0}</p>
+            <p className="text-[10px] uppercase" style={{ color: 'var(--text-secondary)' }}>Points</p>
           </div>
           <div>
-            <p className="text-xl font-display font-bold text-white">{driver.wins || 0}</p>
-            <p className="text-[10px] text-[#6B6B8D] uppercase">Wins</p>
+            <p className="text-xl font-display font-bold" style={{ color: 'var(--text-primary)' }}>{driver.wins || 0}</p>
+            <p className="text-[10px] uppercase" style={{ color: 'var(--text-secondary)' }}>Wins</p>
           </div>
           <div>
-            <p className="text-xl font-display font-bold text-white">P{driver.position || '-'}</p>
-            <p className="text-[10px] text-[#6B6B8D] uppercase">Rank</p>
+            <p className="text-xl font-display font-bold" style={{ color: 'var(--text-primary)' }}>P{driver.position || '-'}</p>
+            <p className="text-[10px] uppercase" style={{ color: 'var(--text-secondary)' }}>Rank</p>
           </div>
         </div>
       </div>
@@ -99,7 +104,7 @@ export default function ComparePage() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">Head to Head</p>
-          <h1 className="text-4xl sm:text-5xl font-display font-black text-white">
+          <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>
             DRIVER <span className="gradient-text">COMPARISON</span>
           </h1>
         </motion.div>
@@ -139,7 +144,7 @@ export default function ComparePage() {
               transition={{ delay: 0.3 }}
               className="glass-card p-6 mb-6"
             >
-              <h3 className="font-display font-bold text-white text-sm tracking-wider uppercase mb-6">Stats Comparison</h3>
+              <h3 className="font-display font-bold text-sm tracking-wider uppercase mb-6" style={{ color: 'var(--text-primary)' }}>Stats Comparison</h3>
               <div className="space-y-6">
                 {[
                   { label: 'Points', v1: driver1.points || 0, v2: driver2.points || 0 },
@@ -156,7 +161,7 @@ export default function ComparePage() {
                     <div key={label}>
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm font-bold" style={{ color: c1 }}>{invert ? `P${v1}` : v1}</span>
-                        <span className="text-xs text-[#6B6B8D] uppercase tracking-wider">{label}</span>
+                        <span className="text-xs uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>{label}</span>
                         <span className="text-sm font-bold" style={{ color: c2 }}>{invert ? `P${v2}` : v2}</span>
                       </div>
                       <div className="flex gap-1 h-3">
@@ -192,12 +197,12 @@ export default function ComparePage() {
               transition={{ delay: 0.4 }}
               className="glass-card p-6"
             >
-              <h3 className="font-display font-bold text-white text-sm tracking-wider uppercase mb-6">Performance Radar</h3>
+              <h3 className="font-display font-bold text-sm tracking-wider uppercase mb-6" style={{ color: 'var(--text-primary)' }}>Performance Radar</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart data={radarData}>
-                    <PolarGrid stroke="rgba(255,255,255,0.05)" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#6B6B8D', fontSize: 11 }} />
+                    <PolarGrid stroke="var(--border)" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} />
                     <Radar
                       name={`${driver1.givenName} ${driver1.familyName}`}
                       dataKey="A"
@@ -215,9 +220,9 @@ export default function ComparePage() {
                       strokeWidth={2}
                     />
                     <Legend
-                      wrapperStyle={{ color: '#6B6B8D', fontSize: '12px' }}
+                      wrapperStyle={{ color: 'var(--text-secondary)', fontSize: '12px' }}
                     />
-                    <Tooltip contentStyle={{ background: 'rgba(30,30,46,0.95)', border: '1px solid rgba(225,6,0,0.3)', borderRadius: '8px', color: '#fff' }} />
+                    <Tooltip contentStyle={{ background: 'var(--surface-solid)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--text-primary)' }} />
                   </RadarChart>
                 </ResponsiveContainer>
               </div>

@@ -19,12 +19,12 @@ export default function CalendarPage() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">2025 Season</p>
-          <h1 className="text-4xl sm:text-5xl font-display font-black text-white">RACE CALENDAR</h1>
+          <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>RACE CALENDAR</h1>
         </motion.div>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-px bg-white/10" />
+          <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-px" style={{ background: 'var(--border)' }} />
 
           <div className="space-y-3">
             {races.map((race, index) => {
@@ -48,7 +48,7 @@ export default function CalendarPage() {
                     ) : isPast ? (
                       <CheckCircle size={18} className="text-green-500" />
                     ) : (
-                      <Circle size={18} className="text-[#6B6B8D]" />
+                      <Circle size={18} style={{ color: 'var(--text-secondary)' }} />
                     )}
                   </div>
 
@@ -57,7 +57,7 @@ export default function CalendarPage() {
                     <div className="p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
                       {/* Round */}
                       <div className="flex items-center gap-3 sm:w-20">
-                        <span className="text-xs font-bold text-[#6B6B8D] uppercase tracking-widest">R{race.round}</span>
+                        <span className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>R{race.round}</span>
                         {isNext && (
                           <span className="text-[10px] font-bold text-[#E10600] uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#E10600]/10">
                             NEXT
@@ -69,15 +69,15 @@ export default function CalendarPage() {
                       <div className="flex-1 flex items-center gap-3">
                         <span className="text-2xl">{flag}</span>
                         <div>
-                          <h3 className="text-sm sm:text-base font-bold text-white">{race.raceName}</h3>
-                          <div className="flex items-center gap-3 text-xs text-[#6B6B8D]">
+                          <h3 className="text-sm sm:text-base font-bold" style={{ color: 'var(--text-primary)' }}>{race.raceName}</h3>
+                          <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--text-secondary)' }}>
                             <span className="flex items-center gap-1"><MapPin size={10} /> {race.circuitName}</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Date */}
-                      <div className="flex items-center gap-2 text-sm text-[#6B6B8D] sm:w-48 sm:justify-end">
+                      <div className="flex items-center gap-2 text-sm sm:w-48 sm:justify-end" style={{ color: 'var(--text-secondary)' }}>
                         <Clock size={14} />
                         <span>{date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         {!isPast && (

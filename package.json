@@ -1,0 +1,12 @@
+{
+  "name": "f1-app-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "F1 Live — Formula 1 Dashboard & Live Timing",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm run start",
+    "install:all": "cd frontend && npm install"
+  }
+}

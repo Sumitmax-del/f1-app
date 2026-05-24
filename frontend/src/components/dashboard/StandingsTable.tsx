@@ -23,8 +23,8 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
       className="glass-card overflow-hidden"
     >
       {/* Header */}
-      <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
-        <h3 className="font-display font-bold text-white text-sm tracking-wider uppercase">
+      <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid var(--border)' }}>
+        <h3 className="font-display font-bold text-sm tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>
           {type === 'driver' ? '🏆 Driver Standings' : '🏗️ Constructor Standings'}
         </h3>
         <Link
@@ -36,7 +36,7 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
       </div>
 
       {/* Table */}
-      <div className="divide-y divide-white/5">
+      <div>
         {displayed.map((standing, index) => {
           const name = type === 'driver'
             ? `${standing.driver?.givenName} ${standing.driver?.familyName}`
@@ -54,12 +54,15 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 * index }}
-              className="px-6 py-3 flex items-center gap-4 hover:bg-white/[0.02] transition-colors group cursor-pointer"
+              className="px-6 py-3 flex items-center gap-4 transition-colors group cursor-pointer"
+              style={{ borderBottom: '1px solid var(--border)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--surface-hover)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
             >
               {/* Position */}
               <span
                 className="text-lg font-display font-bold w-8 text-center"
-                style={{ color: index < 3 ? teamColor : '#6B6B8D' }}
+                style={{ color: index < 3 ? teamColor : 'var(--text-secondary)' }}
               >
                 {standing.position}
               </span>
@@ -69,27 +72,27 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
 
               {/* Name */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-white truncate group-hover:text-[#F5F5F5] transition-colors">
+                <p className="text-sm font-bold truncate transition-colors" style={{ color: 'var(--text-primary)' }}>
                   {type === 'driver' ? (
                     <>
-                      <span className="font-normal text-[#6B6B8D]">{standing.driver?.givenName} </span>
+                      <span className="font-normal" style={{ color: 'var(--text-secondary)' }}>{standing.driver?.givenName} </span>
                       <span className="uppercase">{standing.driver?.familyName}</span>
                     </>
                   ) : name}
                 </p>
                 {teamName && (
-                  <p className="text-xs text-[#6B6B8D]">{teamName}</p>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{teamName}</p>
                 )}
               </div>
 
               {/* Wins */}
-              <div className="hidden sm:block text-xs text-[#6B6B8D] w-12 text-center">
-                <span className="text-white font-bold">{standing.wins}</span> wins
+              <div className="hidden sm:block text-xs w-12 text-center" style={{ color: 'var(--text-secondary)' }}>
+                <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{standing.wins}</span> wins
               </div>
 
               {/* Points bar + value */}
               <div className="flex items-center gap-3 w-32 sm:w-48">
-                <div className="flex-1 h-1.5 rounded-full bg-white/5 overflow-hidden hidden sm:block">
+                <div className="flex-1 h-1.5 rounded-full overflow-hidden hidden sm:block" style={{ background: 'var(--border)' }}>
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${barWidth}%` }}
@@ -98,7 +101,7 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
                     style={{ background: `linear-gradient(90deg, ${teamColor}, ${teamColor}88)` }}
                   />
                 </div>
-                <span className="text-sm font-display font-bold text-white w-12 text-right">
+                <span className="text-sm font-display font-bold w-12 text-right" style={{ color: 'var(--text-primary)' }}>
                   {standing.points}
                 </span>
               </div>

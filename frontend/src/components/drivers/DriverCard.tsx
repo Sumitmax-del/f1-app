@@ -40,7 +40,7 @@ export default function DriverCard({ driver, index }: DriverCardProps) {
           {/* Position & Number */}
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-xs font-bold text-[#6B6B8D] uppercase tracking-widest">P{driver.position}</span>
+              <span className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>P{driver.position}</span>
             </div>
             <span className="text-4xl font-display font-black opacity-10 group-hover:opacity-20 transition-opacity"
               style={{ color: teamColor }}
@@ -50,15 +50,15 @@ export default function DriverCard({ driver, index }: DriverCardProps) {
           </div>
 
           {/* Avatar */}
-          <div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center text-2xl font-display font-bold text-white border-2"
-            style={{ background: `${teamColor}20`, borderColor: `${teamColor}40` }}
+          <div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center text-2xl font-display font-bold border-2"
+            style={{ background: `${teamColor}20`, borderColor: `${teamColor}40`, color: 'var(--text-primary)' }}
           >
             {driver.code}
           </div>
 
           {/* Name */}
-          <p className="text-lg font-bold text-white">
-            <span className="font-light text-[#6B6B8D]">{driver.givenName}</span>
+          <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
+            <span className="font-light" style={{ color: 'var(--text-secondary)' }}>{driver.givenName}</span>
             <br />
             <span className="uppercase">{driver.familyName}</span>
           </p>
@@ -66,18 +66,18 @@ export default function DriverCard({ driver, index }: DriverCardProps) {
           {/* Team */}
           <div className="flex items-center gap-2 mt-2 mb-4">
             <div className="w-2 h-2 rounded-full" style={{ background: teamColor }} />
-            <span className="text-xs text-[#6B6B8D] font-semibold">{driver.team?.name}</span>
+            <span className="text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>{driver.team?.name}</span>
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-4 pt-3 border-t border-white/5">
+          <div className="flex items-center gap-4 pt-3" style={{ borderTop: '1px solid var(--border)' }}>
             <div>
-              <p className="text-lg font-display font-bold text-white">{driver.points}</p>
-              <p className="text-[10px] text-[#6B6B8D] uppercase tracking-wider">Points</p>
+              <p className="text-lg font-display font-bold" style={{ color: 'var(--text-primary)' }}>{driver.points}</p>
+              <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Points</p>
             </div>
             <div>
-              <p className="text-lg font-display font-bold text-white">{driver.wins}</p>
-              <p className="text-[10px] text-[#6B6B8D] uppercase tracking-wider">Wins</p>
+              <p className="text-lg font-display font-bold" style={{ color: 'var(--text-primary)' }}>{driver.wins}</p>
+              <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Wins</p>
             </div>
             <div className="ml-auto text-2xl">{flag}</div>
           </div>

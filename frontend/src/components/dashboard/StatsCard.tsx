@@ -27,8 +27,8 @@ export default function StatsCard({ label, value, icon, accent = '#E10600', dela
           {icon}
         </div>
       </div>
-      <p className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">{value}</p>
-      <p className="text-xs text-[#6B6B8D] uppercase tracking-wider font-semibold">{label}</p>
+      <p className="text-2xl sm:text-3xl font-display font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{value}</p>
+      <p className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-secondary)' }}>{label}</p>
       <div className="absolute bottom-0 left-0 right-0 h-0.5"
         style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }}
       />

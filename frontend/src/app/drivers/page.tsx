@@ -5,8 +5,12 @@ import { motion } from 'framer-motion';
 import { getDrivers } from '@/lib/api';
 import DriverCard from '@/components/drivers/DriverCard';
 import { Search, Filter } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function DriversPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
   const [drivers, setDrivers] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
   const [search, setSearch] = useState('');
@@ -14,12 +18,28 @@ export default function DriversPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getDrivers().then(d => {
-      setDrivers(d || []);
-      setFiltered(d || []);
-      setLoading(false);
-    }).catch(() => setLoading(false));
-  }, []);
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    if (user) {
+      getDrivers().then(d => {
+        setDrivers(d || []);
+        setFiltered(d || []);
+        setLoading(false);
+      }).catch(() => setLoading(false));
+    }
+  }, [user]);
+
+  if (authLoading || !user) {
+    return (
+      <div className="min-h-screen grid-bg flex items-center justify-center">
+        <div className="shimmer w-48 h-2 rounded-full" />
+      </div>
+    );
+  }
 
   useEffect(() => {
     let result = drivers;
@@ -45,7 +65,7 @@ export default function DriversPage() {
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">2025 Grid</p>
-          <h1 className="text-4xl sm:text-5xl font-display font-black text-white">
+          <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>
             DRIVERS
           </h1>
         </motion.div>
@@ -58,21 +78,31 @@ export default function DriversPage() {
           className="flex flex-col sm:flex-row gap-3 mb-8"
         >
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6B8D]" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-secondary)' }} />
             <input
               type="text"
               placeholder="Search drivers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#1E1E2E] border border-white/5 text-white text-sm placeholder-[#6B6B8D] focus:outline-none focus:border-[#E10600]/50 transition-colors"
+              className="w-full pl-10 pr-4 py-3 rounded-xl text-sm focus:outline-none transition-colors"
+              style={{
+                background: 'var(--surface-solid)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-primary)',
+              }}
             />
           </div>
           <div className="relative">
-            <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6B8D]" />
+            <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-secondary)' }} />
             <select
               value={teamFilter}
               onChange={(e) => setTeamFilter(e.target.value)}
-              className="pl-10 pr-8 py-3 rounded-xl bg-[#1E1E2E] border border-white/5 text-white text-sm appearance-none focus:outline-none focus:border-[#E10600]/50 cursor-pointer min-w-[180px]"
+              className="pl-10 pr-8 py-3 rounded-xl text-sm appearance-none focus:outline-none cursor-pointer min-w-[180px]"
+              style={{
+                background: 'var(--surface-solid)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-primary)',
+              }}
             >
               <option value="all">All Teams</option>
               {teams.map(t => (
@@ -99,7 +129,7 @@ export default function DriversPage() {
 
         {filtered.length === 0 && !loading && (
           <div className="text-center py-16">
-            <p className="text-[#6B6B8D] text-lg">No drivers found matching your criteria.</p>
+            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>No drivers found matching your criteria.</p>
           </div>
         )}
       </div>

@@ -31,16 +31,44 @@
 :root {
   --background: #15151E;
   --foreground: #F5F5F5;
+  --text-primary: #FFFFFF;
+  --text-secondary: #9E9EBA;
+  --text-muted: #75758E;
+  --surface: rgba(30, 30, 46, 0.7);
+  --surface-solid: rgba(30, 30, 46, 0.8);
+  --surface-hover: rgba(255, 255, 255, 0.02);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-accent: rgba(225, 6, 0, 0.28);
+  --nav-bg: rgba(13, 13, 20, 0.85);
+  --nav-bg-solid: rgba(13, 13, 20, 0.95);
+  --scrollbar-track: #1E1E2E;
+  --scrollbar-thumb: #E10600;
+  --grid-line: rgba(225, 6, 0, 0.03);
+  --countdown-bg: rgba(30, 30, 46, 0.8);
 }
 
 .light {
   --background: #F0F0F5;
   --foreground: #15151E;
+  --text-primary: #1A1A2E;
+  --text-secondary: #3F3F56;
+  --text-muted: #62627A;
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-solid: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(0, 0, 0, 0.03);
+  --border: rgba(0, 0, 0, 0.14);
+  --border-accent: rgba(225, 6, 0, 0.35);
+  --nav-bg: rgba(255, 255, 255, 0.88);
+  --nav-bg-solid: rgba(255, 255, 255, 0.96);
+  --scrollbar-track: #E8E8EE;
+  --scrollbar-thumb: #E10600;
+  --grid-line: rgba(0, 0, 0, 0.03);
+  --countdown-bg: rgba(240, 240, 248, 0.95);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #E10600 #1E1E2E;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 *::-webkit-scrollbar {
@@ -48,11 +76,11 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #1E1E2E;
+  background: var(--scrollbar-track);
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #E10600;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
@@ -65,20 +93,23 @@ body {
 
 /* Glassmorphism card */
 .glass-card {
-  background: rgba(30, 30, 46, 0.7);
+  background: var(--surface);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(225, 6, 0, 0.15);
+  border: 1px solid var(--border-accent);
   border-radius: 16px;
 }
 
 .light .glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* Glow effects */
 .glow-red {
   box-shadow: 0 0 20px rgba(225, 6, 0, 0.3), 0 0 60px rgba(225, 6, 0, 0.1);
+}
+
+.light .glow-red {
+  box-shadow: 0 0 12px rgba(225, 6, 0, 0.15), 0 0 30px rgba(225, 6, 0, 0.05);
 }
 
 .glow-red-sm {
@@ -109,11 +140,24 @@ body {
   background-clip: text;
 }
 
+/* Themed text colors */
+.text-themed {
+  color: var(--text-primary);
+}
+
+.text-themed-secondary {
+  color: var(--text-secondary);
+}
+
+.text-themed-muted {
+  color: var(--text-muted);
+}
+
 /* Animated background grid */
 .grid-bg {
   background-image:
-    linear-gradient(rgba(225, 6, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(225, 6, 0, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 50px 50px;
 }
 
@@ -160,6 +204,14 @@ body {
   background-position: 0 0, 0 10px, 10px -10px, -10px 0;
 }
 
+.light .checkered {
+  background-image:
+    linear-gradient(45deg, #D8D8E0 25%, transparent 25%),
+    linear-gradient(-45deg, #D8D8E0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #D8D8E0 75%),
+    linear-gradient(-45deg, transparent 75%, #D8D8E0 75%);
+}
+
 /* Team color bar - left border accent */
 .team-color-bar {
   position: relative;
@@ -181,6 +233,8 @@ body {
 .tire-hard { color: #FFFFFF; background: rgba(255, 255, 255, 0.15); }
 .tire-inter { color: #43B02A; background: rgba(67, 176, 42, 0.15); }
 .tire-wet { color: #0072C6; background: rgba(0, 114, 198, 0.15); }
+
+.light .tire-hard { color: #333; background: rgba(0, 0, 0, 0.08); }
 
 /* Number counter animation */
 @keyframes countUp {

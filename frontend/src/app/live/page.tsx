@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { useSocket } from '@/context/SocketContext';
 import { startRace, stopRace } from '@/lib/api';
@@ -152,7 +152,7 @@ export default function LiveRacePage() {
             {status === 'racing' && <span className="w-2 h-2 rounded-full bg-[#E10600] live-pulse" />}
             {status === 'safety_car' && <span className="text-xs font-bold text-yellow-400 uppercase tracking-widest">⚠ SAFETY CAR</span>}
           </div>
-          <h1 className="text-4xl sm:text-5xl font-display font-black text-white">
+          <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>
             {status === 'not_started' ? 'RACE SIMULATION' : 'MONACO GRAND PRIX'}
           </h1>
         </motion.div>
@@ -178,7 +178,8 @@ export default function LiveRacePage() {
               ) : (
                 <button
                   onClick={handleStop}
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#6B6B8D]/20 hover:bg-[#6B6B8D]/30 text-white font-bold text-sm transition-all border border-white/10"
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#6B6B8D]/20 hover:bg-[#6B6B8D]/30 font-bold text-sm transition-all border"
+                  style={{ color: 'var(--text-primary)', borderColor: 'var(--border)' }}
                 >
                   <Square size={16} /> Stop Race
                 </button>
@@ -191,15 +192,15 @@ export default function LiveRacePage() {
             {/* Lap info */}
             <div className="flex-1 flex items-center gap-6">
               <div className="flex items-center gap-2">
-                <Radio size={14} className="text-[#6B6B8D]" />
-                <span className="text-sm font-display font-bold text-white">
+                <Radio size={14} style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-sm font-display font-bold" style={{ color: 'var(--text-primary)' }}>
                   LAP {currentLap}/{totalLaps}
                 </span>
               </div>
 
               {/* Progress bar */}
               <div className="flex-1 hidden sm:block">
-                <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
                   <motion.div
                     className="h-full rounded-full bg-gradient-to-r from-[#E10600] to-[#FF4444]"
                     animate={{ width: `${lapProgress}%` }}
@@ -224,13 +225,13 @@ export default function LiveRacePage() {
           {/* Leaderboard — 2 columns */}
           <div className="lg:col-span-2">
             <div className="glass-card overflow-hidden">
-              <div className="px-5 py-3 border-b border-white/5 flex items-center gap-2">
+              <div className="px-5 py-3 flex items-center gap-2 border-b" style={{ borderColor: 'var(--border)' }}>
                 <Gauge size={14} className="text-[#E10600]" />
-                <span className="font-display font-bold text-white text-xs tracking-wider uppercase">Live Leaderboard</span>
+                <span className="font-display font-bold text-xs tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>Live Leaderboard</span>
               </div>
 
               {/* Column headers */}
-              <div className="px-5 py-2 grid grid-cols-12 gap-2 text-[10px] text-[#6B6B8D] uppercase tracking-wider font-bold border-b border-white/5">
+              <div className="px-5 py-2 grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider font-bold border-b" style={{ color: 'var(--text-secondary)', borderColor: 'var(--border)' }}>
                 <span className="col-span-1">POS</span>
                 <span className="col-span-4">DRIVER</span>
                 <span className="col-span-2 text-center hidden sm:block">INTERVAL</span>
@@ -242,7 +243,7 @@ export default function LiveRacePage() {
 
               <LayoutGroup>
                 <AnimatePresence>
-                  {positions.map((pos, i) => {
+                  {positions.map((pos) => {
                     const change = getPositionChange(pos.driverId, pos.position);
                     return (
                       <motion.div
@@ -252,11 +253,12 @@ export default function LiveRacePage() {
                         animate={{ opacity: pos.status === 'retired' ? 0.3 : 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-                        className="px-5 py-2.5 grid grid-cols-12 gap-2 items-center border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors"
+                        className="px-5 py-2.5 grid grid-cols-12 gap-2 items-center border-b hover:bg-[var(--surface-hover)] transition-colors"
+                        style={{ borderColor: 'var(--border)' }}
                       >
                         {/* Position */}
                         <div className="col-span-1 flex items-center gap-1">
-                          <span className="text-sm font-display font-bold text-white">{pos.position}</span>
+                          <span className="text-sm font-display font-bold" style={{ color: 'var(--text-primary)' }}>{pos.position}</span>
                           {change > 0 && <ChevronUp size={10} className="text-green-400" />}
                           {change < 0 && <ChevronDown size={10} className="text-red-400" />}
                         </div>
@@ -265,26 +267,26 @@ export default function LiveRacePage() {
                         <div className="col-span-4 flex items-center gap-2">
                           <div className="w-1 h-6 rounded-full" style={{ background: pos.teamColor }} />
                           <div className="min-w-0">
-                            <p className="text-sm font-bold text-white truncate">{pos.driverName}</p>
-                            <p className="text-[10px] text-[#6B6B8D] truncate">{pos.team}</p>
+                            <p className="text-sm font-bold truncate" style={{ color: 'var(--text-primary)' }}>{pos.driverName}</p>
+                            <p className="text-[10px] truncate" style={{ color: 'var(--text-secondary)' }}>{pos.team}</p>
                           </div>
                         </div>
 
                         {/* Interval */}
-                        <span className="col-span-2 text-center text-xs font-mono text-[#6B6B8D] hidden sm:block">
+                        <span className="col-span-2 text-center text-xs font-mono hidden sm:block" style={{ color: 'var(--text-secondary)' }}>
                           {pos.gap === 'LEADER' ? (
-                            <span className="text-white font-bold">LEADER</span>
+                            <span className="font-bold" style={{ color: 'var(--text-primary)' }}>LEADER</span>
                           ) : pos.interval}
                         </span>
 
                         {/* Last lap */}
                         <span className={`col-span-2 text-center text-xs font-mono hidden sm:block ${
-                          fastestLap?.driverId === pos.driverId ? 'text-purple-400 font-bold' : 'text-[#6B6B8D]'
-                        }`}>
+                          fastestLap?.driverId === pos.driverId ? 'text-purple-400 font-bold' : ''
+                        }`} style={{ color: fastestLap?.driverId === pos.driverId ? '' : 'var(--text-secondary)' }}>
                           {pos.lastLapTime}
                         </span>
 
-                        {/* Tire */}
+                        {/* TIRE */}
                         <div className="col-span-1 flex justify-center">
                           <span
                             className="w-5 h-5 rounded-full text-[8px] font-black flex items-center justify-center"
@@ -299,7 +301,7 @@ export default function LiveRacePage() {
                         </div>
 
                         {/* Pit stops */}
-                        <span className="col-span-1 text-center text-xs text-[#6B6B8D] hidden sm:block">
+                        <span className="col-span-1 text-center text-xs hidden sm:block" style={{ color: 'var(--text-secondary)' }}>
                           {pos.pitStops}
                         </span>
 
@@ -323,8 +325,8 @@ export default function LiveRacePage() {
           <div className="lg:col-span-1">
             {/* Tire Strategy Summary */}
             <div className="glass-card overflow-hidden mb-4">
-              <div className="px-5 py-3 border-b border-white/5">
-                <span className="font-display font-bold text-white text-xs tracking-wider uppercase">Tire Strategy</span>
+              <div className="px-5 py-3 border-b" style={{ borderColor: 'var(--border)' }}>
+                <span className="font-display font-bold text-xs tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>Tire Strategy</span>
               </div>
               <div className="p-4 grid grid-cols-3 gap-3">
                 {['soft', 'medium', 'hard'].map(tire => {
@@ -341,7 +343,7 @@ export default function LiveRacePage() {
                       >
                         {tire[0].toUpperCase()}
                       </div>
-                      <span className="text-xs text-[#6B6B8D]">{count} drivers</span>
+                      <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{count} drivers</span>
                     </div>
                   );
                 })}
@@ -350,13 +352,13 @@ export default function LiveRacePage() {
 
             {/* Live Events Feed */}
             <div className="glass-card overflow-hidden">
-              <div className="px-5 py-3 border-b border-white/5 flex items-center gap-2">
+              <div className="px-5 py-3 flex items-center gap-2 border-b" style={{ borderColor: 'var(--border)' }}>
                 <Radio size={14} className="text-[#E10600]" />
-                <span className="font-display font-bold text-white text-xs tracking-wider uppercase">Race Feed</span>
+                <span className="font-display font-bold text-xs tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>Race Feed</span>
               </div>
               <div className="max-h-[500px] overflow-y-auto">
                 {events.length === 0 ? (
-                  <div className="p-6 text-center text-[#6B6B8D] text-sm">
+                  <div className="p-6 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>
                     Start a race to see live events
                   </div>
                 ) : (
@@ -365,10 +367,11 @@ export default function LiveRacePage() {
                       key={event.time + i}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="px-4 py-3 border-b border-white/[0.03] text-xs"
+                      className="px-4 py-3 border-b text-xs"
+                      style={{ borderColor: 'var(--border)' }}
                     >
-                      <p className="text-white/90">{event.message}</p>
-                      <p className="text-[#6B6B8D] text-[10px] mt-0.5">
+                      <p style={{ color: 'var(--text-primary)' }}>{event.message}</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-secondary)' }}>
                         Lap {currentLap}
                       </p>
                     </motion.div>
