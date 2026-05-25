@@ -66,14 +66,18 @@ export interface Standing {
   team?: Team;
 }
 
+export type WeatherCondition = 'dry' | 'light_rain' | 'heavy_rain';
+
 export interface LiveRaceState {
   isActive: boolean;
   currentLap: number;
   totalLaps: number;
   raceName: string;
+  trackId: string;
   positions: LivePosition[];
   fastestLap: { driverId: string; time: string } | null;
   status: 'not_started' | 'racing' | 'finished' | 'safety_car';
+  weather: WeatherCondition;
 }
 
 export interface LivePosition {

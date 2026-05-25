@@ -63,9 +63,9 @@ app.prepare().then(() => {
     // Send current race state on connect
     socket.emit('race_state', simulator.getState());
 
-    socket.on('start_race', () => {
-      console.log(`[SOCKET] Race start requested by ${socket.id}`);
-      simulator.startRace();
+    socket.on('start_race', (data: any) => {
+      console.log(`[SOCKET] Race start requested by ${socket.id}, track: ${data?.trackId || 'monaco'}`);
+      simulator.startRace(data?.trackId);
     });
 
     socket.on('stop_race', () => {

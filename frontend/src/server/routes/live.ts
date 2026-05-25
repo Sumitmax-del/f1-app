@@ -9,11 +9,12 @@ export function setSimulator(sim: RaceSimulator) {
 
 const router = Router();
 
-router.post('/start', (_req, res) => {
+router.post('/start', (req, res) => {
   if (!simulator) {
     return res.status(500).json({ success: false, error: 'Simulator not initialized' });
   }
-  const state = simulator.startRace();
+  const { trackId } = req.body || {};
+  const state = simulator.startRace(trackId);
   res.json({ success: true, data: state });
 });
 
@@ -30,6 +31,13 @@ router.get('/status', (_req, res) => {
     return res.status(500).json({ success: false, error: 'Simulator not initialized' });
   }
   res.json({ success: true, data: simulator.getState() });
+});
+
+router.get('/tracks', (_req, res) => {
+  if (!simulator) {
+    return res.status(500).json({ success: false, error: 'Simulator not initialized' });
+  }
+  res.json({ success: true, data: simulator.getAvailableTracks() });
 });
 
 export default router;

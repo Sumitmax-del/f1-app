@@ -1,386 +1,200 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
-import { useSocket } from '@/context/SocketContext';
-import { startRace, stopRace } from '@/lib/api';
+import { useState, useCallback, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useRaceSimulation } from '@/hooks/useRaceSimulation';
+import { getTrackById } from '@/data/trackData';
 import { getTireColor } from '@/lib/utils';
-import { LivePosition } from '@/types';
-import {
-  Play, Square, Radio, Gauge, Clock, AlertTriangle,
-  ChevronUp, ChevronDown, Minus, Zap
-} from 'lucide-react';
+import TrackSelector from '@/components/live/TrackSelector';
+import TrackRenderer from '@/components/live/TrackRenderer';
+import TimingTower from '@/components/live/TimingTower';
+import RaceHeader from '@/components/live/RaceHeader';
+import RaceFeed from '@/components/live/RaceFeed';
+import TelemetryPanel from '@/components/live/TelemetryPanel';
+import '@/components/live/trackStyles.css';
+
+type PageView = 'selector' | 'race';
 
 export default function LiveRacePage() {
-  const { socket, isConnected } = useSocket();
-  const [raceState, setRaceState] = useState<any>(null);
-  const [positions, setPositions] = useState<LivePosition[]>([]);
-  const [currentLap, setCurrentLap] = useState(0);
-  const [totalLaps, setTotalLaps] = useState(57);
-  const [fastestLap, setFastestLap] = useState<any>(null);
-  const [status, setStatus] = useState<string>('not_started');
-  const [events, setEvents] = useState<any[]>([]);
-  const [previousPositions, setPreviousPositions] = useState<Record<string, number>>({});
+  const [view, setView] = useState<PageView>('selector');
+  const [selectedTrackId, setSelectedTrackId] = useState<string>('');
 
-  useEffect(() => {
-    if (!socket) return;
+  const {
+    positions,
+    currentLap,
+    totalLaps,
+    fastestLap,
+    status,
+    weather,
+    trackId,
+    events,
+    previousPositions,
+    selectedDriver,
+    selectedDriverData,
+    isConnected,
+    setSelectedDriver,
+    handleStart,
+    handleStop,
+  } = useRaceSimulation();
 
-    socket.on('race_state', (state: any) => {
-      setRaceState(state);
-      if (state.positions) setPositions(state.positions);
-      setCurrentLap(state.currentLap || 0);
-      setTotalLaps(state.totalLaps || 57);
-      setFastestLap(state.fastestLap);
-      setStatus(state.status || 'not_started');
-    });
+  const activeTrackId = trackId || selectedTrackId;
+  const trackData = useMemo(() => getTrackById(activeTrackId), [activeTrackId]);
 
-    socket.on('race_start', (data: any) => {
-      setStatus('racing');
-      setPositions(data.positions || []);
-      setTotalLaps(data.totalLaps || 57);
-      setEvents(prev => [{ type: 'start', message: '🏁 Race Started!', time: Date.now() }, ...prev].slice(0, 30));
-    });
+  // Track selection handler
+  const onSelectTrack = useCallback((id: string) => {
+    setSelectedTrackId(id);
+    setView('race');
+  }, []);
 
-    socket.on('lap_update', (data: any) => {
-      // Track position changes
-      const prevPos: Record<string, number> = {};
-      positions.forEach(p => { prevPos[p.driverId] = p.position; });
-      setPreviousPositions(prevPos);
+  // Start race on selected track
+  const onStartRace = useCallback(() => {
+    handleStart(selectedTrackId);
+  }, [handleStart, selectedTrackId]);
 
-      setPositions(data.positions || []);
-      setCurrentLap(data.currentLap);
-      setTotalLaps(data.totalLaps);
-      setFastestLap(data.fastestLap);
-      setStatus(data.status);
-    });
-
-    socket.on('position_change', (data: any) => {
-      setEvents(prev => [{
-        type: 'overtake',
-        message: `⚔️ ${data.overtaker} overtakes ${data.overtaken} for P${data.position}`,
-        time: Date.now()
-      }, ...prev].slice(0, 30));
-    });
-
-    socket.on('pit_stop', (data: any) => {
-      setEvents(prev => [{
-        type: 'pit',
-        message: `🔧 ${data.driverName} pits — ${data.newTire.toUpperCase()} tires (Stop ${data.pitStops})`,
-        time: Date.now()
-      }, ...prev].slice(0, 30));
-    });
-
-    socket.on('retirement', (data: any) => {
-      setEvents(prev => [{
-        type: 'retirement',
-        message: `❌ ${data.driverName} retires on Lap ${data.lap}`,
-        time: Date.now()
-      }, ...prev].slice(0, 30));
-    });
-
-    socket.on('safety_car', () => {
-      setEvents(prev => [{
-        type: 'safety_car',
-        message: '🟡 SAFETY CAR DEPLOYED',
-        time: Date.now()
-      }, ...prev].slice(0, 30));
-    });
-
-    socket.on('green_flag', () => {
-      setEvents(prev => [{
-        type: 'green_flag',
-        message: '🟢 GREEN FLAG — Racing resumes',
-        time: Date.now()
-      }, ...prev].slice(0, 30));
-    });
-
-    socket.on('race_finish', (data: any) => {
-      setStatus('finished');
-      setPositions(data.positions);
-      setEvents(prev => [{
-        type: 'finish',
-        message: `🏆 ${data.winner?.driverName} wins the race!`,
-        time: Date.now()
-      }, ...prev].slice(0, 30));
-    });
-
-    return () => {
-      socket.off('race_state');
-      socket.off('race_start');
-      socket.off('lap_update');
-      socket.off('position_change');
-      socket.off('pit_stop');
-      socket.off('retirement');
-      socket.off('safety_car');
-      socket.off('green_flag');
-      socket.off('race_finish');
-    };
-  }, [socket, positions]);
-
-  const handleStart = async () => {
-    try {
-      await startRace();
-    } catch (err) {
-      console.error('Failed to start race:', err);
+  // Go back to selector
+  const onBack = useCallback(() => {
+    if (status === 'racing' || status === 'safety_car') {
+      handleStop();
     }
-  };
+    setView('selector');
+    setSelectedTrackId('');
+  }, [status, handleStop]);
 
-  const handleStop = async () => {
-    try {
-      await stopRace();
-      setStatus('finished');
-    } catch (err) {
-      console.error('Failed to stop race:', err);
-    }
-  };
+  // If server already has a race running, sync to that
+  const effectiveStatus = status;
+  const effectiveTrackId = activeTrackId;
 
-  const getPositionChange = (driverId: string, currentPos: number) => {
-    const prev = previousPositions[driverId];
-    if (prev === undefined) return 0;
-    return prev - currentPos;
-  };
-
-  const lapProgress = totalLaps > 0 ? (currentLap / totalLaps) * 100 : 0;
+  // Tire strategy widget data
+  const tireStats = useMemo(() => {
+    const counts: Record<string, number> = { soft: 0, medium: 0, hard: 0, intermediate: 0, wet: 0 };
+    positions.filter(p => p.status !== 'retired').forEach(p => { counts[p.tire] = (counts[p.tire] || 0) + 1; });
+    return counts;
+  }, [positions]);
 
   return (
     <div className="min-h-screen grid-bg">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600]">Live Race</p>
-            {status === 'racing' && <span className="w-2 h-2 rounded-full bg-[#E10600] live-pulse" />}
-            {status === 'safety_car' && <span className="text-xs font-bold text-yellow-400 uppercase tracking-widest">⚠ SAFETY CAR</span>}
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>
-            {status === 'not_started' ? 'RACE SIMULATION' : 'MONACO GRAND PRIX'}
-          </h1>
-        </motion.div>
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-6">
+        <AnimatePresence mode="wait">
+          {view === 'selector' ? (
+            <motion.div
+              key="selector"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <TrackSelector onSelectTrack={onSelectTrack} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="race"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Race Header */}
+              <RaceHeader
+                trackId={effectiveTrackId}
+                currentLap={currentLap}
+                totalLaps={totalLaps}
+                status={effectiveStatus}
+                weather={weather}
+                fastestLap={fastestLap}
+                isConnected={isConnected}
+                onStart={onStartRace}
+                onStop={handleStop}
+                onBack={onBack}
+              />
 
-        {/* Controls & Status Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="glass-card p-4 sm:p-5 mb-6"
-        >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            {/* Control buttons */}
-            <div className="flex items-center gap-3">
-              {status === 'not_started' || status === 'finished' ? (
-                <button
-                  onClick={handleStart}
-                  disabled={!isConnected}
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#E10600] hover:bg-[#B30500] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-red-500/20"
-                >
-                  <Play size={16} /> Start Race
-                </button>
-              ) : (
-                <button
-                  onClick={handleStop}
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#6B6B8D]/20 hover:bg-[#6B6B8D]/30 font-bold text-sm transition-all border"
-                  style={{ color: 'var(--text-primary)', borderColor: 'var(--border)' }}
-                >
-                  <Square size={16} /> Stop Race
-                </button>
-              )}
-              {!isConnected && (
-                <span className="text-xs text-[#E10600]">Connecting to server...</span>
-              )}
-            </div>
-
-            {/* Lap info */}
-            <div className="flex-1 flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <Radio size={14} style={{ color: 'var(--text-secondary)' }} />
-                <span className="text-sm font-display font-bold" style={{ color: 'var(--text-primary)' }}>
-                  LAP {currentLap}/{totalLaps}
-                </span>
-              </div>
-
-              {/* Progress bar */}
-              <div className="flex-1 hidden sm:block">
-                <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
-                  <motion.div
-                    className="h-full rounded-full bg-gradient-to-r from-[#E10600] to-[#FF4444]"
-                    animate={{ width: `${lapProgress}%` }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </div>
-              </div>
-
-              {fastestLap && (
-                <div className="flex items-center gap-2 text-xs">
-                  <Zap size={12} className="text-purple-400" />
-                  <span className="text-purple-400 font-bold">
-                    FL: {fastestLap.time}
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Leaderboard — 2 columns */}
-          <div className="lg:col-span-2">
-            <div className="glass-card overflow-hidden">
-              <div className="px-5 py-3 flex items-center gap-2 border-b" style={{ borderColor: 'var(--border)' }}>
-                <Gauge size={14} className="text-[#E10600]" />
-                <span className="font-display font-bold text-xs tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>Live Leaderboard</span>
-              </div>
-
-              {/* Column headers */}
-              <div className="px-5 py-2 grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider font-bold border-b" style={{ color: 'var(--text-secondary)', borderColor: 'var(--border)' }}>
-                <span className="col-span-1">POS</span>
-                <span className="col-span-4">DRIVER</span>
-                <span className="col-span-2 text-center hidden sm:block">INTERVAL</span>
-                <span className="col-span-2 text-center hidden sm:block">LAST LAP</span>
-                <span className="col-span-1 text-center">TIRE</span>
-                <span className="col-span-1 text-center hidden sm:block">PIT</span>
-                <span className="col-span-1 text-center">DRS</span>
-              </div>
-
-              <LayoutGroup>
-                <AnimatePresence>
-                  {positions.map((pos) => {
-                    const change = getPositionChange(pos.driverId, pos.position);
-                    return (
-                      <motion.div
-                        key={pos.driverId}
-                        layout
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: pos.status === 'retired' ? 0.3 : 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-                        className="px-5 py-2.5 grid grid-cols-12 gap-2 items-center border-b hover:bg-[var(--surface-hover)] transition-colors"
-                        style={{ borderColor: 'var(--border)' }}
-                      >
-                        {/* Position */}
-                        <div className="col-span-1 flex items-center gap-1">
-                          <span className="text-sm font-display font-bold" style={{ color: 'var(--text-primary)' }}>{pos.position}</span>
-                          {change > 0 && <ChevronUp size={10} className="text-green-400" />}
-                          {change < 0 && <ChevronDown size={10} className="text-red-400" />}
-                        </div>
-
-                        {/* Driver */}
-                        <div className="col-span-4 flex items-center gap-2">
-                          <div className="w-1 h-6 rounded-full" style={{ background: pos.teamColor }} />
-                          <div className="min-w-0">
-                            <p className="text-sm font-bold truncate" style={{ color: 'var(--text-primary)' }}>{pos.driverName}</p>
-                            <p className="text-[10px] truncate" style={{ color: 'var(--text-secondary)' }}>{pos.team}</p>
-                          </div>
-                        </div>
-
-                        {/* Interval */}
-                        <span className="col-span-2 text-center text-xs font-mono hidden sm:block" style={{ color: 'var(--text-secondary)' }}>
-                          {pos.gap === 'LEADER' ? (
-                            <span className="font-bold" style={{ color: 'var(--text-primary)' }}>LEADER</span>
-                          ) : pos.interval}
-                        </span>
-
-                        {/* Last lap */}
-                        <span className={`col-span-2 text-center text-xs font-mono hidden sm:block ${
-                          fastestLap?.driverId === pos.driverId ? 'text-purple-400 font-bold' : ''
-                        }`} style={{ color: fastestLap?.driverId === pos.driverId ? '' : 'var(--text-secondary)' }}>
-                          {pos.lastLapTime}
-                        </span>
-
-                        {/* TIRE */}
-                        <div className="col-span-1 flex justify-center">
-                          <span
-                            className="w-5 h-5 rounded-full text-[8px] font-black flex items-center justify-center"
-                            style={{
-                              background: getTireColor(pos.tire) + '25',
-                              color: getTireColor(pos.tire),
-                              border: `1.5px solid ${getTireColor(pos.tire)}`
-                            }}
-                          >
-                            {pos.tire[0].toUpperCase()}
-                          </span>
-                        </div>
-
-                        {/* Pit stops */}
-                        <span className="col-span-1 text-center text-xs hidden sm:block" style={{ color: 'var(--text-secondary)' }}>
-                          {pos.pitStops}
-                        </span>
-
-                        {/* DRS */}
-                        <div className="col-span-1 flex justify-center">
-                          {pos.drs && pos.status === 'racing' && (
-                            <span className="text-[10px] font-bold text-green-400 bg-green-400/10 px-1.5 py-0.5 rounded">
-                              DRS
-                            </span>
-                          )}
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </AnimatePresence>
-              </LayoutGroup>
-            </div>
-          </div>
-
-          {/* Live Feed */}
-          <div className="lg:col-span-1">
-            {/* Tire Strategy Summary */}
-            <div className="glass-card overflow-hidden mb-4">
-              <div className="px-5 py-3 border-b" style={{ borderColor: 'var(--border)' }}>
-                <span className="font-display font-bold text-xs tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>Tire Strategy</span>
-              </div>
-              <div className="p-4 grid grid-cols-3 gap-3">
-                {['soft', 'medium', 'hard'].map(tire => {
-                  const count = positions.filter(p => p.tire === tire && p.status !== 'retired').length;
-                  return (
-                    <div key={tire} className="text-center">
-                      <div
-                        className="w-10 h-10 rounded-full mx-auto mb-1 flex items-center justify-center text-xs font-black"
-                        style={{
-                          background: getTireColor(tire) + '20',
-                          color: getTireColor(tire),
-                          border: `2px solid ${getTireColor(tire)}`
-                        }}
-                      >
-                        {tire[0].toUpperCase()}
-                      </div>
-                      <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{count} drivers</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Live Events Feed */}
-            <div className="glass-card overflow-hidden">
-              <div className="px-5 py-3 flex items-center gap-2 border-b" style={{ borderColor: 'var(--border)' }}>
-                <Radio size={14} className="text-[#E10600]" />
-                <span className="font-display font-bold text-xs tracking-wider uppercase" style={{ color: 'var(--text-primary)' }}>Race Feed</span>
-              </div>
-              <div className="max-h-[500px] overflow-y-auto">
-                {events.length === 0 ? (
-                  <div className="p-6 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>
-                    Start a race to see live events
+              {/* Main Race Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                {/* Left Column — Track Map + Telemetry */}
+                <div className="lg:col-span-5 xl:col-span-5 space-y-4">
+                  {/* SVG Track Map */}
+                  <div className="aspect-square lg:aspect-[4/3]">
+                    <TrackRenderer
+                      trackId={effectiveTrackId}
+                      positions={positions}
+                      weather={weather}
+                      status={effectiveStatus}
+                      showCars={6}
+                      className="w-full h-full"
+                    />
                   </div>
-                ) : (
-                  events.map((event, i) => (
-                    <motion.div
-                      key={event.time + i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className="px-4 py-3 border-b text-xs"
-                      style={{ borderColor: 'var(--border)' }}
-                    >
-                      <p style={{ color: 'var(--text-primary)' }}>{event.message}</p>
-                      <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-secondary)' }}>
-                        Lap {currentLap}
-                      </p>
-                    </motion.div>
-                  ))
-                )}
+
+                  {/* Tire Strategy Mini Widget */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="glass-card p-3"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-display font-bold text-[10px] tracking-wider uppercase" style={{ color: 'var(--text-secondary)' }}>
+                        Tire Strategy
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 justify-center">
+                      {(['soft', 'medium', 'hard', 'intermediate', 'wet'] as const).map(tire => {
+                        const count = tireStats[tire] || 0;
+                        if (count === 0 && (tire === 'intermediate' || tire === 'wet') && weather === 'dry') return null;
+                        return (
+                          <div key={tire} className="text-center tire-widget">
+                            <div
+                              className="w-8 h-8 rounded-full mx-auto mb-1 flex items-center justify-center text-[9px] font-black"
+                              style={{
+                                background: getTireColor(tire) + '20',
+                                color: getTireColor(tire),
+                                border: `2px solid ${getTireColor(tire)}`,
+                              }}
+                            >
+                              {tire[0].toUpperCase()}
+                            </div>
+                            <span className="text-[9px]" style={{ color: 'var(--text-muted)' }}>
+                              {count}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+
+                  {/* Telemetry Panel (visible on larger screens) */}
+                  <div className="hidden xl:block">
+                    <TelemetryPanel driver={selectedDriverData} fastestLap={fastestLap} />
+                  </div>
+                </div>
+
+                {/* Center Column — Timing Tower */}
+                <div className="lg:col-span-4 xl:col-span-4">
+                  <div className="h-[calc(100vh-200px)] lg:h-[calc(100vh-180px)] sticky top-20">
+                    <TimingTower
+                      positions={positions}
+                      fastestLap={fastestLap}
+                      previousPositions={previousPositions}
+                      selectedDriver={selectedDriver}
+                      onSelectDriver={setSelectedDriver}
+                    />
+                  </div>
+                </div>
+
+                {/* Right Column — Race Feed + Telemetry (on smaller screens) */}
+                <div className="lg:col-span-3 xl:col-span-3 space-y-4">
+                  {/* Telemetry Panel (visible on smaller-than-xl screens) */}
+                  <div className="xl:hidden">
+                    <TelemetryPanel driver={selectedDriverData} fastestLap={fastestLap} />
+                  </div>
+
+                  {/* Race Feed */}
+                  <div className="h-[400px] lg:h-[calc(100vh-200px)]">
+                    <RaceFeed events={events} currentLap={currentLap} />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

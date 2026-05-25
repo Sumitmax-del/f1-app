@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 async function fetchApi<T>(endpoint: string): Promise<T> {
@@ -43,8 +44,12 @@ export async function getNextRace() {
   return fetchApi<any>('/races/next');
 }
 
-export async function startRace() {
-  const res = await fetch(`${API_BASE}/live/start`, { method: 'POST' });
+export async function startRace(trackId?: string) {
+  const res = await fetch(`${API_BASE}/live/start`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ trackId: trackId || 'monaco' }),
+  });
   const json = await res.json();
   return json.data;
 }
@@ -53,6 +58,10 @@ export async function stopRace() {
   const res = await fetch(`${API_BASE}/live/stop`, { method: 'POST' });
   const json = await res.json();
   return json;
+}
+
+export async function getLiveTracks() {
+  return fetchApi<any[]>('/live/tracks');
 }
 
 export async function getRaceStatus() {
