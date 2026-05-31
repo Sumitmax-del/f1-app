@@ -8,7 +8,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { useSocket } from '@/context/SocketContext';
 import { useAuth } from '@/context/AuthContext';
 import {
-  Flag, Users, Trophy, Calendar, Radio, GitCompare,
+  Flag, Users, Trophy, Calendar, Radio, GitCompare, Activity,
   Sun, Moon, Menu, X, Wifi, WifiOff, LogOut, User as UserIcon, ShieldAlert, CheckCircle2
 } from 'lucide-react';
 
@@ -19,6 +19,7 @@ const navLinks = [
   { href: '/calendar', label: 'Calendar', icon: Calendar },
   { href: '/live', label: 'Live Race', icon: Radio },
   { href: '/compare', label: 'Compare', icon: GitCompare },
+  { href: '/blueprint', label: 'Blueprint', icon: Activity },
 ];
 
 const teamColors: Record<string, string> = {

@@ -42,6 +42,8 @@ const TRACK_CONFIGS: TrackConfig[] = [
   { id: 'americas', name: 'Circuit of the Americas', grandPrixName: 'United States Grand Prix', totalLaps: 56, baseLapTimeSeconds: 96, overtakeDifficulty: 0.35, tyreDegradation: 0.65, rainProbability: 0.15, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42 },
   { id: 'rodriguez', name: 'Autódromo Hermanos Rodríguez', grandPrixName: 'Mexico City Grand Prix', totalLaps: 71, baseLapTimeSeconds: 78, overtakeDifficulty: 0.3, tyreDegradation: 0.7, rainProbability: 0.1, safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 53 },
   { id: 'interlagos', name: 'Autódromo José Carlos Pace', grandPrixName: 'São Paulo Grand Prix', totalLaps: 71, baseLapTimeSeconds: 71, overtakeDifficulty: 0.3, tyreDegradation: 0.55, rainProbability: 0.35, safetyCarProbability: 0.25, pitWindowStart: 18, pitWindowEnd: 53 },
+  { id: 'las_vegas', name: 'Las Vegas Strip Circuit', grandPrixName: 'Las Vegas Grand Prix', totalLaps: 50, baseLapTimeSeconds: 93, overtakeDifficulty: 0.3, tyreDegradation: 0.5, rainProbability: 0.02, safetyCarProbability: 0.2, pitWindowStart: 12, pitWindowEnd: 38 },
+  { id: 'lusail', name: 'Lusail International Circuit', grandPrixName: 'Qatar Grand Prix', totalLaps: 57, baseLapTimeSeconds: 82, overtakeDifficulty: 0.45, tyreDegradation: 0.6, rainProbability: 0.01, safetyCarProbability: 0.12, pitWindowStart: 14, pitWindowEnd: 42 },
   { id: 'yas_marina', name: 'Yas Marina Circuit', grandPrixName: 'Abu Dhabi Grand Prix', totalLaps: 58, baseLapTimeSeconds: 86, overtakeDifficulty: 0.4, tyreDegradation: 0.5, rainProbability: 0.01, safetyCarProbability: 0.12, pitWindowStart: 15, pitWindowEnd: 43 },
 ];
 

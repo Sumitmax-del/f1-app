@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { getTrackPath } from '@/data/trackPaths';
 import { TrackData } from '@/data/trackData';
-import { MapPin, Timer, Flag, Zap } from 'lucide-react';
+import { MapPin, Timer, Zap } from 'lucide-react';
 
 interface TrackCardProps {
   track: TrackData;
@@ -60,12 +60,17 @@ export default function TrackCard({ track, onSelect, index }: TrackCardProps) {
           </svg>
         )}
 
-        {/* Country flag */}
-        <div className="absolute top-3 right-3 text-2xl drop-shadow-lg">
-          {track.countryFlag}
+        {/* Country Code (ISO 2-letter, F1 app style) */}
+        <div className="absolute top-3 right-3 flex items-center gap-1.5">
+          <span
+            className="text-lg font-display font-black tracking-wider opacity-60 group-hover:opacity-90 transition-opacity"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            {track.countryCode}
+          </span>
         </div>
 
-        {/* Round badge */}
+        {/* Country name badge */}
         <div className="absolute top-3 left-3">
           <span className="text-[9px] font-display font-bold tracking-widest uppercase px-2 py-1 rounded-md bg-white/10 backdrop-blur-sm" style={{ color: track.accentColor }}>
             {track.country}

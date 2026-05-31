@@ -10,5 +10,17 @@
     "emailVerified": true,
     "createdAt": "2026-05-23T09:52:31.278Z",
     "updatedAt": "2026-05-23T09:53:10.613Z"
+  },
+  {
+    "fullName": "Sumit",
+    "username": "sumit_7",
+    "email": "sumit.gorai2024@iem.edu.in",
+    "hashedPassword": "$2b$12$3LuBJr8XP8pUPB4y8fItf.5xDkFD4vJeTZpTXaAQayZk.1AMn9IAi",
+    "favouriteTeam": "Ferrari",
+    "favouriteDriver": "Lewis Hamilton",
+    "id": "f4e281f9-c6d9-4f6c-99a3-cb9c03a6a7f4",
+    "emailVerified": true,
+    "createdAt": "2026-05-31T04:49:38.846Z",
+    "updatedAt": "2026-05-31T04:52:24.468Z"
   }
 ]
