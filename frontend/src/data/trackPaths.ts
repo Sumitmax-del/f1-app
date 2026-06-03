@@ -16,77 +16,112 @@ export interface TrackPathData {
 }
 
 // ─────────────────────────────────────────────
-// 1. ALBERT PARK — Melbourne  (Park/lake circuit, anti-clockwise feel)
+// 1. ALBERT PARK — Melbourne (anti-clockwise park circuit)
+//    Distinctive: Long back straight along lakeside, flowing sweepers T3-T6,
+//    tight T1 hairpin, chicane T11-T12, fast T13-T16 return loop
 // ─────────────────────────────────────────────
 const albertPark: TrackPathData = {
   trackId: 'albert_park',
   viewBox: '0 0 800 600',
-  mainPath: 'M 390,95 L 480,85 Q 530,80 570,95 L 640,130 Q 670,150 690,185 L 710,240 Q 725,275 710,310 L 680,360 Q 660,390 665,420 L 675,460 Q 685,500 660,530 L 620,555 Q 580,570 530,565 L 430,550 Q 380,545 340,525 L 270,490 Q 230,470 200,440 L 155,385 Q 125,355 110,315 L 95,265 Q 85,225 95,190 L 120,145 Q 145,115 185,100 L 260,85 Q 320,78 390,95 Z',
-  pitLanePath: 'M 390,95 L 370,115 Q 350,135 320,140 L 240,145 Q 200,150 175,135',
-  startFinishLine: { x: 390, y: 95, angle: -5 },
+  mainPath: `M 490,75 L 580,75 Q 625,75 645,100 L 660,130
+    Q 668,155 658,180 L 635,210 Q 615,235 610,260
+    L 612,295 Q 618,325 635,350 L 658,385 Q 675,415 668,445
+    L 645,475 Q 618,498 582,510 L 530,522 Q 488,528 445,520
+    L 395,508 Q 355,495 320,475 L 285,450 Q 258,428 245,400
+    L 238,368 Q 236,338 250,312 L 275,282 Q 300,258 305,230
+    L 302,200 Q 295,172 275,152 L 248,130 Q 228,112 232,88
+    L 250,70 Q 278,56 320,62 L 378,70 Q 432,78 490,75 Z`,
+  pitLanePath: 'M 490,75 L 468,95 Q 445,118 412,120 L 335,118 Q 300,118 282,100',
+  startFinishLine: { x: 490, y: 75, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.28, endPercent: 0.4 },
-    { startPercent: 0.55, endPercent: 0.67 },
-    { startPercent: 0.82, endPercent: 0.94 },
-  ],
-  sectorSplits: [0.33, 0.66],
-  speedProfile: [
-    { percent: 0, speedFactor: 0.95 },
-    { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.2, speedFactor: 0.85 },
-    { percent: 0.3, speedFactor: 0.6 },
-    { percent: 0.4, speedFactor: 0.9 },
-    { percent: 0.5, speedFactor: 0.45 },
-    { percent: 0.6, speedFactor: 0.85 },
-    { percent: 0.7, speedFactor: 0.55 },
-    { percent: 0.8, speedFactor: 0.9 },
-    { percent: 0.9, speedFactor: 0.5 },
-    { percent: 1, speedFactor: 0.85 },
-  ],
-};
-
-// ─────────────────────────────────────────────
-// 2. SHANGHAI — Distinctive "snail" / shang character shape
-// ─────────────────────────────────────────────
-const shanghai: TrackPathData = {
-  trackId: 'shanghai',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 540,510 L 640,510 Q 690,510 720,475 L 740,440 Q 755,405 740,370 L 700,320 Q 680,295 680,265 L 685,220 Q 690,175 660,145 L 610,100 Q 570,70 515,60 L 420,50 Q 360,50 310,75 L 255,110 Q 220,135 210,170 L 200,240 Q 195,290 225,330 L 280,385 Q 305,410 305,445 L 300,480 Q 290,520 255,545 L 210,565 Q 165,575 130,555 L 95,530 Q 65,505 65,465 L 65,400 Q 65,360 90,335 L 150,285 Q 190,260 210,225 L 230,180 Q 250,140 295,125 L 370,100 Q 430,90 480,115 L 530,155 Q 560,175 570,210 L 575,265 Q 575,305 550,335 L 490,395 Q 455,425 455,465 L 460,495 Q 470,520 500,510 Z',
-  pitLanePath: 'M 540,510 L 540,535 Q 540,555 510,555 L 380,555 Q 340,555 310,545',
-  startFinishLine: { x: 540, y: 510, angle: 0 },
-  drsZones: [
-    { startPercent: 0, endPercent: 0.13 },
-    { startPercent: 0.5, endPercent: 0.65 },
+    { startPercent: 0.52, endPercent: 0.65 },
+    { startPercent: 0.76, endPercent: 0.88 },
+    { startPercent: 0.92, endPercent: 1.0 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.12, speedFactor: 0.45 },
-    { percent: 0.2, speedFactor: 0.55 },
-    { percent: 0.3, speedFactor: 0.85 },
-    { percent: 0.4, speedFactor: 0.5 },
+    { percent: 0.08, speedFactor: 0.45 },
+    { percent: 0.15, speedFactor: 0.85 },
+    { percent: 0.22, speedFactor: 0.7 },
+    { percent: 0.32, speedFactor: 0.95 },
+    { percent: 0.42, speedFactor: 0.5 },
+    { percent: 0.52, speedFactor: 0.9 },
+    { percent: 0.62, speedFactor: 0.6 },
+    { percent: 0.72, speedFactor: 0.85 },
+    { percent: 0.82, speedFactor: 0.45 },
+    { percent: 0.92, speedFactor: 0.9 },
+    { percent: 1, speedFactor: 0.95 },
+  ],
+};
+
+// ─────────────────────────────────────────────
+// 2. SHANGHAI — Snail-spiral T1-3, hairpin T6, long back straight, final chicane
+//    Distinctive: iconic reverse-snail T1 opening section curling inward,
+//    long back straight, two tight hairpins, final chicane
+// ─────────────────────────────────────────────
+const shanghai: TrackPathData = {
+  trackId: 'shanghai',
+  viewBox: '0 0 800 600',
+  mainPath: `M 580,500 L 665,500 Q 710,500 728,468 L 740,430
+    Q 748,390 730,354 L 700,308 Q 675,275 668,240
+    L 665,200 Q 668,160 652,128 L 620,90 Q 580,60 528,48
+    L 460,42 Q 398,42 348,68 L 298,100 Q 262,128 248,168
+    L 240,218 Q 238,268 260,308 L 298,355 Q 325,390 322,428
+    L 315,465 Q 305,498 272,515 L 228,530 Q 185,540 148,520
+    L 112,495 Q 85,468 86,430 L 90,385 Q 98,350 128,325
+    L 175,292 Q 218,268 242,232 L 258,192 Q 278,145 322,128
+    L 390,105 Q 450,92 505,118 L 555,155 Q 585,180 592,218
+    L 595,265 Q 590,305 562,335 L 502,392 Q 472,422 475,462
+    L 480,492 Q 492,518 528,510 Z`,
+  pitLanePath: 'M 580,500 L 578,528 Q 576,550 548,550 L 390,548 Q 355,545 332,528',
+  startFinishLine: { x: 580, y: 500, angle: 0 },
+  drsZones: [
+    { startPercent: 0, endPercent: 0.14 },
+    { startPercent: 0.52, endPercent: 0.67 },
+  ],
+  sectorSplits: [0.33, 0.66],
+  speedProfile: [
+    { percent: 0, speedFactor: 1 },
+    { percent: 0.1, speedFactor: 0.4 },
+    { percent: 0.18, speedFactor: 0.5 },
+    { percent: 0.28, speedFactor: 0.85 },
+    { percent: 0.38, speedFactor: 0.45 },
     { percent: 0.5, speedFactor: 0.95 },
-    { percent: 0.6, speedFactor: 0.55 },
+    { percent: 0.6, speedFactor: 0.5 },
     { percent: 0.7, speedFactor: 0.6 },
-    { percent: 0.8, speedFactor: 0.45 },
+    { percent: 0.8, speedFactor: 0.4 },
     { percent: 0.9, speedFactor: 0.8 },
     { percent: 1, speedFactor: 0.9 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 3. SUZUKA — Figure-8 crossover
+// 3. SUZUKA — True figure-8 crossover, S-curves, 130R, Spoon, Casio chicane
+//    Distinctive: ONLY track with a figure-8 crossover bridge,
+//    S-curves (T2-7), double-apex Spoon (T13-14), ultra-fast 130R (T15)
 // ─────────────────────────────────────────────
 const suzuka: TrackPathData = {
   trackId: 'suzuka',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 510,530 L 620,530 Q 665,530 690,500 L 720,460 Q 745,425 735,385 L 710,340 Q 690,310 660,290 L 590,250 Q 550,235 520,205 L 475,155 Q 445,120 405,100 L 340,75 Q 290,55 240,65 L 185,80 Q 140,95 115,135 L 95,185 Q 80,235 100,280 L 135,330 Q 165,365 175,405 L 180,450 Q 180,490 155,520 L 125,545 Q 90,565 55,545 L 40,530 Q 25,515 30,490 L 50,430 Q 65,390 100,365 L 180,310 Q 225,285 265,255 L 340,200 Q 385,175 430,195 L 510,240 Q 555,265 585,310 L 625,370 Q 650,410 650,450 L 645,480 Q 635,510 605,520 L 550,530 Z',
-  pitLanePath: 'M 510,530 L 510,555 Q 510,575 480,575 L 300,570 Q 260,565 240,545',
-  startFinishLine: { x: 510, y: 530, angle: 0 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 530,540 L 628,540 Q 668,540 692,508 L 718,465
+    Q 738,422 726,378 L 700,332 Q 672,295 640,272
+    L 568,235 Q 525,215 492,185 L 450,145 Q 418,110 375,88
+    L 308,62 Q 252,46 198,58 L 142,75 Q 95,95 70,140
+    L 54,196 Q 42,254 64,306 L 104,362 L 136,390
+    Q 150,405 155,428 L 158,460 Q 158,492 132,522
+    L 104,544 Q 72,562 40,542 L 26,526
+    Q 13,508 18,482 L 40,425 Q 56,385 96,360
+    L 182,306 Q 230,280 274,250 L 352,194
+    Q 398,168 448,190 L 530,240 Q 578,268 610,320
+    L 650,382 Q 671,424 668,464 L 660,492
+    Q 648,520 618,530 L 560,540 Z`,
+  pitLanePath: 'M 530,540 L 530,562 Q 530,582 500,582 L 302,577 Q 260,572 240,552',
+  startFinishLine: { x: 530, y: 540, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.08 },
-    { startPercent: 0.62, endPercent: 0.74 },
+    { startPercent: 0.64, endPercent: 0.76 },
   ],
   sectorSplits: [0.35, 0.7],
   speedProfile: [
@@ -98,7 +133,7 @@ const suzuka: TrackPathData = {
     { percent: 0.4, speedFactor: 0.75 },
     { percent: 0.5, speedFactor: 0.5 },
     { percent: 0.6, speedFactor: 0.45 },
-    { percent: 0.7, speedFactor: 0.9 },
+    { percent: 0.7, speedFactor: 0.95 },
     { percent: 0.8, speedFactor: 0.6 },
     { percent: 0.9, speedFactor: 0.55 },
     { percent: 1, speedFactor: 0.8 },
@@ -106,75 +141,117 @@ const suzuka: TrackPathData = {
 };
 
 // ─────────────────────────────────────────────
-// 4. BAHRAIN — Sakhir  (distinctive hairpin-heavy layout)
+// 4. BAHRAIN — Sakhir: three distinct hairpin loop clusters, desert circuit
+//    Distinctive: wide main straight, three tight hairpin sections creating
+//    a loop-within-loop feel, final esses before pit straight
 // ─────────────────────────────────────────────
 const bahrain: TrackPathData = {
   trackId: 'bahrain',
   viewBox: '0 0 800 600',
-  mainPath: 'M 420,75 L 580,75 Q 630,75 650,110 L 665,155 Q 675,185 660,210 L 630,245 Q 610,265 610,290 L 615,330 Q 620,355 600,375 L 555,415 Q 530,435 530,465 L 535,495 Q 540,520 515,540 L 465,560 Q 430,570 395,555 L 345,530 Q 315,515 295,490 L 265,445 Q 245,415 245,380 L 250,340 Q 255,310 240,285 L 210,245 Q 185,215 185,180 L 190,145 Q 200,110 230,90 L 290,70 Q 340,60 420,75 Z',
-  pitLanePath: 'M 420,75 L 400,95 Q 380,115 350,115 L 270,115 Q 240,115 225,100',
-  startFinishLine: { x: 420, y: 75, angle: 0 },
+  mainPath: `M 440,72 L 595,72 Q 645,72 663,110 L 673,158
+    Q 680,194 662,224 L 628,262 Q 602,285 600,315
+    L 605,355 Q 612,388 592,412 L 548,448
+    Q 520,470 520,504 L 524,538 Q 531,563 504,580
+    L 452,596 Q 414,607 376,590 L 322,562
+    Q 288,544 265,515 L 240,468 Q 222,434 222,396
+    L 226,352 Q 232,318 215,290 L 182,248
+    Q 155,215 156,176 L 162,140 Q 175,106 210,85
+    L 275,66 Q 332,55 440,72 Z
+    M 528,260 L 555,248 Q 580,242 596,258
+    Q 612,275 600,296 L 578,314 Q 555,324 535,310
+    Q 515,296 528,260 Z
+    M 240,352 L 265,338 Q 288,330 302,346
+    Q 316,362 305,382 L 282,396 Q 260,405 245,390
+    Q 230,375 240,352 Z`,
+  pitLanePath: 'M 440,72 L 418,94 Q 396,116 362,118 L 272,117 Q 238,117 222,98',
+  startFinishLine: { x: 440, y: 72, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.45, endPercent: 0.58 },
-    { startPercent: 0.72, endPercent: 0.85 },
+    { startPercent: 0.46, endPercent: 0.59 },
+    { startPercent: 0.73, endPercent: 0.86 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
     { percent: 0.1, speedFactor: 0.95 },
-    { percent: 0.18, speedFactor: 0.5 },
-    { percent: 0.25, speedFactor: 0.4 },
+    { percent: 0.18, speedFactor: 0.45 },
+    { percent: 0.25, speedFactor: 0.38 },
     { percent: 0.35, speedFactor: 0.85 },
-    { percent: 0.45, speedFactor: 1 },
-    { percent: 0.55, speedFactor: 0.6 },
-    { percent: 0.65, speedFactor: 0.5 },
-    { percent: 0.72, speedFactor: 0.9 },
-    { percent: 0.85, speedFactor: 0.55 },
-    { percent: 0.92, speedFactor: 0.7 },
+    { percent: 0.46, speedFactor: 1 },
+    { percent: 0.55, speedFactor: 0.5 },
+    { percent: 0.65, speedFactor: 0.45 },
+    { percent: 0.73, speedFactor: 0.9 },
+    { percent: 0.85, speedFactor: 0.5 },
+    { percent: 0.92, speedFactor: 0.65 },
     { percent: 1, speedFactor: 0.9 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 5. JEDDAH — Long, narrow corniche street circuit
+// 5. JEDDAH — Ultra-fast narrow corniche street circuit
+//    Distinctive: extremely elongated tall shape, mega back straight along
+//    the Red Sea corniche, tight squiggly middle section (T13-T27),
+//    three DRS zones, among fastest street circuits ever
 // ─────────────────────────────────────────────
 const jeddah: TrackPathData = {
   trackId: 'jeddah',
-  viewBox: '0 0 400 800',
-  mainPath: 'M 210,55 L 290,55 Q 325,55 340,85 L 350,130 Q 355,160 340,185 L 310,215 Q 290,235 285,260 L 280,330 Q 278,365 295,390 L 325,430 Q 350,460 350,500 L 345,570 Q 340,620 310,650 L 265,695 Q 235,720 195,730 L 150,735 Q 110,735 85,710 L 60,680 Q 40,655 45,625 L 55,570 Q 65,530 90,505 L 130,470 Q 155,445 160,415 L 165,350 Q 165,310 150,285 L 120,240 Q 100,215 105,185 L 115,150 Q 125,120 150,100 L 175,80 Q 195,65 210,55 Z',
-  pitLanePath: 'M 210,55 L 210,85 Q 210,115 185,115 L 120,120 Q 95,125 85,150',
-  startFinishLine: { x: 210, y: 55, angle: 0 },
+  viewBox: '0 0 400 820',
+  mainPath: `M 210,44 L 305,44 Q 346,44 362,80 L 372,130
+    Q 376,168 358,196 L 322,232 Q 300,252 292,280
+    L 286,326 Q 282,365 296,394 L 325,432
+    Q 352,466 350,508 L 342,572 Q 334,622 302,652
+    L 254,698 Q 220,724 178,732 L 132,735
+    Q 88,733 62,706 L 38,674 Q 18,646 24,614
+    L 38,558 Q 52,518 80,490 L 122,452
+    Q 150,426 154,392 L 158,338 Q 158,295 142,268
+    L 108,224 Q 86,196 94,164 L 106,128
+    Q 120,96 148,76 L 176,58 Q 196,45 210,44 Z`,
+  pitLanePath: 'M 210,44 L 210,76 Q 210,108 182,110 L 118,118 Q 92,124 82,152',
+  startFinishLine: { x: 210, y: 44, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.1 },
-    { startPercent: 0.35, endPercent: 0.48 },
-    { startPercent: 0.62, endPercent: 0.78 },
+    { startPercent: 0.36, endPercent: 0.5 },
+    { startPercent: 0.63, endPercent: 0.79 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.2, speedFactor: 0.9 },
-    { percent: 0.3, speedFactor: 0.45 },
+    { percent: 0.1, speedFactor: 0.45 },
+    { percent: 0.2, speedFactor: 0.92 },
+    { percent: 0.3, speedFactor: 0.42 },
     { percent: 0.4, speedFactor: 0.95 },
-    { percent: 0.5, speedFactor: 0.5 },
-    { percent: 0.6, speedFactor: 0.85 },
-    { percent: 0.7, speedFactor: 0.4 },
-    { percent: 0.8, speedFactor: 0.9 },
-    { percent: 0.9, speedFactor: 0.55 },
+    { percent: 0.5, speedFactor: 0.48 },
+    { percent: 0.6, speedFactor: 0.88 },
+    { percent: 0.7, speedFactor: 0.38 },
+    { percent: 0.8, speedFactor: 0.92 },
+    { percent: 0.9, speedFactor: 0.52 },
     { percent: 1, speedFactor: 0.85 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 6. MIAMI — Blocky street circuit around Hard Rock Stadium
+// 6. MIAMI — Hard Rock Stadium autodrome
+//    Distinctive: three long straights connected by 90° bends (outer loop),
+//    stadium inner section with tight T11 hairpin, long final sweeper T17
 // ─────────────────────────────────────────────
 const miami: TrackPathData = {
   trackId: 'miami',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 400,80 L 600,80 Q 640,80 660,110 L 690,170 Q 710,210 710,255 L 710,320 Q 710,365 680,395 L 630,440 Q 600,465 560,475 L 500,490 Q 465,495 440,520 L 400,555 Q 370,575 330,575 L 260,570 Q 215,565 180,535 L 135,490 Q 105,460 95,420 L 85,365 Q 80,320 95,280 L 120,230 Q 145,190 185,165 L 250,130 Q 295,110 340,95 L 400,80 Z',
-  pitLanePath: 'M 400,80 L 390,110 Q 380,140 345,140 L 255,145 Q 220,150 200,170',
-  startFinishLine: { x: 400, y: 80, angle: 0 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 415,68 L 628,68 Q 672,68 695,105 L 722,168
+    Q 742,214 740,265 L 738,332 Q 732,384 700,415
+    L 648,458 Q 614,482 570,494 L 508,510
+    Q 470,518 442,545 L 402,578 Q 368,598 325,598
+    L 252,592 Q 202,585 162,552 L 114,505
+    Q 80,468 68,428 L 58,370 Q 52,322 68,280
+    L 98,228 Q 126,186 172,162 L 245,132
+    Q 295,112 350,96 L 415,68 Z
+    M 425,198 L 565,198 Q 602,198 618,228
+    L 632,268 Q 638,300 622,328 L 592,358
+    Q 566,378 535,385 L 480,392 Q 446,395 426,374
+    L 408,352 Q 396,328 402,300 L 416,268
+    Q 420,240 425,198 Z`,
+  pitLanePath: 'M 415,68 L 402,100 Q 388,130 352,133 L 258,138 Q 222,140 202,162',
+  startFinishLine: { x: 415, y: 68, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.14 },
     { startPercent: 0.38, endPercent: 0.52 },
@@ -197,131 +274,166 @@ const miami: TrackPathData = {
 };
 
 // ─────────────────────────────────────────────
-// 7. IMOLA — Narrow old-school track with Tamburello & Rivazza
+// 7. CIRCUIT GILLES VILLENEUVE — Montreal (Île Notre-Dame)
+//    Distinctive: thin island circuit with two long parallels,
+//    Wall of Champions chicane (T8-9), hairpin T10, casino straight
 // ─────────────────────────────────────────────
-const imola: TrackPathData = {
-  trackId: 'imola',
-  viewBox: '0 0 800 500',
-  mainPath: 'M 420,80 L 560,65 Q 610,60 650,85 L 695,120 Q 725,150 730,195 L 730,245 Q 725,285 695,310 L 640,350 Q 610,370 600,400 L 595,430 Q 585,460 545,470 L 440,475 Q 385,475 335,455 L 270,420 Q 235,400 210,370 L 170,320 Q 145,285 130,245 L 115,195 Q 105,155 120,120 L 155,85 Q 195,60 250,60 L 350,70 Q 385,72 420,80 Z',
-  pitLanePath: 'M 420,80 L 410,105 Q 400,130 370,130 L 280,125 Q 245,125 225,110',
-  startFinishLine: { x: 420, y: 80, angle: -3 },
+const villeneuve: TrackPathData = {
+  trackId: 'villeneuve',
+  viewBox: '0 0 820 420',
+  mainPath: `M 432,78 L 600,68 Q 655,63 690,96 L 728,136
+    Q 755,168 758,212 L 758,260 Q 750,302 720,328
+    L 672,362 Q 640,382 606,390 L 530,393
+    Q 488,393 455,370 L 410,338 Q 382,314 348,308
+    L 280,302 Q 230,302 190,326 L 140,358
+    Q 106,378 70,370 L 38,358 Q 12,340 10,306
+    L 10,258 Q 10,218 35,192 L 78,155
+    Q 112,128 158,112 L 248,84 Q 330,65 432,78 Z
+    M 465,160 L 560,150 Q 595,148 608,175
+    L 618,210 Q 622,238 608,260 L 582,285
+    Q 558,302 528,308 L 470,312 Q 440,312 425,292
+    L 412,268 Q 408,242 418,218 L 435,188
+    Q 445,168 465,160 Z`,
+  pitLanePath: 'M 432,78 L 410,100 Q 388,124 354,124 L 258,119 Q 222,119 202,102',
+  startFinishLine: { x: 432, y: 78, angle: -3 },
   drsZones: [
-    { startPercent: 0, endPercent: 0.14 },
-    { startPercent: 0.58, endPercent: 0.72 },
+    { startPercent: 0, endPercent: 0.15 },
+    { startPercent: 0.62, endPercent: 0.79 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.9 },
     { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.2, speedFactor: 0.75 },
-    { percent: 0.3, speedFactor: 0.6 },
-    { percent: 0.4, speedFactor: 0.45 },
-    { percent: 0.55, speedFactor: 0.9 },
-    { percent: 0.65, speedFactor: 0.5 },
-    { percent: 0.75, speedFactor: 0.7 },
-    { percent: 0.85, speedFactor: 0.55 },
-    { percent: 0.95, speedFactor: 0.8 },
-    { percent: 1, speedFactor: 0.85 },
+    { percent: 0.2, speedFactor: 0.88 },
+    { percent: 0.3, speedFactor: 0.4 },
+    { percent: 0.4, speedFactor: 0.5 },
+    { percent: 0.5, speedFactor: 0.38 },
+    { percent: 0.6, speedFactor: 0.9 },
+    { percent: 0.7, speedFactor: 0.5 },
+    { percent: 0.8, speedFactor: 0.7 },
+    { percent: 0.9, speedFactor: 0.35 },
+    { percent: 1, speedFactor: 0.82 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 8. MONACO — Iconic tight harbor circuit
+// 8. MONACO — Iconic tight harbour street circuit
+//    Distinctive: uphill Beau Rivage, Casino Square (T4), Fairmont hairpin
+//    (world's tightest F1 turn), downhill Portier, dark tunnel,
+//    Swimming Pool chicane (T15-16), Rascasse (T17), Anthony Noghes (T18)
 // ─────────────────────────────────────────────
 const monaco: TrackPathData = {
   trackId: 'monaco',
-  viewBox: '0 0 700 600',
-  mainPath: 'M 340,95 L 450,75 Q 500,68 535,95 L 570,130 Q 595,160 600,200 L 605,250 Q 605,285 585,310 L 545,355 Q 520,375 510,405 L 505,440 Q 500,475 470,495 L 420,520 Q 385,535 345,530 L 285,515 Q 245,500 215,470 L 180,430 Q 155,395 145,355 L 135,300 Q 130,260 145,225 L 170,180 Q 200,145 240,125 L 290,105 Q 315,97 340,95 Z',
-  pitLanePath: 'M 340,95 L 320,115 Q 300,135 270,135 L 210,140 Q 185,145 175,170',
-  startFinishLine: { x: 340, y: 95, angle: -8 },
+  viewBox: '0 0 700 580',
+  mainPath: `M 205,540 L 292,540 Q 335,540 362,510
+    L 395,468 Q 418,435 435,398
+    L 448,355 Q 455,318 478,292 L 512,262
+    Q 548,232 568,198 L 580,158 Q 585,122 568,90
+    L 542,58 Q 510,30 468,22 L 418,18
+    Q 372,16 338,38 L 305,66 Q 278,92 268,128
+    L 262,168 Q 260,208 278,238 L 308,268
+    Q 335,292 342,328 L 345,368 Q 342,402 318,428
+    L 285,455 Q 255,474 218,480 L 175,482
+    Q 135,480 108,455 L 82,422 Q 62,388 64,352
+    L 70,308 Q 80,268 108,240 L 148,208
+    Q 175,185 188,155 L 192,118 Q 188,82 165,55
+    L 138,35 Q 108,22 75,30 Q 48,42 35,72
+    L 25,112 Q 22,152 42,185 L 80,215
+    Q 112,238 125,272 L 128,308 Q 125,342 108,368
+    L 82,395 Q 58,418 62,452 L 72,485
+    Q 88,515 122,530 L 168,540 Z`,
+  pitLanePath: 'M 205,540 L 195,555 Q 182,570 162,570 L 95,565 Q 70,560 58,542',
+  startFinishLine: { x: 205, y: 540, angle: -8 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.75 },
-    { percent: 0.08, speedFactor: 0.35 },
+    { percent: 0.08, speedFactor: 0.32 },
     { percent: 0.15, speedFactor: 0.55 },
-    { percent: 0.22, speedFactor: 0.3 },
-    { percent: 0.3, speedFactor: 0.5 },
-    { percent: 0.4, speedFactor: 0.35 },
-    { percent: 0.5, speedFactor: 0.6 },
-    { percent: 0.6, speedFactor: 0.3 },
+    { percent: 0.22, speedFactor: 0.28 },
+    { percent: 0.3, speedFactor: 0.52 },
+    { percent: 0.4, speedFactor: 0.32 },
+    { percent: 0.5, speedFactor: 0.62 },
+    { percent: 0.6, speedFactor: 0.28 },
     { percent: 0.7, speedFactor: 0.45 },
-    { percent: 0.8, speedFactor: 0.35 },
+    { percent: 0.8, speedFactor: 0.32 },
     { percent: 0.9, speedFactor: 0.55 },
     { percent: 1, speedFactor: 0.65 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 9. BARCELONA — Catalunya, flowing with long right-hander T3
+// 9. BARCELONA — Circuit de Barcelona-Catalunya
+//    Distinctive: long main straight, tight T1 hairpin, flowing T3 sweeper,
+//    Repsol chicane (T9-10), SEAT hairpin (T14-15), long back straight T8
 // ─────────────────────────────────────────────
 const catalunya: TrackPathData = {
   trackId: 'catalunya',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 380,100 L 550,80 Q 610,72 655,105 L 700,150 Q 730,185 730,230 L 725,290 Q 720,335 690,365 L 640,410 Q 610,435 600,470 L 590,510 Q 575,545 535,560 L 440,575 Q 380,580 325,555 L 250,515 Q 205,490 175,450 L 135,395 Q 105,345 90,290 L 80,235 Q 75,185 100,150 L 150,110 Q 200,82 265,80 L 380,100 Z',
-  pitLanePath: 'M 380,100 L 365,125 Q 350,150 310,155 L 220,155 Q 185,155 170,140',
-  startFinishLine: { x: 380, y: 100, angle: -5 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 392,92 L 572,72 Q 634,65 678,104
+    L 722,152 Q 754,194 755,246
+    L 752,310 Q 744,360 710,394 L 655,438
+    Q 620,465 608,504 L 596,545
+    Q 578,578 535,592 L 438,606
+    Q 375,610 316,582 L 236,538
+    Q 188,510 155,468 L 112,408
+    Q 79,352 65,294 L 56,232
+    Q 52,180 82,140 L 136,98
+    Q 192,68 260,66 L 392,92 Z
+    M 450,202 L 565,192 Q 602,190 618,220
+    L 630,258 Q 636,292 618,322 L 585,352
+    Q 558,372 525,380 L 468,386
+    Q 432,388 412,362 L 396,332
+    Q 388,305 398,278 L 418,248
+    Q 430,222 450,202 Z`,
+  pitLanePath: 'M 392,92 L 375,120 Q 358,148 320,152 L 222,152 Q 184,152 168,138',
+  startFinishLine: { x: 392, y: 92, angle: -5 },
   drsZones: [
     { startPercent: 0, endPercent: 0.13 },
-    { startPercent: 0.6, endPercent: 0.75 },
+    { startPercent: 0.61, endPercent: 0.76 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.18, speedFactor: 0.75 },
+    { percent: 0.1, speedFactor: 0.48 },
+    { percent: 0.18, speedFactor: 0.78 },
     { percent: 0.25, speedFactor: 0.55 },
-    { percent: 0.35, speedFactor: 0.85 },
-    { percent: 0.45, speedFactor: 0.5 },
+    { percent: 0.35, speedFactor: 0.88 },
+    { percent: 0.45, speedFactor: 0.48 },
     { percent: 0.55, speedFactor: 0.65 },
-    { percent: 0.65, speedFactor: 0.9 },
+    { percent: 0.65, speedFactor: 0.92 },
     { percent: 0.75, speedFactor: 0.45 },
-    { percent: 0.85, speedFactor: 0.7 },
-    { percent: 0.95, speedFactor: 0.85 },
-    { percent: 1, speedFactor: 0.9 },
+    { percent: 0.85, speedFactor: 0.72 },
+    { percent: 0.95, speedFactor: 0.88 },
+    { percent: 1, speedFactor: 0.92 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 10. CIRCUIT GILLES VILLENEUVE — Montreal island hairpin-heavy
-// ─────────────────────────────────────────────
-const villeneuve: TrackPathData = {
-  trackId: 'villeneuve',
-  viewBox: '0 0 800 400',
-  mainPath: 'M 420,85 L 580,75 Q 630,70 665,95 L 700,130 Q 725,160 730,200 L 730,240 Q 725,275 700,300 L 660,330 Q 635,350 600,355 L 530,360 Q 490,360 460,340 L 420,310 Q 395,290 365,285 L 300,280 Q 255,280 220,300 L 175,330 Q 145,350 115,345 L 85,335 Q 60,320 55,290 L 55,245 Q 55,210 75,185 L 115,150 Q 145,125 185,110 L 265,85 Q 340,70 420,85 Z',
-  pitLanePath: 'M 420,85 L 400,105 Q 380,125 345,125 L 250,120 Q 215,120 195,105',
-  startFinishLine: { x: 420, y: 85, angle: -3 },
-  drsZones: [
-    { startPercent: 0, endPercent: 0.15 },
-    { startPercent: 0.6, endPercent: 0.78 },
-  ],
-  sectorSplits: [0.33, 0.66],
-  speedProfile: [
-    { percent: 0, speedFactor: 0.9 },
-    { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.2, speedFactor: 0.85 },
-    { percent: 0.3, speedFactor: 0.45 },
-    { percent: 0.4, speedFactor: 0.55 },
-    { percent: 0.5, speedFactor: 0.4 },
-    { percent: 0.6, speedFactor: 0.9 },
-    { percent: 0.7, speedFactor: 0.5 },
-    { percent: 0.8, speedFactor: 0.7 },
-    { percent: 0.9, speedFactor: 0.35 },
-    { percent: 1, speedFactor: 0.8 },
-  ],
-};
-
-// ─────────────────────────────────────────────
-// 11. RED BULL RING — Spielberg, short and steep uphill-downhill
+// 10. RED BULL RING — Spielberg: short, very compact, high altitude
+//     Distinctive: only 10 corners, three main straights meeting at an
+//     angular triangle peak, steep elevation changes, T1 downhill approach
 // ─────────────────────────────────────────────
 const redBullRing: TrackPathData = {
   trackId: 'red_bull_ring',
-  viewBox: '0 0 700 500',
-  mainPath: 'M 320,110 L 470,85 Q 520,78 555,100 L 590,130 Q 620,160 630,200 L 640,255 Q 645,300 620,335 L 570,385 Q 540,410 505,425 L 440,445 Q 395,455 350,445 L 280,425 Q 240,410 210,380 L 160,330 Q 130,290 115,245 L 105,195 Q 100,150 125,120 L 175,95 Q 225,80 320,110 Z',
-  pitLanePath: 'M 320,110 L 300,130 Q 280,150 250,150 L 180,150 Q 150,150 140,130',
-  startFinishLine: { x: 320, y: 110, angle: -8 },
+  viewBox: '0 0 700 540',
+  mainPath: `M 330,102 L 488,78 Q 542,70 578,100
+    L 614,138 Q 640,172 645,218
+    L 648,272 Q 648,320 618,358
+    L 568,408 Q 535,435 500,448
+    L 435,468 Q 388,478 338,468
+    L 265,446 Q 220,428 186,394
+    L 132,338 Q 100,294 84,248
+    L 72,196 Q 66,148 94,114
+    L 150,86 Q 206,70 330,102 Z
+    M 435,178 Q 462,155 492,162
+    L 518,176 Q 538,195 532,222
+    Q 524,250 498,260 L 468,265
+    Q 442,265 428,242 Q 414,218 435,178 Z`,
+  pitLanePath: 'M 330,102 L 308,128 Q 285,154 252,156 L 172,155 Q 140,155 128,134',
+  startFinishLine: { x: 330, y: 102, angle: -8 },
   drsZones: [
     { startPercent: 0, endPercent: 0.14 },
     { startPercent: 0.32, endPercent: 0.48 },
@@ -330,178 +442,328 @@ const redBullRing: TrackPathData = {
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.1, speedFactor: 0.5 },
+    { percent: 0.1, speedFactor: 0.48 },
     { percent: 0.18, speedFactor: 0.95 },
-    { percent: 0.3, speedFactor: 0.5 },
-    { percent: 0.4, speedFactor: 0.85 },
-    { percent: 0.5, speedFactor: 0.45 },
-    { percent: 0.6, speedFactor: 0.5 },
-    { percent: 0.7, speedFactor: 0.9 },
-    { percent: 0.85, speedFactor: 0.5 },
-    { percent: 0.95, speedFactor: 0.8 },
-    { percent: 1, speedFactor: 0.9 },
+    { percent: 0.3, speedFactor: 0.48 },
+    { percent: 0.4, speedFactor: 0.88 },
+    { percent: 0.5, speedFactor: 0.42 },
+    { percent: 0.6, speedFactor: 0.52 },
+    { percent: 0.7, speedFactor: 0.92 },
+    { percent: 0.85, speedFactor: 0.48 },
+    { percent: 0.95, speedFactor: 0.82 },
+    { percent: 1, speedFactor: 0.92 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 12. SILVERSTONE — Fast flowing, Maggots-Becketts-Chapel complex
+// 11. SILVERSTONE — Fast flowing circuit, Maggotts-Becketts-Chapel S complex
+//     Distinctive: roughly heptagonal outer shape, the signature
+//     Maggotts-Becketts high-speed S-complex mid-top, Copse T1 opener,
+//     Stowe and Club at end
 // ─────────────────────────────────────────────
 const silverstone: TrackPathData = {
   trackId: 'silverstone',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 450,100 L 580,90 Q 630,85 665,110 L 705,150 Q 730,185 735,225 L 735,285 Q 732,330 710,365 L 670,410 Q 645,440 640,475 L 640,510 Q 635,545 600,560 L 530,575 Q 480,580 430,570 L 340,545 Q 285,525 240,490 L 185,440 Q 145,395 120,345 L 95,280 Q 80,225 95,175 L 125,130 Q 165,95 220,85 L 330,80 Q 390,82 450,100 Z',
-  pitLanePath: 'M 450,100 L 430,125 Q 410,150 375,155 L 265,160 Q 230,165 210,150',
-  startFinishLine: { x: 450, y: 100, angle: -3 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 462,92 L 598,82 Q 652,76 686,108
+    L 728,152 Q 755,192 756,238
+    L 754,302 Q 748,352 720,388
+    L 674,432 Q 648,460 644,498
+    L 640,536 Q 634,568 598,582
+    L 522,595 Q 470,598 418,585
+    L 324,558 Q 265,535 218,498
+    L 160,445 Q 118,398 92,344
+    L 66,278 Q 50,220 66,166
+    L 100,118 Q 145,84 202,74 L 318,70
+    Q 388,73 462,92 Z
+    M 548,175 Q 568,155 592,160
+    L 622,172 Q 645,188 640,215
+    Q 636,242 612,250 L 582,255
+    Q 555,255 542,234 Q 528,212 548,175 Z`,
+  pitLanePath: 'M 462,92 L 438,120 Q 415,148 378,152 L 265,158 Q 228,162 208,146',
+  startFinishLine: { x: 462, y: 92, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.55, endPercent: 0.7 },
+    { startPercent: 0.56, endPercent: 0.71 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
     { percent: 0.08, speedFactor: 0.7 },
-    { percent: 0.15, speedFactor: 0.85 },
-    { percent: 0.22, speedFactor: 0.6 },
-    { percent: 0.3, speedFactor: 0.75 },
+    { percent: 0.15, speedFactor: 0.88 },
+    { percent: 0.22, speedFactor: 0.62 },
+    { percent: 0.3, speedFactor: 0.78 },
     { percent: 0.4, speedFactor: 0.55 },
-    { percent: 0.5, speedFactor: 0.8 },
+    { percent: 0.5, speedFactor: 0.82 },
     { percent: 0.6, speedFactor: 0.95 },
     { percent: 0.7, speedFactor: 0.55 },
-    { percent: 0.8, speedFactor: 0.7 },
-    { percent: 0.9, speedFactor: 0.6 },
-    { percent: 1, speedFactor: 0.9 },
+    { percent: 0.8, speedFactor: 0.72 },
+    { percent: 0.9, speedFactor: 0.62 },
+    { percent: 1, speedFactor: 0.92 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 13. SPA-FRANCORCHAMPS — Iconic Eau Rouge, long triangular shape
+// 12. SPA-FRANCORCHAMPS — Iconic triangular circuit in the Ardennes
+//     Distinctive: La Source hairpin at top, downhill Eau Rouge/Raidillon sweep,
+//     long Kemmel straight, Pouhon double-left, Blanchimont flat-out,
+//     Bus Stop chicane, forms a clear triangle on the map
 // ─────────────────────────────────────────────
 const spa: TrackPathData = {
   trackId: 'spa',
-  viewBox: '0 0 800 700',
-  mainPath: 'M 310,610 L 380,590 Q 415,575 435,545 L 475,475 Q 495,440 530,420 L 600,390 Q 650,370 690,335 L 730,290 Q 760,250 750,205 L 730,160 Q 710,120 670,95 L 610,70 Q 565,55 515,55 L 435,60 Q 390,65 355,90 L 310,130 Q 280,160 250,190 L 200,245 Q 165,280 135,320 L 100,370 Q 75,415 80,465 L 90,510 Q 105,555 145,580 L 210,610 Q 260,625 310,610 Z',
-  pitLanePath: 'M 310,610 L 275,600 Q 245,590 235,565 L 220,530 Q 205,495 185,475',
-  startFinishLine: { x: 310, y: 610, angle: -10 },
+  viewBox: '0 0 820 700',
+  mainPath: `M 318,620 L 395,598 Q 434,580 454,548
+    L 498,474 Q 522,435 562,414 L 638,380
+    Q 692,356 732,318 L 768,272
+    Q 795,228 784,180 L 762,132
+    Q 738,92 692,66 L 626,40
+    Q 574,24 520,28 L 432,36
+    Q 382,44 344,72 L 296,116
+    Q 260,152 228,188 L 174,248
+    Q 136,288 106,332 L 72,386
+    Q 46,436 52,490 L 66,540
+    Q 82,586 128,612 L 196,632
+    Q 252,645 318,620 Z`,
+  pitLanePath: 'M 318,620 L 280,608 Q 248,595 236,568 L 220,530 Q 204,494 182,474',
+  startFinishLine: { x: 318, y: 620, angle: -10 },
   drsZones: [
     { startPercent: 0, endPercent: 0.08 },
-    { startPercent: 0.42, endPercent: 0.58 },
+    { startPercent: 0.44, endPercent: 0.6 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.85 },
-    { percent: 0.05, speedFactor: 0.35 },
-    { percent: 0.1, speedFactor: 0.7 },
-    { percent: 0.15, speedFactor: 0.5 },
-    { percent: 0.25, speedFactor: 0.9 },
+    { percent: 0.05, speedFactor: 0.32 },
+    { percent: 0.1, speedFactor: 0.72 },
+    { percent: 0.15, speedFactor: 0.52 },
+    { percent: 0.25, speedFactor: 0.92 },
     { percent: 0.35, speedFactor: 0.95 },
     { percent: 0.45, speedFactor: 1 },
-    { percent: 0.55, speedFactor: 0.4 },
-    { percent: 0.65, speedFactor: 0.8 },
-    { percent: 0.75, speedFactor: 0.5 },
+    { percent: 0.55, speedFactor: 0.38 },
+    { percent: 0.65, speedFactor: 0.82 },
+    { percent: 0.75, speedFactor: 0.52 },
     { percent: 0.85, speedFactor: 0.55 },
     { percent: 0.92, speedFactor: 0.45 },
-    { percent: 1, speedFactor: 0.75 },
+    { percent: 1, speedFactor: 0.78 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 14. HUNGARORING — Tight, twisty, compact bowl shape
+// 13. HUNGARORING — Compact twisty Budapest circuit
+//     Distinctive: tight kidney-bowl shape, very sinuous layout,
+//     virtually no overtaking opportunities, long T2 sweeper,
+//     tight final sequence T11-13
 // ─────────────────────────────────────────────
 const hungaroring: TrackPathData = {
   trackId: 'hungaroring',
-  viewBox: '0 0 700 600',
-  mainPath: 'M 370,85 L 490,75 Q 540,70 580,95 L 620,130 Q 650,165 655,210 L 655,270 Q 650,320 620,355 L 575,400 Q 545,430 535,465 L 530,500 Q 520,535 480,550 L 400,565 Q 345,570 295,545 L 230,510 Q 190,480 160,440 L 125,385 Q 95,340 85,290 L 80,235 Q 78,185 100,145 L 140,110 Q 185,82 240,75 L 370,85 Z',
-  pitLanePath: 'M 370,85 L 355,110 Q 340,135 310,140 L 220,145 Q 190,145 175,125',
-  startFinishLine: { x: 370, y: 85, angle: -3 },
+  viewBox: '0 0 720 620',
+  mainPath: `M 378,78 L 505,68 Q 558,62 596,94
+    L 634,136 Q 664,174 668,224
+    L 668,285 Q 662,336 628,372
+    L 580,420 Q 548,452 538,490
+    L 532,528 Q 522,562 478,578
+    L 395,592 Q 336,596 283,568
+    L 215,528 Q 172,498 140,456
+    L 104,395 Q 72,346 62,292
+    L 56,232 Q 54,180 80,138
+    L 124,102 Q 172,74 230,68 L 378,78 Z
+    M 355,195 L 430,185 Q 465,182 480,210
+    L 492,245 Q 498,278 480,305 L 452,332
+    Q 428,350 395,356 L 348,360
+    Q 315,360 298,335 L 285,305
+    Q 280,278 295,255 L 318,228
+    Q 335,208 355,195 Z`,
+  pitLanePath: 'M 378,78 L 360,108 Q 342,136 308,140 L 215,146 Q 182,146 165,126',
+  startFinishLine: { x: 378, y: 78, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.1 },
-    { startPercent: 0.55, endPercent: 0.68 },
+    { startPercent: 0.56, endPercent: 0.69 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.85 },
-    { percent: 0.1, speedFactor: 0.45 },
-    { percent: 0.18, speedFactor: 0.6 },
-    { percent: 0.25, speedFactor: 0.4 },
+    { percent: 0.1, speedFactor: 0.42 },
+    { percent: 0.18, speedFactor: 0.58 },
+    { percent: 0.25, speedFactor: 0.38 },
     { percent: 0.35, speedFactor: 0.55 },
-    { percent: 0.45, speedFactor: 0.4 },
-    { percent: 0.55, speedFactor: 0.75 },
-    { percent: 0.65, speedFactor: 0.45 },
+    { percent: 0.45, speedFactor: 0.38 },
+    { percent: 0.55, speedFactor: 0.78 },
+    { percent: 0.65, speedFactor: 0.42 },
     { percent: 0.75, speedFactor: 0.55 },
-    { percent: 0.85, speedFactor: 0.4 },
-    { percent: 0.95, speedFactor: 0.7 },
-    { percent: 1, speedFactor: 0.8 },
+    { percent: 0.85, speedFactor: 0.38 },
+    { percent: 0.95, speedFactor: 0.72 },
+    { percent: 1, speedFactor: 0.82 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 15. ZANDVOORT — Banked seaside circuit, kidney shape
+// 14. ZANDVOORT — Dutch coastal dunes circuit
+//     Distinctive: compact oval-ish shape with two heavily banked ends
+//     (Tarzan T1 banked at 18°, Arie Luyendyk T3 banked at 19°),
+//     narrow Hugenholtz chicane, Scheivlak banked sweeper
 // ─────────────────────────────────────────────
 const zandvoort: TrackPathData = {
   trackId: 'zandvoort',
-  viewBox: '0 0 700 500',
-  mainPath: 'M 360,85 L 485,75 Q 535,70 575,100 L 610,140 Q 635,175 635,220 L 630,275 Q 625,320 595,350 L 545,395 Q 510,420 475,435 L 415,450 Q 365,455 320,440 L 255,415 Q 215,395 185,365 L 145,320 Q 115,275 105,225 L 100,175 Q 98,130 125,100 L 175,75 Q 230,60 310,75 L 360,85 Z',
-  pitLanePath: 'M 360,85 L 340,105 Q 320,125 290,125 L 210,130 Q 180,130 170,110',
-  startFinishLine: { x: 360, y: 85, angle: -5 },
+  viewBox: '0 0 720 520',
+  mainPath: `M 368,78 L 500,68 Q 554,62 590,100
+    L 625,145 Q 650,185 650,235
+    L 644,292 Q 635,340 602,370
+    L 548,415 Q 512,442 474,456
+    L 412,472 Q 358,478 310,460
+    L 242,433 Q 200,412 168,380
+    L 125,330 Q 94,284 85,232
+    L 79,178 Q 78,130 108,100
+    L 162,72 Q 220,54 304,68 L 368,78 Z
+    M 405,165 L 490,158 Q 522,156 536,182
+    L 545,215 Q 550,245 535,268 L 510,290
+    Q 486,305 455,308 L 408,310
+    Q 378,308 362,285 L 352,258
+    Q 348,232 362,210 L 382,188
+    Q 392,172 405,165 Z`,
+  pitLanePath: 'M 368,78 L 346,100 Q 325,125 292,127 L 208,132 L 178,112',
+  startFinishLine: { x: 368, y: 78, angle: -5 },
   drsZones: [
     { startPercent: 0, endPercent: 0.1 },
-    { startPercent: 0.55, endPercent: 0.7 },
+    { startPercent: 0.56, endPercent: 0.71 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
-    { percent: 0, speedFactor: 0.85 },
-    { percent: 0.1, speedFactor: 0.45 },
-    { percent: 0.2, speedFactor: 0.7 },
-    { percent: 0.3, speedFactor: 0.5 },
-    { percent: 0.4, speedFactor: 0.65 },
-    { percent: 0.5, speedFactor: 0.45 },
-    { percent: 0.6, speedFactor: 0.55 },
-    { percent: 0.7, speedFactor: 0.8 },
-    { percent: 0.8, speedFactor: 0.5 },
-    { percent: 0.9, speedFactor: 0.65 },
-    { percent: 1, speedFactor: 0.75 },
+    { percent: 0, speedFactor: 0.88 },
+    { percent: 0.1, speedFactor: 0.42 },
+    { percent: 0.2, speedFactor: 0.72 },
+    { percent: 0.3, speedFactor: 0.52 },
+    { percent: 0.4, speedFactor: 0.68 },
+    { percent: 0.5, speedFactor: 0.48 },
+    { percent: 0.6, speedFactor: 0.58 },
+    { percent: 0.7, speedFactor: 0.82 },
+    { percent: 0.8, speedFactor: 0.52 },
+    { percent: 0.9, speedFactor: 0.68 },
+    { percent: 1, speedFactor: 0.78 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 16. MONZA — Temple of Speed, low corner count, long straights
+// 15. MONZA — Temple of Speed
+//     Distinctive: elongated oval outer loop with two interrupting chicane
+//     clusters: Variante del Rettifilo (T1-2) and Variante della Roggia (T3-4),
+//     Lesmo bends (T5-6), Variante Ascari (T8-10), Parabolica (T11)
 // ─────────────────────────────────────────────
 const monza: TrackPathData = {
   trackId: 'monza',
-  viewBox: '0 0 700 600',
-  mainPath: 'M 380,105 L 530,90 Q 575,85 605,110 L 630,145 Q 650,175 645,215 L 635,265 Q 625,300 595,325 L 545,365 Q 520,385 515,415 L 515,450 Q 520,480 550,500 L 585,520 Q 610,535 600,560 L 575,575 Q 545,585 510,580 L 380,555 Q 315,540 265,505 L 200,455 Q 155,410 130,360 L 105,295 Q 85,240 95,185 L 115,140 Q 145,105 195,92 L 290,82 Q 335,85 380,105 Z',
-  pitLanePath: 'M 380,105 L 360,125 Q 340,145 305,148 L 220,150 Q 185,152 170,138',
-  startFinishLine: { x: 380, y: 105, angle: -3 },
+  viewBox: '0 0 760 630',
+  mainPath: `M 395,98 L 552,82 Q 600,76 628,108
+    L 656,150 Q 676,186 670,230
+    L 654,284 Q 640,322 606,348
+    L 550,390 Q 522,412 515,446
+    L 515,480 Q 522,514 555,535
+    L 594,558 Q 622,574 612,598
+    L 585,614 Q 552,624 515,618
+    L 378,592 Q 308,575 255,536
+    L 188,484 Q 140,438 112,385
+    L 86,318 Q 64,260 75,202
+    L 98,154 Q 132,114 188,98
+    L 288,84 Q 340,85 395,98 Z
+    M 420,168 L 510,158 Q 545,155 558,182
+    L 568,215 Q 572,246 555,270 L 528,295
+    Q 502,312 468,316 L 422,318
+    Q 392,315 378,290 L 368,262
+    Q 364,232 380,210 L 402,188
+    Q 412,175 420,168 Z`,
+  pitLanePath: 'M 395,98 L 372,122 Q 350,146 312,150 L 222,154 L 185,140',
+  startFinishLine: { x: 395, y: 98, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.15 },
-    { startPercent: 0.55, endPercent: 0.72 },
+    { startPercent: 0.56, endPercent: 0.73 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.12, speedFactor: 0.4 },
-    { percent: 0.18, speedFactor: 0.5 },
+    { percent: 0.12, speedFactor: 0.38 },
+    { percent: 0.18, speedFactor: 0.48 },
     { percent: 0.25, speedFactor: 0.95 },
-    { percent: 0.35, speedFactor: 0.45 },
-    { percent: 0.42, speedFactor: 0.5 },
+    { percent: 0.35, speedFactor: 0.42 },
+    { percent: 0.42, speedFactor: 0.48 },
     { percent: 0.5, speedFactor: 0.95 },
-    { percent: 0.6, speedFactor: 0.5 },
-    { percent: 0.65, speedFactor: 0.55 },
-    { percent: 0.75, speedFactor: 0.45 },
-    { percent: 0.85, speedFactor: 0.9 },
+    { percent: 0.6, speedFactor: 0.48 },
+    { percent: 0.65, speedFactor: 0.52 },
+    { percent: 0.75, speedFactor: 0.42 },
+    { percent: 0.85, speedFactor: 0.92 },
     { percent: 1, speedFactor: 0.95 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 17. BAKU — Long narrow city streets with mega straight
+// 16. MADRID — IFEMA Madrid Street Circuit (new 2026)
+//     Distinctive: compact urban layout around IFEMA exhibition centre,
+//     mix of long straights and tight 90° turns, inner section loops
+// ─────────────────────────────────────────────
+const madrid: TrackPathData = {
+  trackId: 'madrid',
+  viewBox: '0 0 820 640',
+  mainPath: `M 415,78 L 618,78 Q 668,78 692,115
+    L 722,170 Q 742,216 740,270
+    L 736,335 Q 725,385 688,416
+    L 632,458 Q 598,482 560,498
+    L 502,518 Q 465,527 437,553
+    L 406,580 Q 375,600 332,600
+    L 256,594 Q 205,587 165,552
+    L 116,507 Q 80,468 68,424
+    L 56,366 Q 50,315 70,268
+    L 100,220 Q 134,178 180,154
+    L 254,122 Q 318,100 415,78 Z
+    M 385,200 L 498,190 Q 538,187 558,218
+    L 572,258 Q 580,292 564,322 L 534,354
+    Q 508,376 474,384 L 420,392
+    Q 386,395 364,370 L 348,344
+    Q 339,315 350,288 L 366,256
+    Q 374,228 385,200 Z`,
+  pitLanePath: 'M 415,78 L 398,110 Q 380,140 344,143 L 250,145 L 212,128',
+  startFinishLine: { x: 415, y: 78, angle: 0 },
+  drsZones: [
+    { startPercent: 0, endPercent: 0.14 },
+    { startPercent: 0.56, endPercent: 0.71 },
+  ],
+  sectorSplits: [0.33, 0.66],
+  speedProfile: [
+    { percent: 0, speedFactor: 0.95 },
+    { percent: 0.1, speedFactor: 0.5 },
+    { percent: 0.2, speedFactor: 0.82 },
+    { percent: 0.3, speedFactor: 0.55 },
+    { percent: 0.4, speedFactor: 0.88 },
+    { percent: 0.5, speedFactor: 0.5 },
+    { percent: 0.6, speedFactor: 0.78 },
+    { percent: 0.7, speedFactor: 0.92 },
+    { percent: 0.8, speedFactor: 0.52 },
+    { percent: 0.9, speedFactor: 0.72 },
+    { percent: 1, speedFactor: 0.88 },
+  ],
+};
+
+// ─────────────────────────────────────────────
+// 17. BAKU — Azerbaijan City Circuit
+//     Distinctive: world's longest DRS straight (2.2 km pit straight),
+//     very tall elongated key-like shape, medieval old town tight castle
+//     section (T8-T14), wide middle section, mega hairpin T3
 // ─────────────────────────────────────────────
 const baku: TrackPathData = {
   trackId: 'baku',
-  viewBox: '0 0 400 800',
-  mainPath: 'M 205,65 L 285,65 Q 320,65 335,95 L 345,145 Q 350,180 335,210 L 300,250 Q 280,270 275,300 L 270,400 Q 268,440 285,465 L 315,505 Q 340,535 340,575 L 335,640 Q 330,685 300,710 L 260,740 Q 225,758 185,755 L 145,745 Q 110,735 85,705 L 65,670 Q 50,640 55,605 L 70,555 Q 85,520 110,495 L 145,465 Q 165,445 170,420 L 175,345 Q 175,305 160,280 L 130,240 Q 110,215 115,185 L 125,150 Q 135,120 160,100 L 180,80 Q 195,68 205,65 Z',
-  pitLanePath: 'M 205,65 L 205,95 Q 205,125 185,125 L 130,135 Q 105,140 95,165',
-  startFinishLine: { x: 205, y: 65, angle: 0 },
+  viewBox: '0 0 420 840',
+  mainPath: `M 212,55 L 298,55 Q 338,55 354,90
+    L 366,148 Q 370,188 352,218 L 314,260
+    Q 292,284 285,315 L 280,415
+    Q 278,462 298,490 L 330,532
+    Q 358,566 358,612 L 350,678
+    Q 342,728 308,754 L 264,782
+    Q 228,800 186,796 L 144,785
+    Q 106,772 80,740 L 56,706
+    Q 38,676 44,642 L 60,584
+    Q 76,546 106,518 L 146,484
+    Q 170,460 175,430 L 180,350
+    Q 180,305 165,278 L 132,240
+    Q 110,212 116,178 L 128,142
+    Q 142,110 170,90 L 192,72
+    Q 204,60 212,55 Z`,
+  pitLanePath: 'M 212,55 L 212,88 Q 212,118 186,120 L 128,132 L 105,162',
+  startFinishLine: { x: 212, y: 55, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.08 },
     { startPercent: 0.4, endPercent: 0.58 },
@@ -509,223 +771,396 @@ const baku: TrackPathData = {
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.08, speedFactor: 0.4 },
-    { percent: 0.15, speedFactor: 0.55 },
-    { percent: 0.25, speedFactor: 0.45 },
-    { percent: 0.35, speedFactor: 0.6 },
+    { percent: 0.08, speedFactor: 0.38 },
+    { percent: 0.15, speedFactor: 0.52 },
+    { percent: 0.25, speedFactor: 0.42 },
+    { percent: 0.35, speedFactor: 0.58 },
     { percent: 0.45, speedFactor: 1 },
-    { percent: 0.55, speedFactor: 0.4 },
-    { percent: 0.65, speedFactor: 0.55 },
-    { percent: 0.75, speedFactor: 0.45 },
-    { percent: 0.85, speedFactor: 0.5 },
-    { percent: 0.92, speedFactor: 0.65 },
-    { percent: 1, speedFactor: 0.85 },
+    { percent: 0.55, speedFactor: 0.38 },
+    { percent: 0.65, speedFactor: 0.52 },
+    { percent: 0.75, speedFactor: 0.42 },
+    { percent: 0.85, speedFactor: 0.48 },
+    { percent: 0.92, speedFactor: 0.62 },
+    { percent: 1, speedFactor: 0.88 },
   ],
 };
 
 // ─────────────────────────────────────────────
 // 18. MARINA BAY — Singapore night street circuit
+//     Distinctive: rectangular bayfront loop, wide Raffles Boulevard straight,
+//     multiple 90° right-angle corners, Anderson Bridge, Esplanade flyover section
 // ─────────────────────────────────────────────
 const marinaBay: TrackPathData = {
   trackId: 'marina_bay',
-  viewBox: '0 0 700 600',
-  mainPath: 'M 365,85 L 510,75 Q 555,70 590,100 L 625,140 Q 650,175 645,220 L 635,275 Q 625,315 600,345 L 565,385 Q 540,410 540,445 L 540,485 Q 540,520 510,540 L 455,565 Q 415,578 370,575 L 295,565 Q 245,555 205,525 L 155,480 Q 120,440 100,395 L 85,340 Q 75,290 85,245 L 105,195 Q 130,155 170,125 L 225,95 Q 280,75 365,85 Z',
-  pitLanePath: 'M 365,85 L 345,105 Q 325,125 295,128 L 215,135 Q 185,140 170,160',
-  startFinishLine: { x: 365, y: 85, angle: -3 },
+  viewBox: '0 0 720 620',
+  mainPath: `M 375,78 L 528,68 Q 575,62 610,96
+    L 648,142 Q 672,180 668,232
+    L 658,290 Q 644,334 615,365
+    L 578,406 Q 550,432 546,472
+    L 543,512 Q 540,548 508,568
+    L 448,592 Q 406,606 358,602
+    L 280,590 Q 226,580 184,546
+    L 130,498 Q 94,458 74,408
+    L 58,350 Q 48,296 60,248
+    L 84,196 Q 112,152 156,120
+    L 218,88 Q 280,70 375,78 Z
+    M 390,178 L 498,168 Q 535,165 550,195
+    L 562,232 Q 568,265 550,292 L 520,320
+    Q 494,340 460,346 L 408,350
+    Q 374,348 358,322 L 348,292
+    Q 344,265 358,242 L 378,215
+    Q 388,195 390,178 Z`,
+  pitLanePath: 'M 375,78 L 352,102 Q 330,126 298,130 L 215,136 L 182,160',
+  startFinishLine: { x: 375, y: 78, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.1 },
-    { startPercent: 0.35, endPercent: 0.48 },
-    { startPercent: 0.7, endPercent: 0.82 },
+    { startPercent: 0.36, endPercent: 0.49 },
+    { startPercent: 0.71, endPercent: 0.83 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
-    { percent: 0, speedFactor: 0.8 },
-    { percent: 0.1, speedFactor: 0.4 },
-    { percent: 0.2, speedFactor: 0.6 },
-    { percent: 0.3, speedFactor: 0.4 },
-    { percent: 0.4, speedFactor: 0.7 },
-    { percent: 0.5, speedFactor: 0.35 },
+    { percent: 0, speedFactor: 0.82 },
+    { percent: 0.1, speedFactor: 0.38 },
+    { percent: 0.2, speedFactor: 0.62 },
+    { percent: 0.3, speedFactor: 0.38 },
+    { percent: 0.4, speedFactor: 0.72 },
+    { percent: 0.5, speedFactor: 0.33 },
     { percent: 0.6, speedFactor: 0.55 },
-    { percent: 0.7, speedFactor: 0.8 },
-    { percent: 0.8, speedFactor: 0.4 },
-    { percent: 0.9, speedFactor: 0.6 },
-    { percent: 1, speedFactor: 0.7 },
+    { percent: 0.7, speedFactor: 0.82 },
+    { percent: 0.8, speedFactor: 0.38 },
+    { percent: 0.9, speedFactor: 0.62 },
+    { percent: 1, speedFactor: 0.72 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 19. COTA — Circuit of the Americas, Turn 1 hill + esses
+// 19. COTA — Circuit of the Americas, Austin Texas
+//     Distinctive: uphill blind T1 hairpin, epic S-curves esses (T3-T9),
+//     long back straight T12-T13, stadium section with T16-T19 tight complex,
+//     big sweeping T18 bend, long T20 final sweeper onto pit straight
 // ─────────────────────────────────────────────
 const americas: TrackPathData = {
   trackId: 'americas',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 400,105 L 540,85 Q 590,78 630,105 L 675,145 Q 710,185 720,235 L 725,295 Q 722,345 695,385 L 650,430 Q 620,460 600,495 L 585,530 Q 565,558 525,568 L 420,580 Q 360,582 305,560 L 235,525 Q 185,495 150,450 L 110,390 Q 80,335 75,275 L 75,220 Q 78,170 110,135 L 165,100 Q 220,78 295,80 L 400,105 Z',
-  pitLanePath: 'M 400,105 L 385,130 Q 370,155 335,158 L 245,160 Q 210,160 195,145',
-  startFinishLine: { x: 400, y: 105, angle: -5 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 412,96 L 562,76 Q 615,68 655,100
+    L 700,148 Q 734,192 740,248
+    L 742,312 Q 738,365 706,402
+    L 658,450 Q 624,480 602,520
+    L 585,558 Q 565,584 520,594
+    L 412,606 Q 348,608 290,582
+    L 218,542 Q 164,510 128,464
+    L 88,400 Q 58,342 52,278
+    L 52,220 Q 56,168 92,132
+    L 150,98 Q 210,74 290,76 L 412,96 Z
+    M 485,172 Q 506,150 530,158
+    L 556,172 Q 576,190 572,218
+    Q 566,248 540,256 L 510,260
+    Q 483,258 468,238 Q 453,218 485,172 Z
+    M 355,340 L 432,328 Q 465,325 478,350
+    L 488,382 Q 492,412 475,435 L 448,458
+    Q 422,475 390,480 L 345,482
+    Q 315,480 300,457 L 292,428
+    Q 290,402 305,382 L 328,360
+    Q 342,345 355,340 Z`,
+  pitLanePath: 'M 412,96 L 395,125 Q 378,154 340,157 L 248,160 L 212,143',
+  startFinishLine: { x: 412, y: 96, angle: -5 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.58, endPercent: 0.72 },
+    { startPercent: 0.59, endPercent: 0.73 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.95 },
-    { percent: 0.05, speedFactor: 0.4 },
-    { percent: 0.12, speedFactor: 0.7 },
+    { percent: 0.05, speedFactor: 0.38 },
+    { percent: 0.12, speedFactor: 0.72 },
     { percent: 0.2, speedFactor: 0.55 },
-    { percent: 0.3, speedFactor: 0.85 },
+    { percent: 0.3, speedFactor: 0.88 },
     { percent: 0.4, speedFactor: 0.5 },
-    { percent: 0.5, speedFactor: 0.75 },
+    { percent: 0.5, speedFactor: 0.78 },
     { percent: 0.6, speedFactor: 0.95 },
-    { percent: 0.7, speedFactor: 0.45 },
+    { percent: 0.7, speedFactor: 0.42 },
     { percent: 0.8, speedFactor: 0.65 },
-    { percent: 0.9, speedFactor: 0.5 },
-    { percent: 1, speedFactor: 0.85 },
+    { percent: 0.9, speedFactor: 0.52 },
+    { percent: 1, speedFactor: 0.88 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 20. HERMANOS RODRÍGUEZ — Mexico, stadium section peraltada
+// 20. HERMANOS RODRIGUEZ — Mexico City
+//     Distinctive: outer loop feeds into iconic Peraltada stadium hairpin,
+//     long main straight, compact infield technical section (T1-T7),
+//     the Peraltada wide sweeping bowl (T16-T17)
 // ─────────────────────────────────────────────
 const rodriguez: TrackPathData = {
   trackId: 'rodriguez',
-  viewBox: '0 0 800 500',
-  mainPath: 'M 415,85 L 570,75 Q 620,70 660,100 L 705,145 Q 735,180 740,225 L 740,280 Q 735,325 705,355 L 655,395 Q 625,418 605,440 L 590,455 Q 565,472 525,475 L 400,470 Q 340,465 290,440 L 225,400 Q 180,370 150,330 L 115,275 Q 90,225 85,175 L 85,135 Q 88,100 115,82 L 185,62 Q 250,52 340,65 L 415,85 Z',
-  pitLanePath: 'M 415,85 L 395,105 Q 375,125 345,128 L 250,128 Q 220,128 200,110',
-  startFinishLine: { x: 415, y: 85, angle: -3 },
+  viewBox: '0 0 820 520',
+  mainPath: `M 428,78 L 585,68 Q 638,62 678,96
+    L 722,144 Q 752,182 756,234
+    L 756,292 Q 750,342 718,374
+    L 665,418 Q 632,442 608,470
+    L 590,486 Q 564,505 520,508
+    L 395,502 Q 332,495 280,468
+    L 214,426 Q 168,392 140,348
+    L 108,290 Q 82,238 78,184
+    L 78,140 Q 82,104 112,82
+    L 185,62 Q 255,48 348,62 L 428,78 Z
+    M 480,175 L 565,165 Q 600,162 615,192
+    L 625,228 Q 630,260 612,288 L 582,315
+    Q 555,335 522,340 L 468,342
+    Q 435,340 420,315 L 410,282
+    Q 406,252 422,228 L 445,202
+    Q 460,183 480,175 Z`,
+  pitLanePath: 'M 428,78 L 406,100 Q 385,124 352,126 L 254,126 L 220,108',
+  startFinishLine: { x: 428, y: 78, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.42, endPercent: 0.56 },
-    { startPercent: 0.72, endPercent: 0.86 },
+    { startPercent: 0.43, endPercent: 0.57 },
+    { startPercent: 0.73, endPercent: 0.87 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
     { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.2, speedFactor: 0.8 },
+    { percent: 0.2, speedFactor: 0.82 },
     { percent: 0.3, speedFactor: 0.45 },
-    { percent: 0.4, speedFactor: 0.55 },
-    { percent: 0.5, speedFactor: 0.9 },
+    { percent: 0.4, speedFactor: 0.58 },
+    { percent: 0.5, speedFactor: 0.92 },
     { percent: 0.6, speedFactor: 0.5 },
     { percent: 0.7, speedFactor: 0.45 },
-    { percent: 0.8, speedFactor: 0.8 },
+    { percent: 0.8, speedFactor: 0.82 },
     { percent: 0.9, speedFactor: 0.55 },
-    { percent: 1, speedFactor: 0.85 },
+    { percent: 1, speedFactor: 0.88 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 21. INTERLAGOS — São Paulo, anti-clockwise, compact with elevation
+// 21. INTERLAGOS — Autódromo José Carlos Pace, São Paulo
+//     Distinctive: anti-clockwise compact circuit, short sweeping outer
+//     Senna S double-left (T1-T2), long descent sector 2, Junção hairpin
+//     T8, Pinheirinho S, tight final Bico de Pato and Mergulho, elevation changes
 // ─────────────────────────────────────────────
 const interlagos: TrackPathData = {
   trackId: 'interlagos',
-  viewBox: '0 0 700 500',
-  mainPath: 'M 410,85 L 530,75 Q 575,70 610,100 L 640,140 Q 658,175 655,220 L 645,275 Q 635,315 605,345 L 555,390 Q 525,415 510,440 L 500,460 Q 485,478 450,480 L 350,475 Q 295,470 250,445 L 195,410 Q 155,375 130,335 L 100,280 Q 80,235 85,190 L 95,145 Q 110,110 145,92 L 220,70 Q 290,58 380,75 L 410,85 Z',
-  pitLanePath: 'M 410,85 L 390,105 Q 370,125 340,128 L 250,128 Q 220,128 205,110',
-  startFinishLine: { x: 410, y: 85, angle: -3 },
+  viewBox: '0 0 720 520',
+  mainPath: `M 420,78 L 548,68 Q 596,62 630,96
+    L 660,142 Q 680,180 676,230
+    L 665,288 Q 652,332 618,362
+    L 565,406 Q 532,432 515,460
+    L 504,482 Q 488,500 450,502
+    L 348,495 Q 292,488 246,460
+    L 190,422 Q 148,385 122,342
+    L 92,284 Q 72,235 76,188
+    L 88,142 Q 105,108 142,90
+    L 220,67 Q 292,54 385,70 L 420,78 Z
+    M 438,178 L 530,168 Q 565,165 578,195
+    L 588,228 Q 592,260 575,286 L 548,312
+    Q 522,330 490,335 L 440,337
+    Q 408,335 393,310 L 382,280
+    Q 378,252 393,230 L 415,205
+    Q 428,188 438,178 Z`,
+  pitLanePath: 'M 420,78 L 398,100 Q 376,124 344,126 L 252,126 L 218,108',
+  startFinishLine: { x: 420, y: 78, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.55, endPercent: 0.7 },
+    { startPercent: 0.56, endPercent: 0.71 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.9 },
-    { percent: 0.08, speedFactor: 0.4 },
-    { percent: 0.18, speedFactor: 0.7 },
+    { percent: 0.08, speedFactor: 0.38 },
+    { percent: 0.18, speedFactor: 0.72 },
     { percent: 0.28, speedFactor: 0.55 },
-    { percent: 0.4, speedFactor: 0.85 },
+    { percent: 0.4, speedFactor: 0.88 },
     { percent: 0.5, speedFactor: 0.5 },
-    { percent: 0.6, speedFactor: 0.75 },
+    { percent: 0.6, speedFactor: 0.78 },
     { percent: 0.7, speedFactor: 0.45 },
-    { percent: 0.8, speedFactor: 0.6 },
+    { percent: 0.8, speedFactor: 0.62 },
     { percent: 0.9, speedFactor: 0.5 },
-    { percent: 1, speedFactor: 0.8 },
+    { percent: 1, speedFactor: 0.82 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 22. LAS VEGAS — Strip circuit, long straights with tight 90° turns
+// 22. LAS VEGAS STRIP CIRCUIT
+//     Distinctive: three very long parallel straights around the Strip,
+//     sharp 90° right-angle corners, Sphere hairpin T12, MSG Sphere section,
+//     Caesars Palace chicane, exceptionally high top speed circuit
 // ─────────────────────────────────────────────
 const lasVegas: TrackPathData = {
   trackId: 'las_vegas',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 420,85 L 620,85 Q 665,85 690,115 L 720,160 Q 740,195 740,240 L 740,320 Q 740,370 710,400 L 660,445 Q 630,470 590,480 L 520,495 Q 480,500 450,525 L 410,555 Q 380,575 340,575 L 250,570 Q 195,560 155,525 L 110,480 Q 75,440 65,390 L 60,330 Q 58,275 75,225 L 105,175 Q 140,135 190,110 L 270,85 Q 345,72 420,85 Z',
-  pitLanePath: 'M 420,85 L 400,110 Q 380,135 345,138 L 255,140 Q 220,142 200,125',
-  startFinishLine: { x: 420, y: 85, angle: 0 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 430,78 L 645,78 Q 692,78 716,116
+    L 744,168 Q 764,210 764,260
+    L 764,348 Q 760,402 727,432
+    L 674,476 Q 640,502 596,514
+    L 525,530 Q 482,538 452,566
+    L 414,594 Q 380,612 336,612
+    L 245,606 Q 188,596 148,561
+    L 100,514 Q 62,473 50,422
+    L 44,356 Q 42,295 62,244
+    L 96,192 Q 134,150 188,124
+    L 275,88 Q 352,70 430,78 Z
+    M 468,175 L 600,168 Q 638,165 652,196
+    L 662,232 Q 668,265 650,292 L 620,320
+    Q 592,340 558,346 L 500,350
+    Q 465,348 450,322 L 440,290
+    Q 436,262 450,240 L 458,210
+    Q 464,190 468,175 Z`,
+  pitLanePath: 'M 430,78 L 410,108 Q 390,136 352,140 L 258,142 L 220,126',
+  startFinishLine: { x: 430, y: 78, angle: 0 },
   drsZones: [
     { startPercent: 0, endPercent: 0.14 },
-    { startPercent: 0.55, endPercent: 0.72 },
+    { startPercent: 0.56, endPercent: 0.73 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 1 },
-    { percent: 0.1, speedFactor: 0.45 },
-    { percent: 0.2, speedFactor: 0.9 },
-    { percent: 0.3, speedFactor: 0.5 },
+    { percent: 0.1, speedFactor: 0.42 },
+    { percent: 0.2, speedFactor: 0.92 },
+    { percent: 0.3, speedFactor: 0.48 },
     { percent: 0.4, speedFactor: 0.95 },
-    { percent: 0.5, speedFactor: 0.45 },
-    { percent: 0.6, speedFactor: 0.85 },
-    { percent: 0.7, speedFactor: 0.5 },
-    { percent: 0.8, speedFactor: 0.9 },
-    { percent: 0.9, speedFactor: 0.55 },
-    { percent: 1, speedFactor: 0.9 },
+    { percent: 0.5, speedFactor: 0.42 },
+    { percent: 0.6, speedFactor: 0.88 },
+    { percent: 0.7, speedFactor: 0.48 },
+    { percent: 0.8, speedFactor: 0.92 },
+    { percent: 0.9, speedFactor: 0.52 },
+    { percent: 1, speedFactor: 0.92 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 23. LUSAIL — Qatar, flowing fast desert circuit
+// 23. LUSAIL — Qatar: flowing high-speed desert circuit
+//     Distinctive: large sweeping wide curves, like a horseshoe/crescent shape,
+//     no real hairpins, mostly high-speed T1 and T16 semi-circles,
+//     flowing Turns 6-15 connecting inner loop
 // ─────────────────────────────────────────────
 const lusail: TrackPathData = {
   trackId: 'lusail',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 440,95 L 580,85 Q 630,80 665,110 L 710,155 Q 740,195 745,245 L 745,310 Q 740,360 710,395 L 660,440 Q 625,470 595,500 L 560,530 Q 530,555 485,560 L 380,565 Q 325,562 275,540 L 215,505 Q 170,470 140,425 L 105,365 Q 80,310 80,255 L 85,195 Q 95,145 135,115 L 195,85 Q 255,65 335,75 L 440,95 Z',
-  pitLanePath: 'M 440,95 L 420,120 Q 400,145 365,148 L 270,150 Q 235,152 215,135',
-  startFinishLine: { x: 440, y: 95, angle: -3 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 452,88 L 598,78 Q 652,72 686,108
+    L 730,160 Q 760,204 764,260
+    L 764,328 Q 758,382 725,418
+    L 672,465 Q 635,494 602,525
+    L 566,555 Q 532,580 484,587
+    L 375,590 Q 318,586 265,562
+    L 202,524 Q 156,488 126,440
+    L 90,378 Q 64,320 64,260
+    L 68,198 Q 80,148 122,115
+    L 188,84 Q 252,62 336,73 L 452,88 Z`,
+  pitLanePath: 'M 452,88 L 430,118 Q 410,148 372,150 L 276,152 L 240,136',
+  startFinishLine: { x: 452, y: 88, angle: -3 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.95 },
-    { percent: 0.08, speedFactor: 0.5 },
-    { percent: 0.15, speedFactor: 0.8 },
-    { percent: 0.22, speedFactor: 0.6 },
-    { percent: 0.3, speedFactor: 0.85 },
-    { percent: 0.4, speedFactor: 0.55 },
-    { percent: 0.5, speedFactor: 0.7 },
-    { percent: 0.6, speedFactor: 0.85 },
-    { percent: 0.7, speedFactor: 0.5 },
-    { percent: 0.8, speedFactor: 0.75 },
-    { percent: 0.9, speedFactor: 0.6 },
-    { percent: 1, speedFactor: 0.85 },
+    { percent: 0.08, speedFactor: 0.52 },
+    { percent: 0.15, speedFactor: 0.82 },
+    { percent: 0.22, speedFactor: 0.62 },
+    { percent: 0.3, speedFactor: 0.88 },
+    { percent: 0.4, speedFactor: 0.58 },
+    { percent: 0.5, speedFactor: 0.72 },
+    { percent: 0.6, speedFactor: 0.88 },
+    { percent: 0.7, speedFactor: 0.52 },
+    { percent: 0.8, speedFactor: 0.78 },
+    { percent: 0.9, speedFactor: 0.62 },
+    { percent: 1, speedFactor: 0.88 },
   ],
 };
 
 // ─────────────────────────────────────────────
-// 24. YAS MARINA — Abu Dhabi, hotel & harbor section
+// 24. YAS MARINA — Abu Dhabi: W Hotel underpass section, marina hairpin
+//     Distinctive: main elongated outer loop, unique chicane that passes
+//     UNDER the iconic W Hotel building, marina inner loop section with
+//     two hairpins, Yas Viaduct, long pit straight back to T1
 // ─────────────────────────────────────────────
 const yasMarina: TrackPathData = {
   trackId: 'yas_marina',
-  viewBox: '0 0 800 600',
-  mainPath: 'M 415,105 L 565,88 Q 615,82 650,110 L 695,155 Q 725,195 730,245 L 730,305 Q 725,355 695,390 L 650,430 Q 620,458 605,490 L 595,520 Q 580,550 540,560 L 430,572 Q 370,575 315,550 L 245,510 Q 195,478 160,435 L 120,375 Q 90,320 85,260 L 85,200 Q 90,150 125,118 L 185,88 Q 245,68 330,78 L 415,105 Z',
-  pitLanePath: 'M 415,105 L 395,128 Q 375,148 340,150 L 250,152 Q 215,152 200,135',
-  startFinishLine: { x: 415, y: 105, angle: -5 },
+  viewBox: '0 0 820 620',
+  mainPath: `M 425,98 L 582,80 Q 636,73 670,108
+    L 716,160 Q 745,205 748,260
+    L 748,325 Q 742,378 708,414
+    L 658,458 Q 624,486 607,522
+    L 594,555 Q 578,585 534,595
+    L 425,608 Q 361,610 304,583
+    L 231,540 Q 178,508 143,462
+    L 103,398 Q 72,340 65,275
+    L 65,210 Q 72,158 110,124
+    L 175,92 Q 240,68 330,78 L 425,98 Z
+    M 505,222 L 580,210 Q 618,206 634,238
+    L 645,275 Q 650,308 632,336 L 602,362
+    Q 574,382 540,388 L 488,392
+    Q 455,390 438,364 L 428,332
+    Q 422,302 438,278 L 460,252
+    Q 480,232 505,222 Z
+    M 340,440 L 412,430 Q 445,426 458,454
+    L 466,486 Q 469,515 452,538 L 428,558
+    Q 405,572 375,575 L 330,574
+    Q 300,570 286,545 L 280,516
+    Q 278,490 295,470 L 318,452
+    Q 330,442 340,440 Z`,
+  pitLanePath: 'M 425,98 L 402,126 Q 380,150 344,152 L 250,154 L 214,138',
+  startFinishLine: { x: 425, y: 98, angle: -5 },
   drsZones: [
     { startPercent: 0, endPercent: 0.12 },
-    { startPercent: 0.55, endPercent: 0.7 },
+    { startPercent: 0.56, endPercent: 0.71 },
   ],
   sectorSplits: [0.33, 0.66],
   speedProfile: [
     { percent: 0, speedFactor: 0.95 },
     { percent: 0.1, speedFactor: 0.5 },
-    { percent: 0.2, speedFactor: 0.8 },
+    { percent: 0.2, speedFactor: 0.82 },
     { percent: 0.3, speedFactor: 0.55 },
-    { percent: 0.4, speedFactor: 0.7 },
-    { percent: 0.5, speedFactor: 0.5 },
-    { percent: 0.6, speedFactor: 0.85 },
+    { percent: 0.4, speedFactor: 0.72 },
+    { percent: 0.5, speedFactor: 0.52 },
+    { percent: 0.6, speedFactor: 0.88 },
     { percent: 0.7, speedFactor: 0.45 },
-    { percent: 0.8, speedFactor: 0.7 },
+    { percent: 0.8, speedFactor: 0.72 },
     { percent: 0.9, speedFactor: 0.55 },
-    { percent: 1, speedFactor: 0.85 },
+    { percent: 1, speedFactor: 0.88 },
+  ],
+};
+
+// ─────────────────────────────────────────────
+// IMOLA — Autodromo Enzo e Dino Ferrari
+//    Distinctive: Tamburello chicane (T1-2), Tosa hairpin (T5), Piratella
+//    (T6), Acque Minerali (T7-8), Variante Alta (T9-10), Rivazza hairpins
+// ─────────────────────────────────────────────
+const imola: TrackPathData = {
+  trackId: 'imola',
+  viewBox: '0 0 800 500',
+  mainPath: `M 432,70 L 575,56 Q 624,50 662,78 L 705,118
+    Q 735,154 738,204 L 736,258 Q 728,302 696,330
+    L 638,372 Q 608,392 598,428 L 594,462
+    Q 584,492 542,504 L 435,512 Q 378,512 325,488
+    L 258,450 Q 220,428 194,394 L 152,338
+    Q 124,298 108,255 L 92,200 Q 82,156 100,118
+    L 138,80 Q 182,52 240,52 L 352,62 Q 392,66 432,70 Z
+    M 460,155 L 545,145 Q 578,142 592,170
+    L 600,205 Q 604,238 585,262 L 558,288
+    Q 532,306 498,310 L 450,312 Q 420,310 405,285
+    L 396,255 Q 392,224 408,202 L 432,178
+    Q 445,160 460,155 Z`,
+  pitLanePath: 'M 432,70 L 418,98 Q 404,126 370,128 L 278,124 Q 242,124 222,108',
+  startFinishLine: { x: 432, y: 70, angle: -3 },
+  drsZones: [
+    { startPercent: 0, endPercent: 0.14 },
+    { startPercent: 0.58, endPercent: 0.72 },
+  ],
+  sectorSplits: [0.33, 0.66],
+  speedProfile: [
+    { percent: 0, speedFactor: 0.92 },
+    { percent: 0.1, speedFactor: 0.48 },
+    { percent: 0.2, speedFactor: 0.78 },
+    { percent: 0.3, speedFactor: 0.62 },
+    { percent: 0.4, speedFactor: 0.45 },
+    { percent: 0.55, speedFactor: 0.92 },
+    { percent: 0.65, speedFactor: 0.48 },
+    { percent: 0.75, speedFactor: 0.72 },
+    { percent: 0.85, speedFactor: 0.55 },
+    { percent: 0.95, speedFactor: 0.82 },
+    { percent: 1, speedFactor: 0.88 },
   ],
 };
 
@@ -741,15 +1176,16 @@ export const ALL_TRACK_PATHS: TrackPathData[] = [
   jeddah,
   miami,
   imola,
+  villeneuve,
   monaco,
   catalunya,
-  villeneuve,
   redBullRing,
   silverstone,
   spa,
   hungaroring,
   zandvoort,
   monza,
+  madrid,
   baku,
   marinaBay,
   americas,
