@@ -18,34 +18,78 @@ interface TrackConfig {
   safetyCarProbability: number;
   pitWindowStart: number;
   pitWindowEnd: number;
+  /** Authoritative circuit length from F1 22 UDP spec (metres). */
+  circuitLengthM: number;
+  /** Total turn count per FIA homologation / F1 22 UDP spec. */
+  totalTurns: number;
+  /** F1 22 integer trackId from PacketSessionData.m_trackId. -1 = not in F1 22. */
+  f1_22TrackId: number;
 }
 
 const TRACK_CONFIGS: TrackConfig[] = [
-  { id: 'bahrain', name: 'Bahrain International Circuit', grandPrixName: 'Bahrain Grand Prix', totalLaps: 57, baseLapTimeSeconds: 91, overtakeDifficulty: 0.3, tyreDegradation: 0.75, rainProbability: 0.02, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42 },
-  { id: 'jeddah', name: 'Jeddah Corniche Circuit', grandPrixName: 'Saudi Arabian Grand Prix', totalLaps: 50, baseLapTimeSeconds: 90, overtakeDifficulty: 0.4, tyreDegradation: 0.5, rainProbability: 0.01, safetyCarProbability: 0.35, pitWindowStart: 12, pitWindowEnd: 38 },
-  { id: 'albert_park', name: 'Albert Park Circuit', grandPrixName: 'Australian Grand Prix', totalLaps: 58, baseLapTimeSeconds: 80, overtakeDifficulty: 0.4, tyreDegradation: 0.55, rainProbability: 0.2, safetyCarProbability: 0.3, pitWindowStart: 15, pitWindowEnd: 43 },
-  { id: 'suzuka', name: 'Suzuka Circuit', grandPrixName: 'Japanese Grand Prix', totalLaps: 53, baseLapTimeSeconds: 91, overtakeDifficulty: 0.65, tyreDegradation: 0.6, rainProbability: 0.3, safetyCarProbability: 0.2, pitWindowStart: 13, pitWindowEnd: 40 },
-  { id: 'shanghai', name: 'Shanghai International Circuit', grandPrixName: 'Chinese Grand Prix', totalLaps: 56, baseLapTimeSeconds: 94, overtakeDifficulty: 0.3, tyreDegradation: 0.65, rainProbability: 0.25, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42 },
-  { id: 'miami', name: 'Miami International Autodrome', grandPrixName: 'Miami Grand Prix', totalLaps: 57, baseLapTimeSeconds: 90, overtakeDifficulty: 0.35, tyreDegradation: 0.6, rainProbability: 0.15, safetyCarProbability: 0.25, pitWindowStart: 14, pitWindowEnd: 42 },
-  { id: 'imola', name: 'Autodromo Enzo e Dino Ferrari', grandPrixName: 'Emilia Romagna Grand Prix', totalLaps: 63, baseLapTimeSeconds: 76, overtakeDifficulty: 0.6, tyreDegradation: 0.5, rainProbability: 0.2, safetyCarProbability: 0.2, pitWindowStart: 16, pitWindowEnd: 47 },
-  { id: 'monaco', name: 'Circuit de Monaco', grandPrixName: 'Monaco Grand Prix', totalLaps: 78, baseLapTimeSeconds: 73, overtakeDifficulty: 0.9, tyreDegradation: 0.35, rainProbability: 0.1, safetyCarProbability: 0.4, pitWindowStart: 20, pitWindowEnd: 58 },
-  { id: 'villeneuve', name: 'Circuit Gilles Villeneuve', grandPrixName: 'Canadian Grand Prix', totalLaps: 70, baseLapTimeSeconds: 73, overtakeDifficulty: 0.3, tyreDegradation: 0.45, rainProbability: 0.2, safetyCarProbability: 0.4, pitWindowStart: 18, pitWindowEnd: 52 },
-  { id: 'catalunya', name: 'Circuit de Barcelona-Catalunya', grandPrixName: 'Spanish Grand Prix', totalLaps: 66, baseLapTimeSeconds: 77, overtakeDifficulty: 0.55, tyreDegradation: 0.8, rainProbability: 0.08, safetyCarProbability: 0.12, pitWindowStart: 16, pitWindowEnd: 49 },
-  { id: 'red_bull_ring', name: 'Red Bull Ring', grandPrixName: 'Austrian Grand Prix', totalLaps: 71, baseLapTimeSeconds: 66, overtakeDifficulty: 0.25, tyreDegradation: 0.55, rainProbability: 0.25, safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 53 },
-  { id: 'silverstone', name: 'Silverstone Circuit', grandPrixName: 'British Grand Prix', totalLaps: 52, baseLapTimeSeconds: 87, overtakeDifficulty: 0.4, tyreDegradation: 0.65, rainProbability: 0.35, safetyCarProbability: 0.15, pitWindowStart: 13, pitWindowEnd: 39 },
-  { id: 'hungaroring', name: 'Hungaroring', grandPrixName: 'Hungarian Grand Prix', totalLaps: 70, baseLapTimeSeconds: 77, overtakeDifficulty: 0.7, tyreDegradation: 0.7, rainProbability: 0.15, safetyCarProbability: 0.12, pitWindowStart: 18, pitWindowEnd: 52 },
-  { id: 'spa', name: 'Circuit de Spa-Francorchamps', grandPrixName: 'Belgian Grand Prix', totalLaps: 44, baseLapTimeSeconds: 106, overtakeDifficulty: 0.25, tyreDegradation: 0.55, rainProbability: 0.45, safetyCarProbability: 0.25, pitWindowStart: 11, pitWindowEnd: 33 },
-  { id: 'zandvoort', name: 'Circuit Zandvoort', grandPrixName: 'Dutch Grand Prix', totalLaps: 72, baseLapTimeSeconds: 71, overtakeDifficulty: 0.7, tyreDegradation: 0.6, rainProbability: 0.2, safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 54 },
-  { id: 'monza', name: 'Autodromo Nazionale di Monza', grandPrixName: 'Italian Grand Prix', totalLaps: 53, baseLapTimeSeconds: 81, overtakeDifficulty: 0.2, tyreDegradation: 0.4, rainProbability: 0.12, safetyCarProbability: 0.18, pitWindowStart: 13, pitWindowEnd: 40 },
-  { id: 'baku', name: 'Baku City Circuit', grandPrixName: 'Azerbaijan Grand Prix', totalLaps: 51, baseLapTimeSeconds: 103, overtakeDifficulty: 0.3, tyreDegradation: 0.5, rainProbability: 0.05, safetyCarProbability: 0.45, pitWindowStart: 13, pitWindowEnd: 38 },
-  { id: 'marina_bay', name: 'Marina Bay Street Circuit', grandPrixName: 'Singapore Grand Prix', totalLaps: 62, baseLapTimeSeconds: 96, overtakeDifficulty: 0.65, tyreDegradation: 0.55, rainProbability: 0.25, safetyCarProbability: 0.45, pitWindowStart: 16, pitWindowEnd: 46 },
-  { id: 'americas', name: 'Circuit of the Americas', grandPrixName: 'United States Grand Prix', totalLaps: 56, baseLapTimeSeconds: 96, overtakeDifficulty: 0.35, tyreDegradation: 0.65, rainProbability: 0.15, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42 },
-  { id: 'rodriguez', name: 'Autódromo Hermanos Rodríguez', grandPrixName: 'Mexico City Grand Prix', totalLaps: 71, baseLapTimeSeconds: 78, overtakeDifficulty: 0.3, tyreDegradation: 0.7, rainProbability: 0.1, safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 53 },
-  { id: 'interlagos', name: 'Autódromo José Carlos Pace', grandPrixName: 'São Paulo Grand Prix', totalLaps: 71, baseLapTimeSeconds: 71, overtakeDifficulty: 0.3, tyreDegradation: 0.55, rainProbability: 0.35, safetyCarProbability: 0.25, pitWindowStart: 18, pitWindowEnd: 53 },
-  { id: 'las_vegas', name: 'Las Vegas Strip Circuit', grandPrixName: 'Las Vegas Grand Prix', totalLaps: 50, baseLapTimeSeconds: 93, overtakeDifficulty: 0.3, tyreDegradation: 0.5, rainProbability: 0.02, safetyCarProbability: 0.2, pitWindowStart: 12, pitWindowEnd: 38 },
-  { id: 'lusail', name: 'Lusail International Circuit', grandPrixName: 'Qatar Grand Prix', totalLaps: 57, baseLapTimeSeconds: 82, overtakeDifficulty: 0.45, tyreDegradation: 0.6, rainProbability: 0.01, safetyCarProbability: 0.12, pitWindowStart: 14, pitWindowEnd: 42 },
-  { id: 'yas_marina', name: 'Yas Marina Circuit', grandPrixName: 'Abu Dhabi Grand Prix', totalLaps: 58, baseLapTimeSeconds: 86, overtakeDifficulty: 0.4, tyreDegradation: 0.5, rainProbability: 0.01, safetyCarProbability: 0.12, pitWindowStart: 15, pitWindowEnd: 43 },
+  // ── F1 22 ID #3 ──
+  { id: 'bahrain',       name: 'Bahrain International Circuit',   grandPrixName: 'Bahrain Grand Prix',           totalLaps: 57, baseLapTimeSeconds: 91,  overtakeDifficulty: 0.3,  tyreDegradation: 0.75, rainProbability: 0.02, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42, circuitLengthM: 5412, totalTurns: 15, f1_22TrackId: 3  },
+  // ── F1 22 ID #30 ──
+  { id: 'jeddah',        name: 'Jeddah Corniche Circuit',          grandPrixName: 'Saudi Arabian Grand Prix',     totalLaps: 50, baseLapTimeSeconds: 90,  overtakeDifficulty: 0.4,  tyreDegradation: 0.5,  rainProbability: 0.01, safetyCarProbability: 0.35, pitWindowStart: 12, pitWindowEnd: 38, circuitLengthM: 6174, totalTurns: 27, f1_22TrackId: 30 },
+  // ── F1 22 ID #0 — 2023 chicane removal: length 5278m, turns reduced 16→14 ──
+  { id: 'albert_park',   name: 'Albert Park Circuit',              grandPrixName: 'Australian Grand Prix',        totalLaps: 58, baseLapTimeSeconds: 80,  overtakeDifficulty: 0.35, tyreDegradation: 0.55, rainProbability: 0.2,  safetyCarProbability: 0.3,  pitWindowStart: 15, pitWindowEnd: 43, circuitLengthM: 5278, totalTurns: 14, f1_22TrackId: 0  },
+  // ── F1 22 ID #13 ──
+  { id: 'suzuka',        name: 'Suzuka Circuit',                   grandPrixName: 'Japanese Grand Prix',          totalLaps: 53, baseLapTimeSeconds: 91,  overtakeDifficulty: 0.65, tyreDegradation: 0.6,  rainProbability: 0.3,  safetyCarProbability: 0.2,  pitWindowStart: 13, pitWindowEnd: 40, circuitLengthM: 5807, totalTurns: 18, f1_22TrackId: 13 },
+  // ── F1 22 ID #2 ──
+  { id: 'shanghai',      name: 'Shanghai International Circuit',   grandPrixName: 'Chinese Grand Prix',           totalLaps: 56, baseLapTimeSeconds: 94,  overtakeDifficulty: 0.3,  tyreDegradation: 0.65, rainProbability: 0.25, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42, circuitLengthM: 5451, totalTurns: 16, f1_22TrackId: 2  },
+  // ── F1 22 ID #31 ──
+  { id: 'miami',         name: 'Miami International Autodrome',    grandPrixName: 'Miami Grand Prix',             totalLaps: 57, baseLapTimeSeconds: 90,  overtakeDifficulty: 0.35, tyreDegradation: 0.6,  rainProbability: 0.15, safetyCarProbability: 0.25, pitWindowStart: 14, pitWindowEnd: 42, circuitLengthM: 5412, totalTurns: 19, f1_22TrackId: 31 },
+  // ── F1 22 ID #28 ──
+  { id: 'imola',         name: 'Autodromo Enzo e Dino Ferrari',    grandPrixName: 'Emilia Romagna Grand Prix',    totalLaps: 63, baseLapTimeSeconds: 76,  overtakeDifficulty: 0.6,  tyreDegradation: 0.5,  rainProbability: 0.2,  safetyCarProbability: 0.2,  pitWindowStart: 16, pitWindowEnd: 47, circuitLengthM: 4909, totalTurns: 19, f1_22TrackId: 28 },
+  // ── F1 22 ID #5 ──
+  { id: 'monaco',        name: 'Circuit de Monaco',                grandPrixName: 'Monaco Grand Prix',            totalLaps: 78, baseLapTimeSeconds: 73,  overtakeDifficulty: 0.9,  tyreDegradation: 0.35, rainProbability: 0.1,  safetyCarProbability: 0.4,  pitWindowStart: 20, pitWindowEnd: 58, circuitLengthM: 3337, totalTurns: 19, f1_22TrackId: 5  },
+  // ── F1 22 ID #6 ──
+  { id: 'villeneuve',    name: 'Circuit Gilles Villeneuve',        grandPrixName: 'Canadian Grand Prix',          totalLaps: 70, baseLapTimeSeconds: 73,  overtakeDifficulty: 0.3,  tyreDegradation: 0.45, rainProbability: 0.2,  safetyCarProbability: 0.4,  pitWindowStart: 18, pitWindowEnd: 52, circuitLengthM: 4361, totalTurns: 14, f1_22TrackId: 6  },
+  // ── F1 22 ID #4 — Turn 10 reprofile: same length, overtake harder ──
+  { id: 'catalunya',     name: 'Circuit de Barcelona-Catalunya',   grandPrixName: 'Spanish Grand Prix',           totalLaps: 66, baseLapTimeSeconds: 77,  overtakeDifficulty: 0.6,  tyreDegradation: 0.8,  rainProbability: 0.08, safetyCarProbability: 0.12, pitWindowStart: 16, pitWindowEnd: 49, circuitLengthM: 4657, totalTurns: 14, f1_22TrackId: 4  },
+  // ── F1 22 ID #24 ──
+  { id: 'red_bull_ring', name: 'Red Bull Ring',                    grandPrixName: 'Austrian Grand Prix',          totalLaps: 71, baseLapTimeSeconds: 66,  overtakeDifficulty: 0.25, tyreDegradation: 0.55, rainProbability: 0.25, safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 53, circuitLengthM: 4318, totalTurns: 10, f1_22TrackId: 24 },
+  // ── F1 22 ID #7 ──
+  { id: 'silverstone',   name: 'Silverstone Circuit',              grandPrixName: 'British Grand Prix',           totalLaps: 52, baseLapTimeSeconds: 87,  overtakeDifficulty: 0.4,  tyreDegradation: 0.65, rainProbability: 0.35, safetyCarProbability: 0.15, pitWindowStart: 13, pitWindowEnd: 39, circuitLengthM: 5891, totalTurns: 18, f1_22TrackId: 7  },
+  // ── F1 22 ID #9 ──
+  { id: 'hungaroring',   name: 'Hungaroring',                      grandPrixName: 'Hungarian Grand Prix',         totalLaps: 70, baseLapTimeSeconds: 77,  overtakeDifficulty: 0.7,  tyreDegradation: 0.7,  rainProbability: 0.15, safetyCarProbability: 0.12, pitWindowStart: 18, pitWindowEnd: 52, circuitLengthM: 4381, totalTurns: 14, f1_22TrackId: 9  },
+  // ── F1 22 ID #10 — gravel traps reinstated, weather more dangerous ──
+  { id: 'spa',           name: 'Circuit de Spa-Francorchamps',     grandPrixName: 'Belgian Grand Prix',           totalLaps: 44, baseLapTimeSeconds: 106, overtakeDifficulty: 0.25, tyreDegradation: 0.55, rainProbability: 0.5,  safetyCarProbability: 0.3,  pitWindowStart: 11, pitWindowEnd: 33, circuitLengthM: 7004, totalTurns: 19, f1_22TrackId: 10 },
+  // ── F1 22 ID #27 ──
+  { id: 'zandvoort',     name: 'Circuit Zandvoort',                grandPrixName: 'Dutch Grand Prix',             totalLaps: 72, baseLapTimeSeconds: 71,  overtakeDifficulty: 0.7,  tyreDegradation: 0.6,  rainProbability: 0.2,  safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 54, circuitLengthM: 4259, totalTurns: 14, f1_22TrackId: 27 },
+  // ── F1 22 ID #11 — Prima Variante curbs flattened ──
+  { id: 'monza',         name: 'Autodromo Nazionale di Monza',     grandPrixName: 'Italian Grand Prix',           totalLaps: 53, baseLapTimeSeconds: 81,  overtakeDifficulty: 0.2,  tyreDegradation: 0.4,  rainProbability: 0.12, safetyCarProbability: 0.18, pitWindowStart: 13, pitWindowEnd: 40, circuitLengthM: 5793, totalTurns: 11, f1_22TrackId: 11 },
+  // ── F1 22 ID #26 ──
+  { id: 'baku',          name: 'Baku City Circuit',                grandPrixName: 'Azerbaijan Grand Prix',        totalLaps: 51, baseLapTimeSeconds: 103, overtakeDifficulty: 0.3,  tyreDegradation: 0.5,  rainProbability: 0.05, safetyCarProbability: 0.45, pitWindowStart: 13, pitWindowEnd: 38, circuitLengthM: 6003, totalTurns: 20, f1_22TrackId: 26 },
+  // ── F1 22 ID #12 ──
+  { id: 'marina_bay',    name: 'Marina Bay Street Circuit',        grandPrixName: 'Singapore Grand Prix',         totalLaps: 62, baseLapTimeSeconds: 96,  overtakeDifficulty: 0.65, tyreDegradation: 0.55, rainProbability: 0.25, safetyCarProbability: 0.45, pitWindowStart: 16, pitWindowEnd: 46, circuitLengthM: 5063, totalTurns: 23, f1_22TrackId: 12 },
+  // ── F1 22 ID #15 ──
+  { id: 'americas',      name: 'Circuit of the Americas',          grandPrixName: 'United States Grand Prix',     totalLaps: 56, baseLapTimeSeconds: 96,  overtakeDifficulty: 0.35, tyreDegradation: 0.65, rainProbability: 0.15, safetyCarProbability: 0.15, pitWindowStart: 14, pitWindowEnd: 42, circuitLengthM: 5513, totalTurns: 20, f1_22TrackId: 15 },
+  // ── F1 22 ID #18 ──
+  { id: 'rodriguez',     name: 'Autódromo Hermanos Rodríguez',     grandPrixName: 'Mexico City Grand Prix',       totalLaps: 71, baseLapTimeSeconds: 78,  overtakeDifficulty: 0.3,  tyreDegradation: 0.7,  rainProbability: 0.1,  safetyCarProbability: 0.15, pitWindowStart: 18, pitWindowEnd: 53, circuitLengthM: 4304, totalTurns: 17, f1_22TrackId: 18 },
+  // ── F1 22 ID #16 ──
+  { id: 'interlagos',    name: 'Autódromo José Carlos Pace',       grandPrixName: 'São Paulo Grand Prix',         totalLaps: 71, baseLapTimeSeconds: 71,  overtakeDifficulty: 0.3,  tyreDegradation: 0.55, rainProbability: 0.35, safetyCarProbability: 0.25, pitWindowStart: 18, pitWindowEnd: 53, circuitLengthM: 4309, totalTurns: 15, f1_22TrackId: 16 },
+  // ── Not in F1 22 (post-2022 addition) ──
+  { id: 'las_vegas',     name: 'Las Vegas Strip Circuit',          grandPrixName: 'Las Vegas Grand Prix',         totalLaps: 50, baseLapTimeSeconds: 93,  overtakeDifficulty: 0.3,  tyreDegradation: 0.5,  rainProbability: 0.02, safetyCarProbability: 0.2,  pitWindowStart: 12, pitWindowEnd: 38, circuitLengthM: 6201, totalTurns: 17, f1_22TrackId: -1 },
+  // ── Not in F1 22 (post-2022 addition) ──
+  { id: 'lusail',        name: 'Lusail International Circuit',     grandPrixName: 'Qatar Grand Prix',             totalLaps: 57, baseLapTimeSeconds: 82,  overtakeDifficulty: 0.45, tyreDegradation: 0.6,  rainProbability: 0.01, safetyCarProbability: 0.12, pitWindowStart: 14, pitWindowEnd: 42, circuitLengthM: 5419, totalTurns: 16, f1_22TrackId: -1 },
+  // ── F1 22 ID #19 — 2021 layout overhaul: faster, fewer slow sections ──
+  { id: 'yas_marina',    name: 'Yas Marina Circuit',               grandPrixName: 'Abu Dhabi Grand Prix',         totalLaps: 58, baseLapTimeSeconds: 84,  overtakeDifficulty: 0.35, tyreDegradation: 0.5,  rainProbability: 0.01, safetyCarProbability: 0.12, pitWindowStart: 15, pitWindowEnd: 43, circuitLengthM: 5281, totalTurns: 16, f1_22TrackId: 19 },
 ];
+
+/**
+ * Returns the F1 22 structure data embedded in the track config.
+ * Exposed for use by the live race API routes.
+ */
+export function getF1_22TrackOverride(circuitId: string) {
+  const cfg = TRACK_CONFIGS.find(t => t.id === circuitId);
+  if (!cfg || cfg.f1_22TrackId === -1) return null;
+  return {
+    length_meters: cfg.circuitLengthM,
+    total_turns: cfg.totalTurns,
+    f1_22_track_id: cfg.f1_22TrackId,
+  };
+}
 
 function getTrackConfig(trackId: string): TrackConfig {
   return TRACK_CONFIGS.find(t => t.id === trackId) || TRACK_CONFIGS[7]; // default Monaco

@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRaceSimulation } from '@/hooks/useRaceSimulation';
 import { getTrackById } from '@/data/trackData';
+import { getLiveRaceTrackStructure, getF1_22IdByCircuitId, isValidF1_22TrackId } from '@/data/f1_22TrackRegistry';
 import { getTireColor } from '@/lib/utils';
 import TrackSelector from '@/components/live/TrackSelector';
 import TrackRenderer from '@/components/live/TrackRenderer';
@@ -39,6 +40,9 @@ export default function LiveRacePage() {
 
   const activeTrackId = trackId || selectedTrackId;
   const trackData = useMemo(() => getTrackById(activeTrackId), [activeTrackId]);
+  // F1 22 registry lookup: validates the active circuit and provides UDP-spec structure data
+  const f1_22Track = useMemo(() => getLiveRaceTrackStructure(activeTrackId), [activeTrackId]);
+  const f1_22TrackId = useMemo(() => getF1_22IdByCircuitId(activeTrackId), [activeTrackId]);
 
   // Track selection handler
   const onSelectTrack = useCallback((id: string) => {
@@ -106,6 +110,49 @@ export default function LiveRacePage() {
                 onStop={handleStop}
                 onBack={onBack}
               />
+
+              {/* F1 22 Track Registry Info Strip */}
+              {f1_22Track && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="glass-card px-4 py-2 mb-4 flex flex-wrap items-center gap-x-6 gap-y-1.5"
+                >
+                  <span className="text-[9px] font-bold uppercase tracking-[0.2em]" style={{ color: 'var(--text-muted)' }}>
+                    F1&apos;22 UDP Registry
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>TrackID</span>
+                    <span className="font-mono text-[11px] font-black" style={{ color: 'var(--text-primary)' }}>
+                      {f1_22TrackId >= 0 ? `#${f1_22TrackId}` : '—'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Length</span>
+                    <span className="font-mono text-[11px] font-black" style={{ color: 'var(--text-primary)' }}>
+                      {f1_22Track.length_meters.toLocaleString()} m
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Turns</span>
+                    <span className="font-mono text-[11px] font-black" style={{ color: 'var(--text-primary)' }}>
+                      {f1_22Track.total_turns}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Venue</span>
+                    <span className="font-mono text-[11px] font-bold" style={{ color: 'var(--text-primary)' }}>
+                      {f1_22Track.name}, {f1_22Track.country}
+                    </span>
+                  </div>
+                  {isValidF1_22TrackId(f1_22TrackId) && (
+                    <span className="ml-auto text-[9px] font-bold px-2 py-0.5 rounded bg-green-500/10 text-green-400 tracking-wider">
+                      ✓ VERIFIED
+                    </span>
+                  )}
+                </motion.div>
+              )}
 
               {/* Main Race Layout */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { getTrackById } from '@/data/trackData';
+import { getLiveRaceTrackStructure } from '@/data/f1_22TrackRegistry';
 import { WeatherCondition } from '@/types';
 import {
   Play, Square, ArrowLeft, Radio, Zap, Cloud, Sun, CloudRain,
@@ -33,6 +34,12 @@ export default function RaceHeader({
   onBack,
 }: RaceHeaderProps) {
   const track = getTrackById(trackId);
+  // Enrich with authoritative F1 22 UDP spec values where available
+  const f1_22 = getLiveRaceTrackStructure(trackId);
+  const displayLengthKm = f1_22
+    ? (f1_22.length_meters / 1000).toFixed(3)
+    : track?.lengthKm?.toString() ?? '—';
+  const displayTurns = f1_22?.total_turns ?? track?.cornerCount ?? '—';
   const lapProgress = totalLaps > 0 ? (currentLap / totalLaps) * 100 : 0;
 
   const WeatherIcon = weather === 'dry' ? Sun : weather === 'light_rain' ? Cloud : CloudRain;
@@ -73,7 +80,10 @@ export default function RaceHeader({
               {status === 'racing' && <span className="w-2 h-2 rounded-full bg-[#E10600] live-pulse shrink-0" />}
             </div>
             <p className="text-[10px] tracking-wider uppercase" style={{ color: 'var(--text-muted)' }}>
-              {track?.name} — {track?.lengthKm}km — {track?.cornerCount} corners
+              {track?.name} — {displayLengthKm}km — {displayTurns} turns
+              {f1_22 && !f1_22.isLegacy && (
+                <span className="ml-1.5 text-[9px] font-bold px-1 py-0.5 rounded bg-[#E10600]/10 text-[#E10600]">F1&apos;22</span>
+              )}
             </p>
           </div>
         </div>

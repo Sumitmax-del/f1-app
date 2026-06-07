@@ -11,7 +11,13 @@
 //   AG Force Factor:  3.5× (anti-gravity grip multiplier)
 //   Max Banking:      60° (structural safety limit)
 //   Banking Formula:  θ = min(60, atan(v² / (r × g × 3.5)))  [degrees]
+//
+// Real-World Structural Corrections:
+//   Applied automatically via TrackGeometryProcessor at module load.
+//   See trackGeometryProcessor.ts for the correction registry and rules.
 // ═══════════════════════════════════════════════════════════════════════════════
+
+import { applyAllTrackCorrections } from './trackGeometryProcessor';
 
 const G = 9.81; // m/s²
 const AG_FACTOR = 3.5;
@@ -805,7 +811,8 @@ const yasMarinaGeo: CircuitGeometry = {
 // GEOMETRY REGISTRY
 // ═══════════════════════════════════════════════════════════════════════════════
 
-export const ALL_CIRCUIT_GEOMETRIES: CircuitGeometry[] = [
+// Raw geometry arrays — these represent the baseline data before corrections.
+const RAW_CIRCUIT_GEOMETRIES: CircuitGeometry[] = [
   albertPark,
   shanghaiGeo,
   suzukaGeo,
@@ -831,6 +838,18 @@ export const ALL_CIRCUIT_GEOMETRIES: CircuitGeometry[] = [
   lusailGeo,
   yasMarinaGeo,
 ];
+
+/**
+ * ALL_CIRCUIT_GEOMETRIES — corrected and validated geometry for all 24 circuits.
+ *
+ * Real-world structural changes (chicane removals, layout overhauls, gravel trap
+ * reinstatements, corner reprofiles, kerb height reductions) are applied
+ * automatically by the TrackGeometryProcessor before this array is exported.
+ * To update a circuit's corrections, edit TRACK_CORRECTION_REGISTRY in
+ * trackGeometryProcessor.ts.
+ */
+export const ALL_CIRCUIT_GEOMETRIES: CircuitGeometry[] =
+  applyAllTrackCorrections(RAW_CIRCUIT_GEOMETRIES);
 
 export function getCircuitGeometry(circuitId: string): CircuitGeometry | undefined {
   return ALL_CIRCUIT_GEOMETRIES.find(c => c.circuitId === circuitId);
