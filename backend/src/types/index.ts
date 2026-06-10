@@ -71,15 +71,18 @@ export interface LiveRaceState {
   currentLap: number;
   totalLaps: number;
   raceName: string;
+  trackId: string;
   positions: LivePosition[];
   fastestLap: { driverId: string; time: string } | null;
   status: 'not_started' | 'racing' | 'finished' | 'safety_car';
+  weather: 'dry' | 'light_rain' | 'heavy_rain';
 }
 
 export interface LivePosition {
   position: number;
   driverId: string;
   driverName: string;
+  driverCode: string;
   team: string;
   teamColor: string;
   gap: string;

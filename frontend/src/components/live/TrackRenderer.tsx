@@ -1,25 +1,34 @@
 'use client';
 
 import { useEffect, useRef, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { getTrackPath, TrackPathData } from '@/data/trackPaths';
 import { getTrackById } from '@/data/trackData';
 import { LivePosition } from '@/types';
+
+// ─── Module-level animation constants ────────────────────────────────────────
+/** Fraction of lap length separating adjacent cars on the track map */
+const GAP_PER_POSITION = 0.0045;
+/** Where the leader starts on the track (just past start/finish line) */
+const LEADER_PROGRESS_INIT = 0.06;
+/** Base lap fraction per second during racing (≈62 second visual lap) */
+const SPEED_RACING = 0.016;
+/** Reduced speed under safety car */
+const SPEED_SC = 0.009;
+
+// ─── Helper: point along SVG path ────────────────────────────────────────────
+function getPointAtPercent(pathEl: SVGPathElement, percent: number): { x: number; y: number } {
+  const totalLength = pathEl.getTotalLength();
+  const point = pathEl.getPointAtLength(totalLength * Math.max(0, Math.min(1, percent)));
+  return { x: point.x, y: point.y };
+}
 
 interface TrackRendererProps {
   trackId: string;
   positions: LivePosition[];
   weather?: 'dry' | 'light_rain' | 'heavy_rain';
   status?: string;
-  showCars?: number; // how many cars to render on track (default 6)
+  showCars?: number;
   className?: string;
-}
-
-// Get a point along an SVG path at a given percentage
-function getPointAtPercent(pathEl: SVGPathElement, percent: number): { x: number; y: number } {
-  const totalLength = pathEl.getTotalLength();
-  const point = pathEl.getPointAtLength(totalLength * Math.max(0, Math.min(1, percent)));
-  return { x: point.x, y: point.y };
 }
 
 export default function TrackRenderer({
@@ -27,78 +36,144 @@ export default function TrackRenderer({
   positions,
   weather = 'dry',
   status,
-  showCars = 6,
+  showCars = 20,
   className = '',
 }: TrackRendererProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
   const [pathElement, setPathElement] = useState<SVGPathElement | null>(null);
   const [sectorPoints, setSectorPoints] = useState<Array<{ x: number; y: number }>>([]);
-  const [carPositions, setCarPositions] = useState<Array<{ x: number; y: number; driverId: string; teamColor: string; code: string }>>([]);
+  const [carPositions, setCarPositions] = useState<Array<{
+    x: number; y: number; driverId: string; teamColor: string;
+    code: string; position: number; isPitting: boolean;
+  }>>([]);
+
   const animFrameRef = useRef<number>(0);
+  /** Smooth animation progress for every driverId (0–1, fraction of lap) */
   const progressRef = useRef<Map<string, number>>(new Map());
+
+  // Shadow refs so the animation loop can read latest values without being a dep
+  const positionsRef = useRef<LivePosition[]>([]);
+  const statusRef = useRef<string | undefined>(status);
+
+  useEffect(() => { positionsRef.current = positions; }, [positions]);
+  useEffect(() => { statusRef.current = status; }, [status]);
 
   const trackPath = useMemo(() => getTrackPath(trackId), [trackId]);
   const trackData = useMemo(() => getTrackById(trackId), [trackId]);
 
-  // Calculate sector split points once the path element is ready
+  // ── Sector markers ────────────────────────────────────────────────────────
   useEffect(() => {
     if (pathElement && trackPath) {
-      const points = trackPath.sectorSplits.map(split => getPointAtPercent(pathElement, split));
-      setSectorPoints(points);
+      setSectorPoints(trackPath.sectorSplits.map(split => getPointAtPercent(pathElement, split)));
     } else {
       setSectorPoints([]);
     }
   }, [trackPath, pathElement]);
 
-  // Animate cars around the track
+  // ── Position SYNC effect ──────────────────────────────────────────────────
+  // Runs whenever the live leaderboard changes (every ~2 s from socket).
+  // Smoothly nudges each car's visual progress toward the correct race order
+  // so the track map stays 1:1 with the TimingTower without teleporting dots.
   useEffect(() => {
-    if (!pathElement || !trackPath || positions.length === 0) return;
+    if (positions.length === 0) return;
 
-    const pathEl = pathElement;
-    const topDrivers = positions.filter(p => p.status !== 'retired').slice(0, showCars);
+    const sorted = positions
+      .filter(p => p.status !== 'retired')
+      .sort((a, b) => a.position - b.position);
+    if (sorted.length === 0) return;
 
-    // Initialize progress if new drivers
-    topDrivers.forEach((driver, index) => {
-      if (!progressRef.current.has(driver.driverId)) {
-        progressRef.current.set(driver.driverId, (index * 0.05) % 1);
+    // Anchor from the current leader's progress
+    const leaderId = sorted[0].driverId;
+    const leaderProgress = progressRef.current.get(leaderId) ?? LEADER_PROGRESS_INIT;
+
+    sorted.forEach((driver, idx) => {
+      const target = (leaderProgress - idx * GAP_PER_POSITION + 1) % 1;
+      const current = progressRef.current.get(driver.driverId);
+
+      if (current === undefined) {
+        // First time seeing this driver — place them at the correct spot
+        progressRef.current.set(driver.driverId, target);
+      } else {
+        // Signed difference accounting for track wrap (−0.5 to +0.5)
+        const diff = ((target - current) + 1.5) % 1 - 0.5;
+        // Lerp 22% toward target — smooth enough to avoid jerks, fast enough to sync
+        progressRef.current.set(driver.driverId, (current + diff * 0.22 + 1) % 1);
       }
     });
+
+    // Evict retired drivers from the progress map
+    const activeIds = new Set(sorted.map(d => d.driverId));
+    for (const id of Array.from(progressRef.current.keys())) {
+      if (!activeIds.has(id)) progressRef.current.delete(id);
+    }
+  }, [positions]); // ← runs on every timing tower update
+
+  // ── Continuous ANIMATION loop ─────────────────────────────────────────────
+  // Depends only on stable values (trackPath, pathElement).
+  // Reads live data from refs — NEVER restarted by socket updates.
+  useEffect(() => {
+    if (!pathElement || !trackPath) return;
 
     let lastTime = performance.now();
 
     const animate = (time: number) => {
-      const delta = (time - lastTime) / 1000;
+      // Cap delta at 50 ms to avoid huge jumps after tab-switch / focus loss
+      const delta = Math.min((time - lastTime) / 1000, 0.05);
       lastTime = time;
 
-      const isSafetyCar = status === 'safety_car';
-      const baseSpeed = isSafetyCar ? 0.02 : 0.06;
+      const currentPositions = positionsRef.current;
+      if (currentPositions.length === 0) {
+        animFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
 
-      const newPositions = topDrivers.map((driver, index) => {
-        let progress = progressRef.current.get(driver.driverId) || 0;
+      const isSafetyCar = statusRef.current === 'safety_car';
+      const baseSpeed = isSafetyCar ? SPEED_SC : SPEED_RACING;
 
-        // Get speed at current position from speed profile
+      const activeDrivers = currentPositions
+        .filter(p => p.status !== 'retired')
+        .sort((a, b) => a.position - b.position);
+
+      const newPositions = activeDrivers.map((driver, idx) => {
+        const fallback = (LEADER_PROGRESS_INIT - idx * GAP_PER_POSITION + 1) % 1;
+        let progress = progressRef.current.get(driver.driverId) ?? fallback;
+
         const speedAtPos = getSpeedAtPercent(trackPath.speedProfile, progress);
-        const driverSpeedVariation = 1 - (index * 0.008); // leader is slightly faster
+        // Each subsequent position is 0.2% slower — maintains visual gap naturally
+        const positionFactor = Math.max(0.6, 1 - idx * 0.002);
+        const pitModifier = driver.status === 'pit' ? 0.2 : 1;
 
-        // Pit status = slower
-        const pitModifier = driver.status === 'pit' ? 0.3 : 1;
-
-        progress += baseSpeed * speedAtPos * driverSpeedVariation * pitModifier * delta;
+        progress += baseSpeed * speedAtPos * positionFactor * pitModifier * delta;
         if (progress >= 1) progress -= 1;
+
+        // Visual ordering clamp: prevent any car from visually overtaking the one ahead
+        if (idx > 0) {
+          const aheadId = activeDrivers[idx - 1].driverId;
+          const aheadProgress = progressRef.current.get(aheadId) ?? progress;
+          const diff = (aheadProgress - progress + 1) % 1;
+          if (diff < 0.002) {
+            progress = (aheadProgress - 0.002 + 1) % 1;
+          }
+        }
 
         progressRef.current.set(driver.driverId, progress);
 
-        const point = getPointAtPercent(pathEl, progress);
-        const code = driver.driverName.split(' ').pop()?.substring(0, 3).toUpperCase() || '???';
+        const point = getPointAtPercent(pathElement, progress);
+        if (!isFinite(point.x) || !isFinite(point.y)) return null;
+
+        const code = driver.driverCode
+          || driver.driverName.split(' ').pop()?.substring(0, 3).toUpperCase()
+          || '???';
 
         return {
           x: point.x,
           y: point.y,
           driverId: driver.driverId,
-          teamColor: driver.teamColor,
+          teamColor: driver.teamColor || '#888888',
           code,
+          position: driver.position,
+          isPitting: driver.status === 'pit',
         };
-      });
+      }).filter((p): p is NonNullable<typeof p> => p !== null);
 
       setCarPositions(newPositions);
       animFrameRef.current = requestAnimationFrame(animate);
@@ -106,7 +181,7 @@ export default function TrackRenderer({
 
     animFrameRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animFrameRef.current);
-  }, [trackPath, positions, showCars, status, pathElement]);
+  }, [trackPath, pathElement]); // ← stable — never restarts due to position updates
 
   if (!trackPath || !trackData) {
     return (
@@ -133,7 +208,6 @@ export default function TrackRenderer({
       )}
 
       <svg
-        ref={svgRef}
         viewBox={trackPath.viewBox}
         className="w-full h-full"
         style={{ filter: isRaining ? 'brightness(0.85)' : 'none' }}
@@ -285,59 +359,81 @@ export default function TrackRenderer({
         </g>
 
         {/* Animated cars */}
-        {carPositions.map((car, index) => (
-          <g key={car.driverId} filter="url(#carGlow)">
-            {/* Car glow halo */}
-            <circle
-              cx={car.x}
-              cy={car.y}
-              r={index === 0 ? 10 : 7}
-              fill={car.teamColor}
-              opacity={0.2}
-            >
-              {index === 0 && (
-                <animate attributeName="r" values="10;14;10" dur="1.5s" repeatCount="indefinite" />
+        {carPositions.map((car) => {
+          const isLeader = car.position === 1;
+          const dotRadius = isLeader ? 6 : 4.5;
+          const haloRadius = isLeader ? 10 : 6;
+          return (
+            <g key={car.driverId} filter="url(#carGlow)">
+              {/* Car glow halo */}
+              <circle
+                cx={car.x}
+                cy={car.y}
+                r={haloRadius}
+                fill={car.isPitting ? '#ffaa00' : car.teamColor}
+                opacity={0.2}
+              >
+                {isLeader && (
+                  <animate attributeName="r" values="10;14;10" dur="1.5s" repeatCount="indefinite" />
+                )}
+              </circle>
+
+              {/* Car dot */}
+              <circle
+                cx={car.x}
+                cy={car.y}
+                r={dotRadius}
+                fill={car.isPitting ? '#ffaa00' : car.teamColor}
+                stroke="#fff"
+                strokeWidth="1.5"
+                opacity={car.isPitting ? 0.7 : 1}
+              />
+
+              {/* Driver code label */}
+              <text
+                x={car.x}
+                y={car.y - 9}
+                fill="#fff"
+                fontSize="6.5"
+                fontFamily="Orbitron"
+                fontWeight="bold"
+                textAnchor="middle"
+                opacity="0.95"
+              >
+                {car.code}
+              </text>
+
+              {/* Position number (actual race position, not array index) */}
+              <text
+                x={car.x}
+                y={car.y + 2.5}
+                fill="#fff"
+                fontSize="4.5"
+                fontFamily="Orbitron"
+                fontWeight="bold"
+                textAnchor="middle"
+              >
+                {car.position}
+              </text>
+
+              {/* PIT indicator */}
+              {car.isPitting && (
+                <text
+                  x={car.x}
+                  y={car.y + 14}
+                  fill="#ffaa00"
+                  fontSize="5"
+                  fontFamily="Orbitron"
+                  fontWeight="bold"
+                  textAnchor="middle"
+                  opacity="0.9"
+                >
+                  PIT
+                </text>
               )}
-            </circle>
-
-            {/* Car dot */}
-            <circle
-              cx={car.x}
-              cy={car.y}
-              r={index === 0 ? 6 : 5}
-              fill={car.teamColor}
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-
-            {/* Driver code label */}
-            <text
-              x={car.x}
-              y={car.y - 10}
-              fill="#fff"
-              fontSize="7"
-              fontFamily="Orbitron"
-              fontWeight="bold"
-              textAnchor="middle"
-              opacity="0.9"
-            >
-              {car.code}
-            </text>
-
-            {/* Position number */}
-            <text
-              x={car.x}
-              y={car.y + 3}
-              fill="#fff"
-              fontSize="5"
-              fontFamily="Orbitron"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              {index + 1}
-            </text>
-          </g>
-        ))}
+            </g>
+          );
+        })}
       </svg>
 
       {/* Track info overlay */}

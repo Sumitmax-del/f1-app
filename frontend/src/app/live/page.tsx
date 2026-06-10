@@ -165,7 +165,7 @@ export default function LiveRacePage() {
                       positions={positions}
                       weather={weather}
                       status={effectiveStatus}
-                      showCars={6}
+                      showCars={20}
                       className="w-full h-full"
                     />
                   </div>

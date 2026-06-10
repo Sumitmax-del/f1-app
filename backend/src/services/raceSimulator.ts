@@ -40,9 +40,11 @@ export class RaceSimulator {
       currentLap: 0,
       totalLaps: 57,
       raceName: 'Monaco Grand Prix',
+      trackId: '',
       positions: [],
       fastestLap: null,
-      status: 'not_started'
+      status: 'not_started',
+      weather: 'dry'
     };
   }
 
@@ -67,6 +69,7 @@ export class RaceSimulator {
         position: index + 1,
         driverId: driver.driverId,
         driverName: `${driver.givenName} ${driver.familyName}`,
+        driverCode: driver.code,
         team: driver.team?.name || 'Unknown',
         teamColor: driver.team?.color || '#666666',
         gap: index === 0 ? 'LEADER' : `+${(index * 1.2 + Math.random() * 0.5).toFixed(3)}`,
@@ -85,7 +88,7 @@ export class RaceSimulator {
     });
   }
 
-  startRace(): LiveRaceState {
+  startRace(trackId = ''): LiveRaceState {
     if (this.raceState.isActive) {
       return this.raceState;
     }
@@ -94,12 +97,15 @@ export class RaceSimulator {
       ...this.getDefaultState(),
       isActive: true,
       status: 'racing',
+      trackId: trackId || 'monaco',
       positions: this.initializePositions()
     };
 
     this.io.emit('race_start', {
       raceName: this.raceState.raceName,
       totalLaps: this.raceState.totalLaps,
+      trackId: this.raceState.trackId,
+      weather: this.raceState.weather,
       positions: this.raceState.positions
     });
 
@@ -192,19 +198,24 @@ export class RaceSimulator {
 
       // DRS detection
       if (index > 0) {
-        const gapToAhead = parseFloat(this.raceState.positions[index - 1]?.interval?.replace('+', '') || '2');
+        const aheadInterval = this.raceState.positions[index - 1]?.interval || '2';
+        const gapToAhead = aheadInterval === '-' ? 99 : parseFloat(aheadInterval.replace('+', '')) || 2;
         pos.drs = gapToAhead < 1.0 && !isSafetyCar;
       }
 
-      // Calculate gaps
+      // Calculate gaps — safely parse previous gap, guarding against 'LEADER' or any non-numeric string
       if (index === 0) {
         pos.gap = 'LEADER';
         pos.interval = '-';
+        cumulativeGap = 0;
       } else {
-        cumulativeGap += 0.3 + Math.random() * 1.2 + (pos.status === 'pit' ? 20 : 0);
+        const prevGapStr = this.raceState.positions[index - 1]?.gap ?? 'LEADER';
+        const prevGap = prevGapStr === 'LEADER' ? 0 : (parseFloat(prevGapStr.replace('+', '')) || 0);
+        const incrementGap = 0.3 + Math.random() * 1.2 + (pos.status === 'pit' ? 20 : 0);
+        cumulativeGap = prevGap + incrementGap;
         pos.gap = `+${cumulativeGap.toFixed(3)}`;
-        pos.interval = `+${(cumulativeGap - (parseFloat(this.raceState.positions[index - 1]?.gap?.replace('+', '') || '0'))).toFixed(3)}`;
-        if (pos.interval.startsWith('+-')) pos.interval = pos.interval.replace('+-', '-');
+        const intervalSec = cumulativeGap - prevGap;
+        pos.interval = `+${Math.abs(intervalSec).toFixed(3)}`;
       }
     });
 
@@ -235,13 +246,15 @@ export class RaceSimulator {
     // Update positions
     this.raceState.positions.forEach((p, i) => { p.position = i + 1; });
 
-    // Emit lap update
+    // Emit lap update — include weather and trackId so the frontend stays fully in sync
     this.io.emit('lap_update', {
       currentLap: this.raceState.currentLap,
       totalLaps: this.raceState.totalLaps,
       positions: this.raceState.positions,
       fastestLap: this.raceState.fastestLap,
-      status: this.raceState.status
+      status: this.raceState.status,
+      weather: this.raceState.weather,
+      trackId: this.raceState.trackId
     });
   }
 

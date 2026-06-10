@@ -68,6 +68,7 @@ export function useRaceSimulation() {
       setFastestLap(data.fastestLap);
       setStatus(data.status);
       setWeather(data.weather || 'dry');
+      if (data.trackId) setTrackId(data.trackId);
     });
 
     socket.on('position_change', (data: any) => {
