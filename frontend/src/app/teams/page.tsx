@@ -8,6 +8,91 @@ import { ChevronRight, Users } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
+// Map constructorId to official F1 car images
+const TEAM_CAR_IMAGES: Record<string, string> = {
+  'mercedes': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mercedes.png.transform/4col/image.png',
+  'ferrari': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/ferrari.png.transform/4col/image.png',
+  'red_bull': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/red-bull-racing.png.transform/4col/image.png',
+  'mclaren': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png.transform/4col/image.png',
+  'aston_martin': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/aston-martin.png.transform/4col/image.png',
+  'alpine': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/alpine.png.transform/4col/image.png',
+  'williams': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/williams.png.transform/4col/image.png',
+  'rb': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/rb.png.transform/4col/image.png',
+  'haas': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/haas.png.transform/4col/image.png',
+  'sauber': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/kick-sauber.png.transform/4col/image.png',
+  'audi': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/kick-sauber.png.transform/4col/image.png', // Temporary fallback to Sauber's car for Audi
+  'cadillac': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/f1-unbranded.png.transform/4col/image.png', // Generic F1 car for Cadillac
+};
+
+/** Car image with shimmer loading and graceful fallback */
+function TeamCarImage({ constructorId, teamColor, teamName }: { constructorId: string; teamColor: string; teamName: string }) {
+  const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+  const imageUrl = TEAM_CAR_IMAGES[constructorId];
+
+  if (!imageUrl) {
+    // No URL mapped — render a gradient fallback with team color
+    return (
+      <div
+        className="w-full h-full rounded-lg flex items-center justify-center"
+        style={{
+          background: `linear-gradient(135deg, ${teamColor}08 0%, ${teamColor}18 50%, ${teamColor}08 100%)`,
+        }}
+      >
+        <span className="font-display font-bold text-sm uppercase tracking-widest opacity-20" style={{ color: teamColor }}>
+          {teamName}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative w-full h-full">
+      {/* Shimmer skeleton while loading */}
+      {status === 'loading' && (
+        <div
+          className="absolute inset-0 rounded-lg shimmer"
+          style={{
+            background: `linear-gradient(90deg, ${teamColor}05 0%, ${teamColor}15 50%, ${teamColor}05 100%)`,
+          }}
+        />
+      )}
+
+      {/* Error fallback — subtle team-branded gradient */}
+      {status === 'error' && (
+        <div
+          className="absolute inset-0 rounded-lg flex items-center justify-center"
+          style={{
+            background: `linear-gradient(135deg, ${teamColor}08 0%, ${teamColor}18 50%, ${teamColor}08 100%)`,
+          }}
+        >
+          <span className="font-display font-bold text-sm uppercase tracking-widest opacity-20" style={{ color: teamColor }}>
+            {teamName}
+          </span>
+        </div>
+      )}
+
+      {/* Actual car image */}
+      <motion.img
+        src={imageUrl}
+        alt={`${teamName} F1 car`}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: status === 'loaded' ? 1 : 0, x: status === 'loaded' ? 0 : 20 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        onLoad={() => setStatus('loaded')}
+        onError={() => setStatus('error')}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+          objectPosition: 'center',
+          filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))',
+        }}
+        draggable={false}
+      />
+    </div>
+  );
+}
+
 export default function TeamsPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
@@ -74,7 +159,7 @@ export default function TeamsPage() {
                     </div>
 
                     {/* Team info */}
-                    <div className="flex-1">
+                    <div className="min-w-[160px]">
                       <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{team.name}</h3>
                       <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{team.nationality}</p>
                       {/* Drivers */}
@@ -84,6 +169,18 @@ export default function TeamsPage() {
                           {team.drivers?.map((d: any) => `${d.givenName} ${d.familyName}`).join(' • ') || 'Loading...'}
                         </span>
                       </div>
+                    </div>
+
+                    {/* Car Image — hidden on small screens */}
+                    <div
+                      className="hidden md:flex flex-1 items-center justify-center"
+                      style={{ height: 72, minWidth: 160 }}
+                    >
+                      <TeamCarImage
+                        constructorId={team.constructorId}
+                        teamColor={team.color}
+                        teamName={team.name}
+                      />
                     </div>
 
                     {/* Points */}
@@ -115,3 +212,4 @@ export default function TeamsPage() {
     </div>
   );
 }
+

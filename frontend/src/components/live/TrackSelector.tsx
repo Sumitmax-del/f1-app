@@ -53,18 +53,18 @@ export default function TrackSelector({ onSelectTrack }: TrackSelectorProps) {
       >
         <div className="flex items-center gap-3 mb-2">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600]">
-            Live Race Simulation
+            Formula 1 Circuits
           </p>
         </div>
         <h1
           className="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-tight"
           style={{ color: 'var(--text-primary)' }}
         >
-          SELECT YOUR CIRCUIT
+          RACE TRACKS
         </h1>
         <p className="text-sm mt-3 max-w-xl" style={{ color: 'var(--text-secondary)' }}>
-          Choose from all {ALL_TRACKS.length} official Formula 1 circuits. Each features realistic simulation
-          with track-specific characteristics, pit strategies, and weather conditions.
+          Explore all {ALL_TRACKS.length} official Formula 1 circuits. Discover track records, circuit
+          characteristics, pit strategies, and performance data for every Grand Prix.
         </p>
       </motion.div>
 

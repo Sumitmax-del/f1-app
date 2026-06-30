@@ -3,13 +3,13 @@
     "fullName": "sumit",
     "username": "s_7",
     "email": "sumitgorai839@gmail.com",
-    "hashedPassword": "$2b$12$VOAvWVeydliFEhk3/lmRauWZtmIdSyJKcyrIQ74PZAYkocqAQFVQ.",
+    "hashedPassword": "$2b$12$P3e1tIUqarBGDyKvsH.ShORQpu5vnIkuLD7lBx2kN0YuZOjvmPcXS",
     "favouriteTeam": "Ferrari",
     "favouriteDriver": "Charles Leclerc",
     "id": "78b868cb-b633-4446-918a-5803ae0a5cfa",
     "emailVerified": true,
     "createdAt": "2026-05-23T09:52:31.278Z",
-    "updatedAt": "2026-05-23T09:53:10.613Z"
+    "updatedAt": "2026-06-30T05:04:53.214Z"
   },
   {
     "fullName": "Sumit",
@@ -22,5 +22,18 @@
     "emailVerified": true,
     "createdAt": "2026-05-31T04:49:38.846Z",
     "updatedAt": "2026-05-31T04:52:24.468Z"
+  },
+  {
+    "fullName": "Test User",
+    "username": "testuser",
+    "email": "testuser@example.com",
+    "hashedPassword": "$2b$12$fAlFBMn1mGxlKrAlrO2bteDNLUiXnP83JpkXVqVxLvj6FFPz4BPJ.",
+    "favouriteTeam": "Ferrari",
+    "favouriteDriver": "Charles Leclerc",
+    "verificationToken": "b2bed4f3-949e-4e9f-bf72-09e8c7b5bdf5",
+    "id": "c229d5a4-fcb9-41da-b559-e9fa07aabae4",
+    "emailVerified": false,
+    "createdAt": "2026-06-30T05:19:57.549Z",
+    "updatedAt": "2026-06-30T05:19:57.549Z"
   }
 ]

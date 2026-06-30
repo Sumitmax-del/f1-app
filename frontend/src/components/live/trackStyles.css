@@ -253,3 +253,39 @@
   stroke-dashoffset: 2000;
   animation: trackScanLine 2.5s ease-out forwards;
 }
+
+/* ─── Track Detail Modal ────────────────────────────────────────────── */
+
+.track-detail-svg {
+  opacity: 0;
+  animation: trackDetailFadeIn 0.8s ease-out 0.2s forwards;
+}
+
+@keyframes trackDetailFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.track-detail-path {
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 3000;
+  animation: trackDetailDraw 2s ease-out 0.3s forwards;
+}
+
+@keyframes trackDetailDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Light theme adjustments for modal */
+.light .track-detail-svg path {
+  filter: brightness(0.8);
+}
+

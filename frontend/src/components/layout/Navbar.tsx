@@ -8,7 +8,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { useSocket } from '@/context/SocketContext';
 import { useAuth } from '@/context/AuthContext';
 import {
-  Flag, Users, Trophy, Calendar, Radio, GitCompare, Activity,
+  Flag, Users, Trophy, Calendar, MapPin, GitCompare, Activity,
   Sun, Moon, Menu, X, Wifi, WifiOff, LogOut, User as UserIcon, ShieldAlert, CheckCircle2
 } from 'lucide-react';
 
@@ -17,7 +17,7 @@ const navLinks = [
   { href: '/drivers', label: 'Drivers', icon: Users },
   { href: '/teams', label: 'Teams', icon: Trophy },
   { href: '/calendar', label: 'Calendar', icon: Calendar },
-  { href: '/live', label: 'Live Race', icon: Radio },
+  { href: '/live', label: 'Race Tracks', icon: MapPin },
   { href: '/compare', label: 'Compare', icon: GitCompare },
   { href: '/blueprint', label: 'Blueprint', icon: Activity },
 ];
@@ -135,9 +135,7 @@ export default function Navbar() {
                     )}
                     <Icon size={16} className="relative z-10" />
                     <span className="relative z-10">{label}</span>
-                    {href === '/live' && (
-                      <span className="relative z-10 w-1.5 h-1.5 rounded-full bg-[#E10600] live-pulse" />
-                    )}
+
                   </Link>
                 );
               })}
@@ -297,9 +295,7 @@ export default function Navbar() {
                   >
                     <Icon size={18} />
                     <span>{label}</span>
-                    {href === '/live' && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#E10600] live-pulse ml-auto" />
-                    )}
+
                   </Link>
                 );
               })}

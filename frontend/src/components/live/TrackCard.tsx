@@ -5,6 +5,22 @@ import { getTrackPath } from '@/data/trackPaths';
 import { TrackData } from '@/data/trackData';
 import { MapPin, Timer, Zap } from 'lucide-react';
 
+/**
+ * Compute a proportional stroke width so tracks with smaller viewBoxes
+ * don't appear disproportionately thick compared to tracks with larger ones.
+ * Reference: strokeWidth 14 at viewBox width ~1000 looks correct.
+ */
+function getScaledStrokeWidth(viewBox: string, baseWidth: number = 14): number {
+  const parts = viewBox.split(/\s+/).map(Number);
+  if (parts.length < 4) return baseWidth;
+  const vbWidth = parts[2];
+  const vbHeight = parts[3];
+  const maxDim = Math.max(vbWidth, vbHeight);
+  // Reference: 14 stroke at ~1000 maxDim ≈ 1.4% ratio
+  const REFERENCE_DIM = 1000;
+  return Math.round((baseWidth * maxDim / REFERENCE_DIM) * 10) / 10;
+}
+
 interface TrackCardProps {
   track: TrackData;
   onSelect: (trackId: string) => void;
@@ -37,28 +53,34 @@ export default function TrackCard({ track, onSelect, index }: TrackCardProps) {
           }}
         />
 
-        {trackPath && (
-          <svg viewBox={trackPath.viewBox} className="w-full h-full opacity-40 group-hover:opacity-70 transition-opacity duration-300">
-            <path
-              d={trackPath.mainPath}
-              fill="none"
-              stroke={track.accentColor}
-              strokeWidth="14"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="track-card-path"
-            />
-            <path
-              d={trackPath.mainPath}
-              fill="none"
-              stroke="#fff"
-              strokeWidth="1"
-              strokeDasharray="4 8"
-              opacity="0.15"
-              strokeLinecap="round"
-            />
-          </svg>
-        )}
+        {trackPath && (() => {
+          const sw = getScaledStrokeWidth(trackPath.viewBox, 14);
+          const clSw = Math.max(0.3, sw / 14); // center-line stroke proportional
+          const dashLen = Math.round(sw / 3.5);
+          const gapLen = Math.round(sw / 1.75);
+          return (
+            <svg viewBox={trackPath.viewBox} className="w-full h-full opacity-40 group-hover:opacity-70 transition-opacity duration-300">
+              <path
+                d={trackPath.mainPath}
+                fill="none"
+                stroke={track.accentColor}
+                strokeWidth={sw}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="track-card-path"
+              />
+              <path
+                d={trackPath.mainPath}
+                fill="none"
+                stroke="#fff"
+                strokeWidth={clSw}
+                strokeDasharray={`${dashLen} ${gapLen}`}
+                opacity="0.15"
+                strokeLinecap="round"
+              />
+            </svg>
+          );
+        })()}
 
         {/* Country Code (ISO 2-letter, F1 app style) */}
         <div className="absolute top-3 right-3 flex items-center gap-1.5">

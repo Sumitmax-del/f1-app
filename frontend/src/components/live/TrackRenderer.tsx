@@ -193,6 +193,17 @@ export default function TrackRenderer({
 
   const isRaining = weather !== 'dry';
 
+  // Compute scaled stroke widths based on viewBox dimensions
+  const vbParts = trackPath.viewBox.split(/\s+/).map(Number);
+  const maxDim = vbParts.length >= 4 ? Math.max(vbParts[2], vbParts[3]) : 1000;
+  const REF = 1000;
+  const scale = maxDim / REF;
+  const shadowSw = Math.round(28 * scale * 10) / 10;
+  const mainSw = Math.round(22 * scale * 10) / 10;
+  const clSw = Math.max(0.3, Math.round(1 * scale * 10) / 10);
+  const pitSw = Math.max(1, Math.round(8 * scale * 10) / 10);
+  const drsSw = Math.round(26 * scale * 10) / 10;
+
   return (
     <div className={`track-renderer relative ${className}`}>
       {/* Weather overlay */}
@@ -249,7 +260,7 @@ export default function TrackRenderer({
           d={trackPath.mainPath}
           fill="none"
           stroke="rgba(0,0,0,0.3)"
-          strokeWidth="28"
+          strokeWidth={shadowSw}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -260,7 +271,7 @@ export default function TrackRenderer({
           d={trackPath.mainPath}
           fill="none"
           stroke={`url(#trackGrad-${trackId})`}
-          strokeWidth="22"
+          strokeWidth={mainSw}
           strokeLinecap="round"
           strokeLinejoin="round"
           filter="url(#trackGlow)"
@@ -271,8 +282,8 @@ export default function TrackRenderer({
           d={trackPath.mainPath}
           fill="none"
           stroke="rgba(255,255,255,0.08)"
-          strokeWidth="1"
-          strokeDasharray="8 12"
+          strokeWidth={clSw}
+          strokeDasharray={`${Math.round(8 * scale)} ${Math.round(12 * scale)}`}
           strokeLinecap="round"
         />
 
@@ -281,10 +292,10 @@ export default function TrackRenderer({
           d={trackPath.pitLanePath}
           fill="none"
           stroke="#555577"
-          strokeWidth="8"
+          strokeWidth={pitSw}
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeDasharray="6 4"
+          strokeDasharray={`${Math.round(6 * scale)} ${Math.round(4 * scale)}`}
           opacity="0.5"
         />
 
@@ -295,7 +306,7 @@ export default function TrackRenderer({
             d={trackPath.mainPath}
             fill="none"
             stroke="#00ff88"
-            strokeWidth="26"
+            strokeWidth={drsSw}
             strokeLinecap="round"
             strokeLinejoin="round"
             opacity="0.12"

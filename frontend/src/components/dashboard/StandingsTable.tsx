@@ -4,6 +4,92 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Standing, TEAM_COLORS } from '@/types';
 import { ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+
+// Map driverId to F1 media headshot URLs (2025 season)
+const DRIVER_HEADSHOTS: Record<string, string> = {
+  'max_verstappen': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png',
+  'hamilton': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/1col/image.png',
+  'leclerc': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/1col/image.png',
+  'norris': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/1col/image.png',
+  'piastri': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/1col/image.png',
+  'russell': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/1col/image.png',
+  'sainz': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/1col/image.png',
+  'perez': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/1col/image.png',
+  'alonso': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/1col/image.png',
+  'stroll': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/1col/image.png',
+  'gasly': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png.transform/1col/image.png',
+  'ocon': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png.transform/1col/image.png',
+  'tsunoda': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png.transform/1col/image.png',
+  'hulkenberg': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png.transform/1col/image.png',
+  'magnussen': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png.transform/1col/image.png',
+  'albon': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/1col/image.png',
+  'sargeant': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png.transform/1col/image.png',
+  'bottas': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png.transform/1col/image.png',
+  'zhou': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png.transform/1col/image.png',
+  'ricciardo': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png.transform/1col/image.png',
+  'lawson': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LIALAW01_Liam_Lawson/lialaw01.png.transform/1col/image.png',
+  'bearman': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OLIBEA01_Oliver_Bearman/olibea01.png.transform/1col/image.png',
+  'colapinto': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FRACOL01_Franco_Colapinto/fracol01.png.transform/1col/image.png',
+  'doohan': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/J/JACDOO01_Jack_Doohan/jacdoo01.png.transform/1col/image.png',
+  'hadjar': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/I/ISAHAD01_Isack_Hadjar/isahad01.png.transform/1col/image.png',
+  'bortoleto': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GABBO01_Gabriel_Bortoleto/gabbo01.png.transform/1col/image.png',
+  'antonelli': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ANDANT01_Andrea_Kimi_Antonelli/andant01.png.transform/1col/image.png',
+};
+
+function getDriverImageUrl(driverId: string): string | null {
+  return DRIVER_HEADSHOTS[driverId] || null;
+}
+
+/** Small circular driver avatar with image + fallback */
+function DriverAvatar({ driverId, driverCode, teamColor }: { driverId: string; driverCode: string; teamColor: string }) {
+  const [imgError, setImgError] = useState(false);
+  const imageUrl = getDriverImageUrl(driverId);
+
+  if (!imageUrl || imgError) {
+    // Fallback: driver code initials in a team-colored circle
+    return (
+      <div
+        className="flex-shrink-0 flex items-center justify-center rounded-full font-display font-bold text-[10px] tracking-wide"
+        style={{
+          width: 32,
+          height: 32,
+          background: `${teamColor}25`,
+          border: `2px solid ${teamColor}50`,
+          color: teamColor,
+        }}
+      >
+        {driverCode}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="flex-shrink-0 rounded-full overflow-hidden"
+      style={{
+        width: 32,
+        height: 32,
+        border: `2px solid ${teamColor}50`,
+        background: `${teamColor}15`,
+      }}
+    >
+      <img
+        src={imageUrl}
+        alt={driverCode}
+        width={32}
+        height={32}
+        onError={() => setImgError(true)}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'top center',
+        }}
+      />
+    </div>
+  );
+}
 
 interface StandingsTableProps {
   standings: Standing[];
@@ -85,6 +171,15 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
                 )}
               </div>
 
+              {/* Driver Avatar (only for driver standings) */}
+              {type === 'driver' && standing.driver && (
+                <DriverAvatar
+                  driverId={standing.driver.driverId}
+                  driverCode={standing.driver.code || standing.driver.driverId.substring(0, 3).toUpperCase()}
+                  teamColor={teamColor}
+                />
+              )}
+
               {/* Wins */}
               <div className="hidden sm:block text-xs w-12 text-center" style={{ color: 'var(--text-secondary)' }}>
                 <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{standing.wins}</span> wins
@@ -112,3 +207,4 @@ export default function StandingsTable({ standings, type, limit }: StandingsTabl
     </motion.div>
   );
 }
+
