@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { SocketProvider } from "@/context/SocketContext";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/layout/Navbar";
+import F1ChatWidget from "@/components/F1ChatWidget";
 
 export const metadata: Metadata = {
   title: "F1 Live | Formula 1 Dashboard & Live Timing",
@@ -26,6 +27,7 @@ export default function RootLayout({
               <main className="flex-1 pt-16">
                 {children}
               </main>
+              <F1ChatWidget />
             </SocketProvider>
           </AuthProvider>
         </ThemeProvider>

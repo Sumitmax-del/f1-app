@@ -9,6 +9,7 @@ import standingsRouter from './src/server/routes/standings';
 import racesRouter from './src/server/routes/races';
 import liveRouter, { setSimulator } from './src/server/routes/live';
 import authRouter from './src/server/routes/auth';
+import chatRouter from './src/server/routes/chat';
 import { RaceSimulator } from './src/server/services/raceSimulator';
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -46,6 +47,7 @@ app.prepare().then(() => {
   server.use('/api/races', racesRouter);
   server.use('/api/live', liveRouter);
   server.use('/api/auth', authRouter);
+  server.use('/api/chat', chatRouter);
 
   // Health check
   server.get('/api/health', (_req, res) => {
