@@ -40,4 +40,15 @@ router.get('/tracks', (_req, res) => {
   res.json({ success: true, data: simulator.getAvailableTracks() });
 });
 
+router.get('/race-results', (_req, res) => {
+  if (!simulator) {
+    return res.status(500).json({ success: false, error: 'Simulator not initialized' });
+  }
+  const results = simulator.getPostRaceResults();
+  if (!results) {
+    return res.json({ success: true, data: null });
+  }
+  res.json({ success: true, data: results });
+});
+
 export default router;

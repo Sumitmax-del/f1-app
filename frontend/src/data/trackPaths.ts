@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════
-// F1 Track SVG Path Data — All 24 Official 2025 Circuits
+// F1 Track SVG Path Data — All 24 Official 2026 Circuits
 // Accurate SVG paths matching real-world circuit layouts
-// Ordered by the 2025 FIA Formula One World Championship Calendar
+// Ordered by the 2026 FIA Formula One World Championship Calendar
 // ═══════════════════════════════════════════════════════
 
 export interface TrackPathData {
@@ -824,7 +824,7 @@ const imola: TrackPathData = {
 };
 
 // ═══════════════════════════════════════════════════════
-// TRACK PATHS REGISTRY — Ordered by 2025 Calendar
+// TRACK PATHS REGISTRY — Ordered by 2026 Calendar
 // ═══════════════════════════════════════════════════════
 
 export const ALL_TRACK_PATHS: TrackPathData[] = [

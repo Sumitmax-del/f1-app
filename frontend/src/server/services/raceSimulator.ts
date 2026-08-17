@@ -156,6 +156,7 @@ export class RaceSimulator {
         position: index + 1,
         driverId: driver.driverId,
         driverName: `${driver.givenName} ${driver.familyName}`,
+        driverCode: driver.code || driver.familyName.substring(0, 3).toUpperCase(),
         team: driver.team?.name || 'Unknown',
         teamColor: driver.team?.color || '#666666',
         gap: index === 0 ? 'LEADER' : `+${(index * 1.2 + Math.random() * 0.5).toFixed(3)}`,
@@ -315,6 +316,16 @@ export class RaceSimulator {
       // Check fastest lap
       if (!this.raceState.fastestLap || actualLapTime < this.parseLapTime(this.raceState.fastestLap.time)) {
         this.raceState.fastestLap = { driverId: pos.driverId, time: pos.lastLapTime };
+        this.io.emit('race_event', {
+          id: `fl-${this.raceState.currentLap}-${pos.driverId}`,
+          type: 'fastest_lap',
+          message: `⚡ ${pos.driverCode || pos.driverName.split(' ').pop()?.substring(0, 3).toUpperCase()} sets fastest lap — ${pos.lastLapTime}`,
+          lap: this.raceState.currentLap,
+          timestamp: Date.now(),
+          driverId: pos.driverId,
+          driverCode: pos.driverCode,
+          teamColor: pos.teamColor,
+        });
       }
 
       // DRS detection (affected by overtake difficulty)
@@ -350,14 +361,67 @@ export class RaceSimulator {
           this.raceState.positions[i - 1].position = i;
           this.raceState.positions[i].position = i + 1;
 
+          const overtakerCode = pos.driverCode || pos.driverName.split(' ').pop()?.substring(0, 3).toUpperCase();
+          const overtakenCode = ahead.driverCode || ahead.driverName.split(' ').pop()?.substring(0, 3).toUpperCase();
+
           this.io.emit('position_change', {
             overtaker: pos.driverName,
             overtaken: ahead.driverName,
             position: i,
             lap: this.raceState.currentLap,
           });
+
+          this.io.emit('race_event', {
+            id: `ov-${this.raceState.currentLap}-${pos.driverId}`,
+            type: 'overtake',
+            message: `${overtakerCode} overtakes ${overtakenCode} for P${i}!`,
+            lap: this.raceState.currentLap,
+            timestamp: Date.now(),
+            driverId: pos.driverId,
+            driverCode: pos.driverCode,
+            teamColor: pos.teamColor,
+          });
         }
       }
+    }
+
+    // Random enhanced events (team radio, investigation, yellow flags)
+    if (Math.random() < 0.08 && this.raceState.currentLap > 2) {
+      const randomDriver = this.raceState.positions[Math.floor(Math.random() * Math.min(10, this.raceState.positions.length))];
+      const radioMessages = [
+        `"These tyres are gone, I\'m struggling out here."`,
+        `"The car feels amazing, let\'s push!"`,
+        `"I\'m losing time in the slow corners."`,
+        `"Can you check the gap to the car ahead?"`,
+        `"Copy, we are looking at Plan B."`,
+        `"Is there rain coming? The sky looks dark."`,
+      ];
+      const code = randomDriver.driverCode || randomDriver.driverName.split(' ').pop()?.substring(0, 3).toUpperCase();
+      this.io.emit('race_event', {
+        id: `radio-${this.raceState.currentLap}-${randomDriver.driverId}`,
+        type: 'team_radio',
+        message: `📻 ${code}: ${radioMessages[Math.floor(Math.random() * radioMessages.length)]}`,
+        lap: this.raceState.currentLap,
+        timestamp: Date.now(),
+        driverId: randomDriver.driverId,
+        driverCode: randomDriver.driverCode,
+        teamColor: randomDriver.teamColor,
+      });
+    }
+
+    if (Math.random() < 0.03 && this.raceState.currentLap > 5) {
+      const randomDriver = this.raceState.positions[Math.floor(Math.random() * this.raceState.positions.length)];
+      const code = randomDriver.driverCode || randomDriver.driverName.split(' ').pop()?.substring(0, 3).toUpperCase();
+      this.io.emit('race_event', {
+        id: `inv-${this.raceState.currentLap}-${randomDriver.driverId}`,
+        type: 'investigation',
+        message: `⚠️ ${code} under investigation — exceeding track limits`,
+        lap: this.raceState.currentLap,
+        timestamp: Date.now(),
+        driverId: randomDriver.driverId,
+        driverCode: randomDriver.driverCode,
+        teamColor: randomDriver.teamColor,
+      });
     }
 
     // Update positions
@@ -455,5 +519,17 @@ export class RaceSimulator {
       grandPrixName: t.grandPrixName,
       totalLaps: t.totalLaps,
     }));
+  }
+
+  /** Returns post-race results from last finished race */
+  getPostRaceResults() {
+    if (this.raceState.status !== 'finished' || this.raceState.positions.length === 0) return null;
+    return {
+      positions: this.raceState.positions,
+      fastestLap: this.raceState.fastestLap,
+      raceName: this.raceState.raceName,
+      trackId: this.raceState.trackId,
+      totalLaps: this.raceState.totalLaps,
+    };
   }
 }

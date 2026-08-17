@@ -107,10 +107,65 @@ export default function TrackRenderer({
     }
   }, [positions]); // ← runs on every timing tower update
 
+  // Check if we are receiving real coordinates from OpenF1 telemetry
+  const hasRealCoords = useMemo(() => {
+    return positions.some(p => p.x !== undefined && p.y !== undefined);
+  }, [positions]);
+
+  // Compute scaled car positions from raw GPS coordinates dynamically
+  const realCarPositions = useMemo(() => {
+    if (!hasRealCoords) return [];
+    const validCoords = positions.filter(p => p.x !== undefined && p.y !== undefined && p.status !== 'retired');
+    if (validCoords.length === 0) return [];
+
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    validCoords.forEach(p => {
+      if (p.x! < minX) minX = p.x!;
+      if (p.x! > maxX) maxX = p.x!;
+      if (p.y! < minY) minY = p.y!;
+      if (p.y! > maxY) maxY = p.y!;
+    });
+
+    const dx = maxX - minX || 1;
+    const dy = maxY - minY || 1;
+
+    // Viewbox boundary parts
+    const vb = trackPath?.viewBox.split(/\s+/).map(Number) || [0, 0, 1000, 1000];
+    const vx = vb[0], vy = vb[1], vw = vb[2], vh = vb[3];
+
+    // Scale mapping coordinates with 15% margin padding
+    const px = vw * 0.15;
+    const py = vh * 0.15;
+    const targetW = vw - px * 2;
+    const targetH = vh - py * 2;
+
+    return validCoords.map(p => {
+      const rx = (p.x! - minX) / dx;
+      const ry = 1 - (p.y! - minY) / dy; // standard cartesian Y to SVG Y-down
+      
+      const code = p.driverCode || p.driverName.split(' ').pop()?.substring(0, 3).toUpperCase() || '???';
+
+      return {
+        x: vx + px + rx * targetW,
+        y: vy + py + ry * targetH,
+        driverId: p.driverId,
+        teamColor: p.teamColor || '#888888',
+        code,
+        position: p.position,
+        isPitting: p.status === 'pit',
+      };
+    });
+  }, [positions, hasRealCoords, trackPath]);
+
+  const activeCarPositions = useMemo(() => {
+    return hasRealCoords ? realCarPositions : carPositions;
+  }, [hasRealCoords, realCarPositions, carPositions]);
+
   // ── Continuous ANIMATION loop ─────────────────────────────────────────────
   // Depends only on stable values (trackPath, pathElement).
   // Reads live data from refs — NEVER restarted by socket updates.
   useEffect(() => {
+    if (hasRealCoords) return; // bypass animation loop if plotting real telemetry
     if (!pathElement || !trackPath) return;
 
     let lastTime = performance.now();
@@ -370,7 +425,7 @@ export default function TrackRenderer({
         </g>
 
         {/* Animated cars */}
-        {carPositions.map((car) => {
+        {activeCarPositions.map((car) => {
           const isLeader = car.position === 1;
           const dotRadius = isLeader ? 6 : 4.5;
           const haloRadius = isLeader ? 10 : 6;

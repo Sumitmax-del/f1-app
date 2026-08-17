@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════
-// F1 Track Data Registry — All 24 Official 2025 Circuits
-// Ordered by the 2025 FIA Formula One World Championship Calendar
+// F1 Track Data Registry — All 24 Official 2026 Circuits
+// Ordered by the 2026 FIA Formula One World Championship Calendar
 // ═══════════════════════════════════════════════════════
 
 export interface TrackData {

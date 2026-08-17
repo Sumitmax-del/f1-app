@@ -64,8 +64,12 @@ export async function getLiveTracks() {
   return fetchApi<any[]>('/live/tracks');
 }
 
-export async function getRaceStatus() {
+export async function getLiveRaceStatus() {
   return fetchApi<any>('/live/status');
+}
+
+export async function getLiveRaceResults() {
+  return fetchApi<any>('/live/race-results');
 }
 
 export { API_BASE };

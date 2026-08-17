@@ -84,6 +84,7 @@ export interface LivePosition {
   position: number;
   driverId: string;
   driverName: string;
+  driverCode: string;
   team: string;
   teamColor: string;
   gap: string;
@@ -98,6 +99,8 @@ export interface LivePosition {
   sector1: string;
   sector2: string;
   sector3: string;
+  x?: number;
+  y?: number;
 }
 
 export interface User {

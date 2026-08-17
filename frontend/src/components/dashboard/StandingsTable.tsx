@@ -6,7 +6,7 @@ import { Standing, TEAM_COLORS } from '@/types';
 import { ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
-// Map driverId to F1 media headshot URLs (2025 season)
+// Map driverId to F1 media headshot URLs (2026 season)
 const DRIVER_HEADSHOTS: Record<string, string> = {
   'max_verstappen': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png',
   'hamilton': 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/1col/image.png',

@@ -73,7 +73,7 @@ export default function HomePage() {
             className="mb-8"
           >
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">
-              2025 Season
+              2026 Season
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-tight" style={{ color: 'var(--text-primary)' }}>
               FORMULA <span className="gradient-text">ONE</span>

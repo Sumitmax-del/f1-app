@@ -10,18 +10,18 @@ import { useRouter } from 'next/navigation';
 
 // Map constructorId to official F1 car images
 const TEAM_CAR_IMAGES: Record<string, string> = {
-  'mercedes': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mercedes.png.transform/4col/image.png',
-  'ferrari': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/ferrari.png.transform/4col/image.png',
-  'red_bull': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/red-bull-racing.png.transform/4col/image.png',
-  'mclaren': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png.transform/4col/image.png',
-  'aston_martin': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/aston-martin.png.transform/4col/image.png',
-  'alpine': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/alpine.png.transform/4col/image.png',
-  'williams': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/williams.png.transform/4col/image.png',
-  'rb': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/rb.png.transform/4col/image.png',
-  'haas': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/haas.png.transform/4col/image.png',
-  'sauber': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/kick-sauber.png.transform/4col/image.png',
-  'audi': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/kick-sauber.png.transform/4col/image.png', // Temporary fallback to Sauber's car for Audi
-  'cadillac': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/f1-unbranded.png.transform/4col/image.png', // Generic F1 car for Cadillac
+  'mercedes': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/mercedes.png.transform/4col/image.png',
+  'ferrari': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/ferrari.png.transform/4col/image.png',
+  'red_bull': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/red-bull-racing.png.transform/4col/image.png',
+  'mclaren': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/mclaren.png.transform/4col/image.png',
+  'aston_martin': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/aston-martin.png.transform/4col/image.png',
+  'alpine': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/alpine.png.transform/4col/image.png',
+  'williams': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/williams.png.transform/4col/image.png',
+  'rb': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/rb.png.transform/4col/image.png',
+  'haas': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/haas.png.transform/4col/image.png',
+  'sauber': 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2026/kick-sauber.png.transform/4col/image.png',
+  'audi': '/audi.png',
+  'cadillac': '/cadillac.png',
 };
 
 /** Car image with shimmer loading and graceful fallback */

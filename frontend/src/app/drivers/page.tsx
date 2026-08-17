@@ -64,7 +64,7 @@ export default function DriversPage() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">2025 Grid</p>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E10600] mb-2">2026 Grid</p>
           <h1 className="text-4xl sm:text-5xl font-display font-black" style={{ color: 'var(--text-primary)' }}>
             DRIVERS
           </h1>

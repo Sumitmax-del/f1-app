@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// F1 TRACK GEOMETRY ENGINE — All 24 Official 2025 Circuits
+// F1 TRACK GEOMETRY ENGINE — All 24 Official 2026 Circuits
 // Precise structural blueprints for anti-gravity racing simulation
 //
 // Data Sources: FIA circuit homologation documents, telemetry analysis,
