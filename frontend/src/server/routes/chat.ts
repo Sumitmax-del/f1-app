@@ -2,49 +2,57 @@ import express from 'express';
 
 const router = express.Router();
 
+/**
+ * POST /api/chat
+ * Proxies chat requests directly to the Python F1 AI Agent on port 8000.
+ */
 router.post('/', async (req, res) => {
   try {
-    const userMessage = req.body.message || req.body.prompt || req.body.content || '';
+    const userMessage = req.body.message || req.body.chatInput || req.body.prompt || req.body.question || '';
+    const context = req.body.context || null;
+    const agentBaseUrl = process.env.AI_AGENT_URL || 'http://localhost:8000';
+    const targetUrl = `${agentBaseUrl.replace(/\/$/, '')}/api/chat`;
 
     if (!userMessage.trim()) {
-      return res.status(400).json({ reply: 'Please enter a message.' });
+      return res.status(400).json({
+        reply: 'Please enter a message.',
+        response: 'Please enter a message.',
+        text: 'Please enter a message.',
+        output: 'Please enter a message.',
+      });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return res.json({ reply: '⚠️ Error: GEMINI_API_KEY is not defined in .env.local' });
-    }
-
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
-
-    const fetchRes = await fetch(geminiUrl, {
+    const agentResponse = await fetch(targetUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: userMessage }] }],
-        systemInstruction: {
-          parts: [{ text: 'You are APEX, an expert Formula 1 AI trackside engineer. Must use real-time 2026 F1 information. Restrict responses to short, direct answers with bullet points. Exclude unnecessary filler and lengthy background explanations.' }]
-        },
-        generationConfig: {
-          temperature: 0.1,
-          maxOutputTokens: 350
-        },
-        tools: [{ google_search: {} }]
-      })
+        message: userMessage,
+        context: context,
+      }),
     });
 
-    const data = await fetchRes.json();
+    const data = await agentResponse.json();
+    const finalAnswer = data.reply || data.response || data.answer || data.text || data.output || 'No response returned.';
 
-    if (!fetchRes.ok) {
-      const errMsg = data?.error?.message || 'Gemini API call failed';
-      return res.json({ reply: `⚠️ API Error: ${errMsg}` });
-    }
-
-    const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response returned from model.';
-    return res.json({ reply: replyText });
+    return res.json({
+      reply: finalAnswer,
+      response: finalAnswer,
+      text: finalAnswer,
+      output: finalAnswer,
+      tool_used: data.tool_used || null,
+      sources: data.sources || [],
+      model: data.model || 'HuggingFace',
+    });
   } catch (error: any) {
-    console.error('Chat error:', error);
-    return res.json({ reply: `⚠️ Server Route Error: ${error.message || 'Unknown failure'}` });
+    console.error('[AI AGENT CHAT ERROR]:', error);
+    return res.status(500).json({
+      reply: `[!] Connection to F1 AI Agent failed. Ensure the Python agent is running on port 8000. (${error.message})`,
+      response: `[!] Connection to F1 AI Agent failed. Ensure the Python agent is running on port 8000. (${error.message})`,
+      text: `[!] Connection to F1 AI Agent failed. Ensure the Python agent is running on port 8000. (${error.message})`,
+      output: `[!] Connection to F1 AI Agent failed. Ensure the Python agent is running on port 8000. (${error.message})`,
+    });
   }
 });
 

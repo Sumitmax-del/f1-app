@@ -11,6 +11,7 @@ interface Message {
   role: 'user' | 'assistant' | 'status';
   content: string;
   timestamp: Date;
+  sources?: string[];
 }
 
 const SUGGESTED_QUERIES = [
@@ -79,27 +80,40 @@ export default function F1ChatWidget() {
     ]);
 
     try {
-      // 15-second timeout
+      // 60-second timeout (n8n webhooks + AI model can be slow)
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 15000);
+      const timeout = setTimeout(() => controller.abort(), 60000);
 
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({
+          message: text,
+          // Send conversation history (last 5 turns = max 10 messages)
+          history: messages
+            .filter(
+              (m): m is Message & { role: 'user' | 'assistant' } =>
+                (m.role === 'user' || m.role === 'assistant') &&
+                m.id !== 'welcome' &&
+                m.content.length > 0
+            )
+            .map(m => ({ role: m.role, content: m.content }))
+            .slice(-10),
+        }),
         signal: controller.signal,
       });
 
       clearTimeout(timeout);
 
       const data = await response.json();
-      const reply = data.reply || 'No response received.';
+      const reply = data.reply || data.response || data.output || data.text || 'No response received.';
+      const sources: string[] = data.sources || [];
 
-      // Replace typing dots with the actual reply
+      // Replace typing dots with the actual reply + sources
       setMessages(prev =>
         prev.map(m =>
           m.id === assistantId
-            ? { ...m, content: reply }
+            ? { ...m, content: reply, sources: sources.length > 0 ? sources : undefined }
             : m
         )
       );
@@ -147,6 +161,39 @@ export default function F1ChatWidget() {
         </span>
       );
     });
+  };
+
+  // Render sources section
+  const renderSources = (sources: string[]) => {
+    if (!sources || sources.length === 0) return null;
+    return (
+      <div style={{
+        marginTop: '8px',
+        paddingTop: '6px',
+        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+      }}>
+        <div style={{
+          fontSize: '10px',
+          fontWeight: 600,
+          color: 'rgba(255, 255, 255, 0.3)',
+          letterSpacing: '0.08em',
+          marginBottom: '4px',
+          textTransform: 'uppercase' as const,
+        }}>
+          Sources
+        </div>
+        {sources.map((src, i) => (
+          <div key={i} style={{
+            fontSize: '10px',
+            color: 'rgba(255, 255, 255, 0.35)',
+            lineHeight: 1.4,
+            paddingLeft: '8px',
+          }}>
+            • {src}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -445,6 +492,7 @@ export default function F1ChatWidget() {
                       lineHeight: 1.6,
                     }}>
                       {renderContent(msg.content)}
+                      {msg.sources && renderSources(msg.sources)}
                     </div>
                   </div>
                 )}

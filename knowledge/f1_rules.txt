@@ -1,0 +1,41 @@
+# FORMULA 1 OFFICIAL RULES AND REGULATIONS
+
+## 1. Race Weekend Format
+- A standard Formula 1 race weekend takes place across three days: Friday, Saturday, and Sunday.
+- Friday: Free Practice 1 (FP1) and Free Practice 2 (FP2), each lasting 60 minutes.
+- Saturday: Free Practice 3 (FP3) lasting 60 minutes, followed by Qualifying.
+- Sunday: The Grand Prix race (approx. 305 km or 2 hours maximum time limit, with Monaco being 260 km).
+
+## 2. Qualifying Format (Knockout System)
+- Q1 (18 minutes): All 20 cars participate. The 5 slowest cars are eliminated and take grid positions 16 to 20.
+- Q2 (15 minutes): The remaining 15 cars participate. The 5 slowest cars are eliminated and take grid positions 11 to 15.
+- Q3 (12 minutes): The top 10 cars compete for Pole Position (1st on the grid) down to 10th.
+
+## 3. Sprint Weekend Format
+- Friday: Free Practice 1 (60 mins) followed by Sprint Qualifying (SQ1, SQ2, SQ3).
+- Saturday: Sprint Race (100 km, approx. 30 mins) followed by main Grand Prix Qualifying.
+- Sunday: The Grand Prix race.
+
+## 4. Track Flags and Meanings
+- Green Flag: Track is clear, racing conditions resumed.
+- Yellow Flag (Single): Danger ahead, reduce speed, no overtaking allowed.
+- Double Yellow Flag: Great danger ahead, reduce speed significantly, prepare to change direction or stop.
+- Red Flag: Session suspended immediately. All cars must reduce speed and return to the pit lane.
+- Blue Flag: Warns a slower or lapped car that a faster car is approaching and must be allowed to pass.
+- Black and White Flag (diagonal): Unsportsmanlike conduct warning for track limits or dangerous driving.
+- Black Flag with Car Number: Driver is disqualified and must return to the pits immediately.
+- Chequered Flag: Session or race is finished.
+
+## 5. Safety Car (SC) and Virtual Safety Car (VSC)
+- Safety Car (SC): Deployed by race control for serious incidents. A physical Aston Martin or Mercedes-AMG safety car leads the pack. Overtaking is prohibited. Lapped cars may be instructed to unlap themselves before restart.
+- Virtual Safety Car (VSC): Imposed when track marshals or minor hazards require speed reduction without physical safety car. Drivers must reduce speed and maintain minimum sector delta times.
+
+## 6. Penalties and Infringements
+- 5-Second Time Penalty: Added to pit stop time or final race time (for track limits, minor collisions).
+- 10-Second Time Penalty: Added to pit stop time or final race time for more severe infractions.
+- Drive-Through Penalty: Driver must drive through the pit lane at limited speed without stopping.
+- 10-Second Stop-and-Go Penalty: Driver must enter the pit lane, stop in their pit box for 10 seconds without mechanics touching the car, and then rejoin.
+- Grid Drop Penalty: Dropping places on the starting grid for engine/gearbox component replacements exceeding season allocation.
+
+## 7. Parc Fermé
+- Parc Fermé regulations come into effect once cars leave the pit lane during qualifying. Teams are strictly forbidden from modifying car setups, suspension, or aerodynamics, allowing only routine maintenance, tyre changes, and minor front wing angle adjustments.

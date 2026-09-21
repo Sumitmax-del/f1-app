@@ -1,0 +1,22 @@
+# DRAG REDUCTION SYSTEM (DRS) IN FORMULA 1
+
+## What is DRS?
+DRS stands for Drag Reduction System. It is a driver-controlled aerodynamic device introduced by the FIA in 2011 to promote overtaking and enhance racing excitement in Formula 1.
+
+## How Does DRS Work Mechanically?
+- The rear wing of a modern F1 car has an adjustable upper flap.
+- When activated by the driver (via a steering wheel button), a hydraulic actuator lifts the flap, opening a maximum 85 mm slot between the main plane and the upper flap.
+- This significantly reduces aerodynamic drag (air resistance) at the rear of the car, allowing the car to gain an estimated 10 to 12 km/h (6 to 7.5 mph) in straight-line top speed.
+- When the driver touches the brake pedal, the flap immediately snaps shut to restore full aerodynamic downforce for braking stability.
+
+## Rules and Conditions for DRS Activation in a Race
+1. Detection Point: The track has designated DRS Detection Points before long straight sections. If a chasing car is within 1.000 second behind the car ahead at the detection point, DRS is enabled for the upcoming activation zone.
+2. Activation Zone: The driver can open the rear wing flap only within the designated DRS Activation Zone marked on the track.
+3. Lap Eligibility: DRS is activated after Lap 1 (or 1 lap after a Safety Car / Virtual Safety Car restart, updated from the traditional 2 laps).
+4. Weather Conditions: Race Control disables DRS if weather conditions turn wet or visibility is poor.
+5. Yellow Flags: DRS is automatically disabled in any sector under yellow flag conditions.
+6. Lapped Cars: DRS can also be activated when following a lapped car within 1.0 second.
+7. Defending Car: A defending car cannot use DRS unless it is also within 1.0 second of another car ahead (creating a "DRS train").
+
+## DRS in Practice and Qualifying Sessions
+- In Free Practice and Qualifying sessions, drivers can activate DRS in all designated DRS zones at any time, regardless of the gap to other cars.

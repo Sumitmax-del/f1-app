@@ -1,0 +1,44 @@
+# FORMULA 1 POINTS SYSTEM AND CHAMPIONSHIPS
+
+## Overview
+Formula 1 awards championship points to drivers and constructors based on their finishing positions in Grand Prix races and Sprint races throughout the season.
+
+## Grand Prix Race Points (Full Race Distance)
+Points are awarded to the top 10 finishers in every full Grand Prix:
+- 1st Place (Winner): 25 points
+- 2nd Place: 18 points
+- 3rd Place: 15 points
+- 4th Place: 12 points
+- 5th Place: 10 points
+- 6th Place: 8 points
+- 7th Place: 6 points
+- 8th Place: 4 points
+- 9th Place: 2 points
+- 10th Place: 1 point
+- Positions 11 to 20: 0 points
+
+## Fastest Lap Bonus Point
+- 1 bonus point is awarded to the driver who sets the fastest official lap of the Grand Prix, PROVIDED that driver finishes in the top 10 (positions 1st through 10th).
+- If the driver with fastest lap finishes in 11th or lower (or DNFs), no fastest lap point is awarded to anyone for that race.
+
+## Sprint Race Points
+Points are awarded to the top 8 finishers in the 100 km Sprint race:
+- 1st Place: 8 points
+- 2nd Place: 7 points
+- 3rd Place: 6 points
+- 4th Place: 5 points
+- 5th Place: 4 points
+- 6th Place: 3 points
+- 7th Place: 2 points
+- 8th Place: 1 point
+
+## Shortened Races (Sliding Scale after Spa 2021)
+If a race is stopped and cannot be resumed:
+1. Less than 25% distance completed: Points awarded to top 5 (6, 4, 3, 2, 1).
+2. 25% to 50% distance completed: Points awarded to top 9 (13, 10, 8, 6, 5, 4, 3, 2, 1).
+3. 50% to 75% distance completed: Points awarded to top 10 (19, 14, 12, 10, 8, 6, 4, 3, 2, 1).
+4. Over 75% distance completed: Full 100% points awarded.
+
+## Championships
+- World Drivers' Championship (WDC): Total individual points accumulated across the entire season by a driver. The highest total wins the world championship.
+- World Constructors' Championship (WCC): Sum of points scored by both cars / drivers of each constructor (team) across the season. Prize money allocation is distributed according to final WCC standings.

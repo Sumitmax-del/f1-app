@@ -1,0 +1,28 @@
+# ENERGY RECOVERY SYSTEM (ERS) IN FORMULA 1
+
+## What is ERS?
+ERS stands for Energy Recovery System. It is an integral component of modern Formula 1 hybrid turbo power units (introduced in 2014) that harvests waste kinetic and thermal energy and converts it into electrical power to boost engine performance.
+
+## Key Components of the F1 Power Unit & ERS
+1. Internal Combustion Engine (ICE): 1.6-litre turbocharged 90-degree V6 engine delivering around 750 to 800 bhp at up to 15,000 RPM.
+2. MGU-K (Motor Generator Unit - Kinetic):
+   - Connected directly to the crankshaft of the engine.
+   - During braking, it acts as a generator, recovering kinetic energy that would otherwise be lost as heat.
+   - Under acceleration, it acts as a motor, deploying up to 120 kW (approx. 160 horsepower) directly to the drivetrain.
+   - Maximum 2 MJ of energy per lap can be recovered into the Energy Store via the MGU-K, and up to 4 MJ per lap can be deployed from the Energy Store to the MGU-K.
+3. MGU-H (Motor Generator Unit - Heat):
+   - Connected to the turbocharger between the exhaust turbine and compressor.
+   - Converts heat energy from exhaust gases into electrical power.
+   - Can either send energy directly to the Energy Store (battery) or directly to the MGU-K to eliminate turbo lag.
+   - Energy recovery and transfer from the MGU-H is unlimited by the regulations.
+4. Energy Store (ES):
+   - High-performance lithium-ion battery pack weighing between 20 kg and 25 kg.
+   - Stores harvested electrical energy for deployment.
+5. Control Electronics (CE):
+   - Manages the complex power flow between the ICE, MGU-K, MGU-H, and Energy Store millions of times per second.
+
+## ERS Deployment Modes
+- Hotlap / Qualifying Mode: Maximum electrical power deployment over a single flying lap.
+- Race Mode / Balanced Mode: Strategic energy harvesting and deployment to maintain battery state of charge (SoC) over a full race stint.
+- Overtake Button / Push-to-Pass: A steering wheel button that allows the driver to dump maximum available electrical energy (160 bhp) on straightaways for defending or attacking.
+- Recharge / Harvest Mode (Clipping / Lift-and-Coast): Slowing down energy output at the end of long straights to replenish battery reserves.

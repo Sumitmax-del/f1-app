@@ -1,0 +1,22 @@
+# FORMULA 1 BASICS AND ESSENTIAL GUIDE
+
+## What is Formula 1?
+Formula 1 (F1) is the highest class of international open-wheel, single-seater auto racing sanctioned by the Fédération Internationale de l'Automobile (FIA). It is considered the pinnacle of motorsport and automotive engineering.
+
+## Key Terminology & Concepts
+- Apex: The innermost point of the racing line through a corner. Hitting the apex allows the driver to carry maximum speed and achieve the optimal exit trajectory.
+- Understeer: When a car does not turn as much as the steering angle demands, causing the front tyres to slide outwards. Often described as "the front of the car pushes wide".
+- Oversteer: When the rear tyres lose traction before the front, causing the rear end to swing outwards. Often described as "the back end stepping out".
+- Downforce: Aerodynamic downward thrust created by the front wing, floor (ground effect tunnels), and rear wing. Downforce presses tyres into the asphalt to increase grip in high-speed corners.
+- Slipstream / Tow: Following closely behind a leading car where air resistance is lower, allowing higher top speed on straightaways before overtaking.
+- Dirty Air: Disturbed, turbulent air trailing behind an F1 car that reduces aerodynamic downforce and cooling efficiency for cars following closely.
+- Box: The team radio call instructing the driver to enter the pit lane for a tyre change or pit stop ("Box, box, box").
+- Pit Stop: A lightning-fast team stop where 20+ crew members change all four tyres in as little as 1.8 to 2.5 seconds, adjust wing angles, and repair front wing assemblies if needed.
+- Telemetry: Real-time wireless data transmitted from hundreds of car sensors (throttle, brake pressure, tyre temps, engine RPM, G-forces, suspension travel) directly to team pit wall and engineers.
+
+## Teams and Constructors
+- F1 consists of 10 constructor teams, each entering 2 cars (20 drivers in total).
+- Teams build their own custom chassis and aerodynamic packages, and either build or purchase power units (Ferrari, Mercedes, Red Bull Powertrains-Honda, Renault/Alpine).
+
+## Circuits
+- F1 races take place on purpose-built permanent race tracks (e.g., Silverstone, Spa-Francorchamps, Monza) and temporary street circuits (e.g., Monaco, Singapore, Las Vegas, Baku, Jeddah).

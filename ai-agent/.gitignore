@@ -1,0 +1,14 @@
+# AI Agent internals
+__pycache__/
+*.pyc
+*.pyo
+
+# FAISS index cache
+data/faiss_index/
+
+# Environment
+.env
+
+# Virtual environment
+.venv/
+venv/

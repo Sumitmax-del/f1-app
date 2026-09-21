@@ -1,0 +1,234 @@
+{
+  "documents": [
+    {
+      "id": "standings-2026-drivers",
+      "title": "2026 F1 Drivers' Championship Standings (Current)",
+      "content": "The 2026 Formula 1 World Drivers' Championship standings as of the current round: P1 Andrea Kimi Antonelli (Mercedes) — 219 points. P2 Max Verstappen (Red Bull Racing) — 205 points, 14 points behind the leader. P3 Charles Leclerc (Scuderia Ferrari) — 192 points, 27 points behind the leader. Antonelli is the current championship leader in his second full season with Mercedes. Verstappen, the four-time world champion (2021–2024), is mounting a strong challenge. Leclerc remains in mathematical contention for the title. The championship battle is extremely tight with three drivers separated by just 27 points."
+    },
+    {
+      "id": "standings-2026-constructors",
+      "title": "2026 F1 Constructors' Championship Standings (Current)",
+      "content": "The 2026 Formula 1 Constructors' Championship is currently led by Mercedes-AMG PETRONAS F1 Team. Mercedes have benefited from the strong performances of both Andrea Kimi Antonelli (P1 in drivers' standings, 219 pts) and George Russell. Red Bull Racing are second in the constructors' standings with Max Verstappen (P2, 205 pts) and Liam Lawson contributing points. Scuderia Ferrari are third with Charles Leclerc (P3, 192 pts) and Lewis Hamilton. McLaren Racing with Lando Norris and Oscar Piastri are also in contention as the reigning constructors' champions from 2024."
+    },
+    {
+      "id": "season-2026-summary",
+      "title": "2026 F1 Season Overview and Key Facts",
+      "content": "The 2026 Formula 1 season is the first year under the major new technical regulations. Key changes include a 50/50 power split between the internal combustion engine (ICE) and the electric motor (MGU-K output increased to ~350kW), active aerodynamics replacing DRS with X-mode (high downforce) and Z-mode (low drag), 100% sustainable fuels mandatory for all teams, and lighter cars with a reduced minimum weight of 768 kg. The championship leader is Andrea Kimi Antonelli (Mercedes) with 219 points. Max Verstappen (Red Bull) is second with 205 points. Charles Leclerc (Ferrari) is third with 192 points. Mercedes leads the constructors' championship. This is the first season with the new power unit cost cap of $95 million."
+    },
+    {
+      "id": "reg-2026-engine",
+      "title": "2026 Power Unit Regulations",
+      "content": "The 2026 F1 power unit regulations introduce a 50/50 split between the internal combustion engine (ICE) and electric motor output. The ICE displacement remains at 1.6 litres V6 turbo-hybrid but the MGU-H (Motor Generator Unit – Heat) is removed entirely. The MGU-K (Motor Generator Unit – Kinetic) output increases dramatically from 120kW to approximately 350kW. Total power unit output targets around 1000bhp. The energy store (battery) capacity increases significantly to support the higher electrical output. 100% sustainable fuels are mandatory. Cost cap for power units is introduced at $95 million per year."
+    },
+    {
+      "id": "reg-2026-aero",
+      "title": "2026 Aerodynamic Regulations and Active Aero",
+      "content": "The 2026 aerodynamic regulations feature active aerodynamics with adjustable front and rear wing elements. Cars can switch between a high-downforce X-mode for cornering and a low-drag Z-mode for straights, replacing the traditional DRS system. The cars are lighter and smaller, with a minimum weight of 768 kg reduced from 798 kg. Front wing width is reduced. The overall car length is shorter. Ground effect remains important but simplified from the 2022-2025 regulations."
+    },
+    {
+      "id": "reg-2026-budget",
+      "title": "2026 Budget Cap and Financial Regulations",
+      "content": "The 2026 F1 cost cap remains at approximately $135 million for chassis operations. A separate power unit cost cap of $95 million per year is introduced for the first time. Teams exceeding the budget cap face penalties ranging from fines to constructors' championship point deductions. The cost cap excludes driver salaries, top three executive salaries, marketing costs, and heritage activities."
+    },
+    {
+      "id": "concept-drs",
+      "title": "DRS (Drag Reduction System) Explained",
+      "content": "DRS (Drag Reduction System) was an overtaking aid used in Formula 1 from 2011 to 2025. The system allowed drivers to open a flap on the rear wing to reduce aerodynamic drag and gain a speed advantage on designated straights. DRS could only be activated when a driver was within 1 second of the car ahead at a designated detection point. The system was disabled in wet conditions or under safety car periods. DRS was replaced by the active aerodynamics system (X-mode/Z-mode) starting in the 2026 season. The new active aero system allows drivers to switch between high-downforce and low-drag modes at any time, not just when following closely."
+    },
+    {
+      "id": "concept-ers",
+      "title": "ERS (Energy Recovery System) Explained",
+      "content": "ERS (Energy Recovery System) is the hybrid energy system in F1 power units. It consists of two motor generator units: the MGU-K (Kinetic) which recovers energy from braking, and the MGU-H (Heat) which recovers energy from exhaust gases. The recovered energy is stored in a battery (Energy Store) and can be deployed to boost the car's power output. In the 2026 regulations, the MGU-H has been removed to reduce complexity and cost, while the MGU-K output has been dramatically increased to ~350kW, making the electric motor provide 50% of the total power. The Energy Store capacity has been significantly enlarged to support this increased electrical output."
+    },
+    {
+      "id": "concept-tyres",
+      "title": "F1 Tyres — Compounds, Strategy, and Degradation",
+      "content": "Pirelli supplies all tyres in Formula 1. There are five dry compounds: C1 (hardest) to C5 (softest). At each race, three consecutive compounds are selected and labelled Hard (white), Medium (yellow), and Soft (red). Softer tyres offer more grip but degrade faster. Tyre strategy is crucial — teams must use at least two different dry compounds during a race. Tyre degradation (deg) refers to the loss of performance as tyres wear. Thermal degradation occurs when tyres overheat. Graining happens when the surface tears, and blistering when air pockets form inside the tread. Intermediate (green) and Full Wet (blue) tyres are available for wet conditions. Tyre management — how a driver preserves tyre performance over a stint — is a key differentiator between good and great drivers."
+    },
+    {
+      "id": "concept-points",
+      "title": "F1 Points System and Scoring",
+      "content": "The current Formula 1 points system awards points to the top 10 finishers: 1st: 25 points, 2nd: 18, 3rd: 15, 4th: 12, 5th: 10, 6th: 8, 7th: 6, 8th: 4, 9th: 2, 10th: 1. An additional point is awarded for the fastest lap, but only if the driver finishes in the top 10. Sprint races award points to the top 8: 8-7-6-5-4-3-2-1. The Drivers' Championship is won by the driver with the most points at the end of the season. The Constructors' Championship is the sum of both drivers' points for each team."
+    },
+    {
+      "id": "concept-sprint",
+      "title": "F1 Sprint Race Format Explained",
+      "content": "Sprint races are shorter races (approximately 100km or 30 minutes) held on select weekends. The sprint format consists of: Friday — Free Practice 1 followed by Sprint Qualifying (SQ). Saturday — Sprint Race followed by regular Qualifying. Sunday — the Grand Prix. Sprint Qualifying uses a knockout format (SQ1, SQ2, SQ3) similar to regular qualifying. Sprint results do not affect the Grand Prix grid. Points are awarded to the top 8 in a Sprint: 8-7-6-5-4-3-2-1. There are typically 6 sprint weekends per season."
+    },
+    {
+      "id": "concept-pitstop-strategy",
+      "title": "Pit Stop Strategy — Undercut, Overcut, and Tyre Windows",
+      "content": "Pit stop strategy is a critical tactical element in F1. The undercut is a strategy where a driver pits earlier than a rival to gain fresher tyres that provide faster lap times, potentially emerging ahead. The overcut is the opposite — staying out longer on older tyres while the track clears, benefiting from low-fuel laps and less traffic. A one-stop strategy uses the minimum number of pit stops (one), while a two-stop strategy involves two pit stops, trading time lost in the pit lane for faster lap times on fresher tyres. The pit window is the optimal lap range for making a pit stop based on tyre degradation and race strategy. A free stop occurs when the gap to the car behind is large enough to pit and rejoin without losing position."
+    },
+    {
+      "id": "concept-flags",
+      "title": "F1 Flags and Race Control Procedures",
+      "content": "Yellow flag: Danger ahead, no overtaking, slow down. Double yellow: Great danger, be prepared to stop. Red flag: Session stopped, all cars return to pit lane. Green flag: Track clear, racing can resume. Blue flag: A faster car is approaching to lap you — let them pass within 3 marshalling sectors or face a penalty. Black flag: Driver disqualified, must return to pits. Black and white flag: Warning for unsportsmanlike behaviour. Chequered flag: End of session or race. Safety Car (SC): Deployed during dangerous situations; cars form a queue behind the safety car at reduced speed. Virtual Safety Car (VSC): Drivers must maintain a set delta time, no overtaking, used for minor incidents."
+    },
+    {
+      "id": "concept-penalties",
+      "title": "F1 Penalties and Stewards' Decisions",
+      "content": "Common penalties in Formula 1 include: 5-second time penalty (added to race time or served during a pit stop), 10-second time penalty, drive-through penalty (driver must enter and exit pit lane without stopping), stop-and-go penalty (10 seconds stationary in pit lane), grid penalties for engine/gearbox changes or impeding in qualifying, disqualification for severe offences. Track limits violations can result in lap times being deleted in qualifying or time penalties in the race. The stewards are four officials who investigate and adjudicate incidents. Penalty points on a driver's super licence accumulate over a 12-month rolling period; 12 points result in a one-race ban."
+    },
+    {
+      "id": "track-monaco",
+      "title": "Monaco Grand Prix — Circuit de Monaco",
+      "content": "The Circuit de Monaco is a street circuit in Monte Carlo, Monaco. Track length is 3.337 km with 19 turns. The lap record is 1:12.909 set by Lewis Hamilton in 2021. It is the slowest circuit on the calendar with an average speed of around 160 km/h. Key corners include Sainte Dévote (Turn 1), Casino Square, the famous Tunnel section, the Swimming Pool chicane, and Rascasse. Overtaking is extremely difficult, making qualifying position crucial. First held in 1929, it is the most prestigious race on the F1 calendar."
+    },
+    {
+      "id": "track-monza",
+      "title": "Italian Grand Prix — Autodromo Nazionale Monza",
+      "content": "Monza is known as the Temple of Speed located near Milan, Italy. Track length is 5.793 km with 11 turns. The lap record is 1:21.046 set by Rubens Barrichello in 2004. It is the fastest circuit on the calendar with average speeds exceeding 250 km/h. Key features include the Variante del Rettifilo chicane, Curva Grande, the Lesmo curves, Variante Ascari, and the Curva Parabolica. Low downforce setups are used. Home race for Scuderia Ferrari with the passionate Tifosi fans."
+    },
+    {
+      "id": "track-silverstone",
+      "title": "British Grand Prix — Silverstone Circuit",
+      "content": "Silverstone is located in Northamptonshire, England. Track length is 5.891 km with 18 turns. The lap record is 1:27.097 set by Max Verstappen in 2020. Key corners include the high-speed Maggots-Becketts-Chapel complex, Copse corner, Stowe, and the Vale chicane. It is one of the fastest circuits featuring long high-speed sections. Silverstone hosted the first ever Formula 1 World Championship race in 1950."
+    },
+    {
+      "id": "track-spa",
+      "title": "Belgian Grand Prix — Circuit de Spa-Francorchamps",
+      "content": "Spa-Francorchamps is in the Ardennes forest, Belgium. Track length is 7.004 km with 19 turns — the longest circuit on the calendar. The lap record is 1:46.286 set by Valtteri Bottas in 2018. The circuit features the legendary Eau Rouge/Raidillon corner complex, a steep uphill left-right-left sequence taken at over 300 km/h. Blanchimont is another high-speed challenge. The circuit is known for unpredictable weather — it can rain on one part of the track while being dry on another."
+    },
+    {
+      "id": "track-suzuka",
+      "title": "Japanese Grand Prix — Suzuka International Racing Course",
+      "content": "Suzuka is located in Mie Prefecture, Japan. Track length is 5.807 km with 18 turns. It is the only figure-of-eight circuit on the F1 calendar, with the track crossing over itself. The lap record is 1:30.983 set by Lewis Hamilton in 2019. Key features include the Esses (Turns 3-7), a flowing set of high-speed corners, the 130R corner taken at incredible speed, and the Degner curves. The circuit is considered one of the greatest tests of driver skill."
+    },
+    {
+      "id": "track-interlagos",
+      "title": "Brazilian Grand Prix — Autódromo José Carlos Pace (Interlagos)",
+      "content": "Interlagos is in São Paulo, Brazil. Track length is 4.309 km with 15 turns, running anticlockwise. The lap record is 1:10.540 set by Valtteri Bottas in 2018. Key corners include the Senna S (Turns 1-2), Descida do Lago (Turn 4), and the long Junção corner before the main straight. The circuit sits in a natural amphitheatre with significant elevation changes. The high altitude affects engine performance and tyre behaviour. Known for producing dramatic and unpredictable races."
+    },
+    {
+      "id": "track-jeddah",
+      "title": "Saudi Arabian Grand Prix — Jeddah Corniche Circuit",
+      "content": "The Jeddah Corniche Circuit is a street circuit in Jeddah, Saudi Arabia. Track length is 6.174 km with 27 turns, making it the fastest street circuit in F1. The circuit runs along the Red Sea corniche with high-speed blind corners and minimal run-off areas. Key features include the sweeping Turn 13 and the high-speed final sector. The circuit was introduced to the calendar in 2021."
+    },
+    {
+      "id": "race-2021-abudhabi",
+      "title": "2021 Abu Dhabi Grand Prix — The Most Controversial Race in F1 History",
+      "content": "The 2021 Abu Dhabi Grand Prix at Yas Marina Circuit was the final round of the season and one of the most controversial races in F1 history. Max Verstappen (Red Bull) and Lewis Hamilton (Mercedes) entered the race tied on 369.5 points. Hamilton led for most of the race and appeared set to win his record-breaking 8th World Championship. On lap 53 of 58, Nicholas Latifi (Williams) crashed, bringing out a Safety Car. Race Director Michael Masi controversially allowed only the lapped cars between Hamilton and Verstappen to unlap themselves (rather than all lapped cars, as per convention), and then restarted the race with one lap to go. Verstappen, on fresh soft tyres (having pitted under the Safety Car), overtook Hamilton (on old hard tyres) on the final lap to win the race and the 2021 World Championship by 8 points (395.5 to 387.5). The result was heavily protested by Mercedes but upheld. The FIA later acknowledged the rules were applied incorrectly. Michael Masi was removed as Race Director for 2022. It remains the most debated finish in F1 history."
+    },
+    {
+      "id": "race-2021-mexico",
+      "title": "2021 Mexican Grand Prix Results",
+      "content": "The 2021 Mexican Grand Prix was Round 18 of the 2021 season, held at the Autódromo Hermanos Rodríguez on November 7, 2021. Race Results: P1 Max Verstappen (Red Bull) won the race from pole position. P2 Lewis Hamilton (Mercedes) finished 16.555 seconds behind. P3 Sergio Pérez (Red Bull) completed the podium at his home race. The race was a dominant display by Verstappen who controlled from start to finish. Valtteri Bottas (Mercedes) finished P4. Fastest Lap: Valtteri Bottas — 1:17.774 on lap 71. Verstappen's victory extended his championship lead to 19 points over Hamilton with four races remaining. The altitude of Mexico City (2,240m above sea level) significantly affects engine performance and aerodynamics."
+    },
+    {
+      "id": "driver-verstappen",
+      "title": "Max Verstappen — Driver Profile",
+      "content": "Max Emilian Verstappen (born 30 September 1997) is a Dutch racing driver. He competes for Red Bull Racing. Verstappen became the youngest driver to start an F1 race (age 17) and the youngest race winner (age 18, 2016 Spanish GP). He is a four-time World Drivers' Champion (2021, 2022, 2023, 2024). In 2023, he won a record 19 out of 22 races. Known for his aggressive overtaking, exceptional wet-weather driving, and tyre management. Car number: 1 (as reigning champion). Nationality: Dutch."
+    },
+    {
+      "id": "driver-hamilton",
+      "title": "Lewis Hamilton — Driver Profile",
+      "content": "Sir Lewis Carl Davidson Hamilton (born 7 January 1985) is a British racing driver competing for Scuderia Ferrari starting from 2025, after spending 2007-2024 with Mercedes and McLaren. He is a seven-time World Drivers' Champion (2008, 2014, 2015, 2017, 2018, 2019, 2020), tied with Michael Schumacher for the most championships. He holds the all-time records for race wins (104), pole positions (104), and podium finishes (201). Hamilton was knighted in 2021. His move to Ferrari for 2025 was one of the biggest transfer stories in F1 history."
+    },
+    {
+      "id": "driver-leclerc",
+      "title": "Charles Leclerc — Driver Profile",
+      "content": "Charles Marc Hervé Perceval Leclerc (born 16 October 1997) is a Monégasque racing driver competing for Scuderia Ferrari. He joined Ferrari in 2019 and quickly established himself as the team's lead driver. Leclerc won the 2017 FIA Formula 2 Championship. He is known for his exceptional one-lap qualifying pace, consistently extracting maximum performance. He has won multiple Grands Prix including emotional home victories for Ferrari at Monza. Car number: 16. He grew up racing karts with his close childhood friend Jules Bianchi, who tragically died from injuries sustained at the 2014 Japanese GP."
+    },
+    {
+      "id": "driver-norris",
+      "title": "Lando Norris — Driver Profile",
+      "content": "Lando Norris (born 13 November 1999) is a British racing driver competing for McLaren Racing. He made his F1 debut in 2019 and has since become one of the most consistent drivers on the grid. Norris won the 2024 Dutch Grand Prix for his first career victory and went on to challenge for the championship. Known for his smooth driving style, excellent feedback to engineers, and strong wet-weather performances. Also known for his humorous personality and large social media following. Car number: 4."
+    },
+    {
+      "id": "driver-antonelli",
+      "title": "Andrea Kimi Antonelli — Driver Profile",
+      "content": "Andrea Kimi Antonelli (born 25 August 2006) is an Italian racing driver competing for Mercedes-AMG PETRONAS F1 Team. He is the 2026 championship leader with 219 points. Antonelli is one of the youngest drivers in F1 history, having made his debut at age 18. He was a highly decorated junior category driver, winning the 2023 Italian F4 Championship and the 2024 FIA Formula 2 Championship. He was named as the replacement for Lewis Hamilton at Mercedes when Hamilton moved to Ferrari for 2025. His racing style is characterized by smooth car control and exceptional consistency."
+    },
+    {
+      "id": "driver-russell",
+      "title": "George Russell — Driver Profile",
+      "content": "George William Russell (born 15 February 1998) is a British racing driver competing for Mercedes-AMG PETRONAS F1 Team. He won the 2018 FIA Formula 2 Championship. Russell drove for Williams from 2019-2021, earning the nickname 'Mr. Saturday' for his outstanding qualifying performances even in an uncompetitive car. He joined Mercedes in 2022 and won his first GP (2022 Brazilian GP). Known for his analytical approach, consistency, and racecraft."
+    },
+    {
+      "id": "driver-piastri",
+      "title": "Oscar Piastri — Driver Profile",
+      "content": "Oscar Jack Piastri (born 6 April 2001) is an Australian racing driver competing for McLaren Racing. He achieved the unprecedented feat of winning the F3 Championship (2020), F2 Championship (2021), and F1 race wins all in consecutive years of competition. He debuted in F1 in 2023 with McLaren after a contract dispute with Alpine. Piastri won his first Grand Prix at the 2024 Hungarian GP. Known for his calm demeanour, precise driving style, and ability to perform under pressure."
+    },
+    {
+      "id": "team-redbull",
+      "title": "Red Bull Racing — Team Profile",
+      "content": "Red Bull Racing is based in Milton Keynes, England. The team has won six Constructors' Championships (2010, 2011, 2012, 2013, 2022, 2023). Their current drivers for 2026 are Max Verstappen and Liam Lawson. Red Bull's power unit partner changed to Ford for 2026, using their own Red Bull Powertrains division. Adrian Newey, their legendary aerodynamicist, departed the team in 2024. Team Principal is Christian Horner."
+    },
+    {
+      "id": "team-mercedes",
+      "title": "Mercedes-AMG PETRONAS F1 Team — Team Profile",
+      "content": "Mercedes-AMG PETRONAS F1 Team is based in Brackley, England (chassis) and Brixworth (power unit). They won an unprecedented eight consecutive Constructors' Championships from 2014 to 2021. Current drivers for 2026 are Andrea Kimi Antonelli and George Russell. Team Principal is Toto Wolff. Mercedes are leading the 2026 Constructors' Championship, benefiting strongly from the new regulations."
+    },
+    {
+      "id": "team-ferrari",
+      "title": "Scuderia Ferrari — Team Profile",
+      "content": "Scuderia Ferrari is the oldest and most successful team in F1 history, based in Maranello, Italy. They have won 16 Constructors' Championships and 15 Drivers' Championships. Current drivers for 2026 are Charles Leclerc and Lewis Hamilton. Team Principal is Frédéric Vasseur. Ferrari is the only team to have competed in every season of the Formula 1 World Championship since its inception in 1950. Their famous red cars are known as the Prancing Horse (Cavallino Rampante)."
+    },
+    {
+      "id": "team-mclaren",
+      "title": "McLaren Racing — Team Profile",
+      "content": "McLaren Racing is based in Woking, England. They are one of the most successful teams in F1 with 8 Constructors' Championships. Current drivers for 2026 are Lando Norris and Oscar Piastri. McLaren won the 2024 Constructors' Championship, their first since 1998. Team Principal is Andrea Stella. McLaren uses Mercedes power units. The team was founded by Bruce McLaren from New Zealand."
+    },
+    {
+      "id": "history-champions",
+      "title": "F1 World Drivers' Champions — Recent History",
+      "content": "Recent F1 World Drivers' Champions: 2024 — Max Verstappen (Red Bull Racing), his 4th consecutive title. 2023 — Max Verstappen (Red Bull Racing), winning a record 19 out of 22 races. 2022 — Max Verstappen (Red Bull Racing). 2021 — Max Verstappen (Red Bull Racing), in a controversial title decider at Abu Dhabi. 2020 — Lewis Hamilton (Mercedes), his 7th title equalling Schumacher. 2019 — Lewis Hamilton (Mercedes). 2018 — Lewis Hamilton (Mercedes). 2017 — Lewis Hamilton (Mercedes). 2016 — Nico Rosberg (Mercedes), who retired immediately after winning. 2015 — Lewis Hamilton (Mercedes). 2014 — Lewis Hamilton (Mercedes). 2013 — Sebastian Vettel (Red Bull Racing), his 4th consecutive title."
+    },
+    {
+      "id": "concept-safety-car",
+      "title": "Safety Car and Virtual Safety Car Explained",
+      "content": "The FIA Safety Car is deployed during dangerous on-track situations to neutralize the race. When deployed, all cars must form a queue behind the Safety Car at reduced speed. No overtaking is allowed under the Safety Car. Pit stops are permitted, which creates strategic opportunities. The Safety Car is currently an Aston Martin Vantage. The Virtual Safety Car (VSC) is used for less severe incidents. Under VSC, drivers must maintain a minimum time set by race control through all mini-sectors (roughly 40% slower than race pace). No overtaking is allowed. The VSC creates less disruption than a full Safety Car but still affects tyre temperatures and strategy."
+    },
+    {
+      "id": "concept-qualifying",
+      "title": "F1 Qualifying Format Explained",
+      "content": "F1 qualifying uses a three-part knockout format: Q1 (18 minutes) — All 20 drivers participate. The five slowest are eliminated and start P16-P20. Q2 (15 minutes) — The remaining 15 drivers compete. The five slowest are eliminated and start P11-P15. Q3 (12 minutes) — The top 10 drivers fight for pole position. Positions P1-P10 are decided. Each segment is a shootout for the fastest single lap time. The driver with the fastest Q3 lap earns pole position (starting P1). Track evolution — the track getting faster as more rubber is laid down — plays a significant role, making the final laps of each session the most critical."
+    },
+    {
+      "id": "concept-wind-tunnel",
+      "title": "F1 Aerodynamic Testing — Wind Tunnel and CFD",
+      "content": "F1 teams use both wind tunnels and Computational Fluid Dynamics (CFD) to develop their cars' aerodynamics. The FIA implements an Aerodynamic Testing Restrictions (ATR) system where the amount of wind tunnel and CFD time a team receives is inversely proportional to their championship position — the lower a team finishes, the more development time they get. This sliding scale was introduced to promote competition parity. Wind tunnel testing uses scale models (typically 60%) in controlled conditions. CFD uses computer simulations to model airflow. Teams are limited in both the number of wind tunnel runs and the total CFD teraflops they can use."
+    },
+    {
+      "id": "concept-grid-penalty",
+      "title": "F1 Grid Penalties and Power Unit Allocations",
+      "content": "Each driver is allocated a set number of power unit components per season: 3 ICEs, 3 turbochargers, 3 MGU-Ks, 2 Energy Stores, 2 Control Electronics, and 3 exhausts (for 2026). Using additional components beyond these allocations incurs grid penalties. The first additional component of any element results in a 10-place grid penalty. Taking multiple new elements at the same event results in a back-of-grid start. Teams sometimes strategically take penalties at circuits where overtaking is easier (e.g., Spa, Monza) to minimize the competitive impact."
+    },
+    {
+      "id": "race-2024-highlights",
+      "title": "2024 F1 Season Highlights",
+      "content": "The 2024 F1 season was notable for several key moments: Max Verstappen won his 4th consecutive World Championship but faced the strongest challenge yet from McLaren's Lando Norris. McLaren won the Constructors' Championship for the first time since 1998. Oscar Piastri won his first Grand Prix at the Hungarian GP. Lewis Hamilton announced his shock move to Ferrari for 2025, ending his legendary partnership with Mercedes. The season saw increased competition with four teams winning races (Red Bull, McLaren, Ferrari, Mercedes). There were 24 races in the calendar, the most in F1 history at that time."
+    },
+    {
+      "id": "track-bahrain",
+      "title": "Bahrain Grand Prix — Bahrain International Circuit",
+      "content": "The Bahrain International Circuit is located in Sakhir, Bahrain. Track length is 5.412 km with 15 turns. The circuit was the first F1 track in the Middle East (2004). Key features include the tight Turn 1 braking zone, the sweeping Turn 4, and the multiple DRS zones. Races are held at night under floodlights since 2014. The circuit is known for high tyre degradation due to sand on the track surface and high ambient temperatures."
+    },
+    {
+      "id": "track-americas",
+      "title": "United States Grand Prix — Circuit of the Americas",
+      "content": "The Circuit of the Americas (COTA) is in Austin, Texas. Track length is 5.513 km with 20 turns. The circuit was designed by Hermann Tilke with inspiration from classic corners around the world. Turn 1 is a steep uphill braking zone followed by a switchback. The circuit also features an Esses section inspired by Silverstone's Maggots-Becketts and a stadium section inspired by Hockenheim. The track has significant elevation changes throughout."
+    },
+    {
+      "id": "track-marina-bay",
+      "title": "Singapore Grand Prix — Marina Bay Street Circuit",
+      "content": "The Marina Bay Street Circuit in Singapore hosts F1's most physically demanding race. Track length is 4.940 km with 19 turns. The race is held at night under floodlights, with high humidity and temperatures creating extreme conditions for drivers. The circuit runs past iconic landmarks including the Singapore Flyer, Marina Bay Sands, and the Padang. Races at Marina Bay are typically among the longest on the calendar (close to the 2-hour time limit) due to frequent Safety Car periods on the bumpy street surface."
+    },
+    {
+      "id": "track-red-bull-ring",
+      "title": "Austrian Grand Prix — Red Bull Ring",
+      "content": "The Red Bull Ring is in Spielberg, Styria, Austria. Track length is 4.318 km with 10 turns — one of the shortest circuits on the calendar. The track is set in the picturesque Styrian mountains with significant elevation changes. Key features include the fast Turn 1 and the uphill charge to Turn 3. With only 10 corners and short lap times, qualifying is extremely tight. The circuit is owned by Red Bull and regularly hosts sprint race weekends."
+    },
+    {
+      "id": "track-hungaroring",
+      "title": "Hungarian Grand Prix — Hungaroring",
+      "content": "The Hungaroring is in Mogyoród, near Budapest, Hungary. Track length is 4.381 km with 14 turns. Often called 'Monaco without the walls' due to its tight, twisty nature that makes overtaking difficult. The circuit sits in a natural bowl, allowing spectators to see most of the track. Downforce levels are high. The Hungarian GP is traditionally the last race before the summer break."
+    },
+    {
+      "id": "track-zandvoort",
+      "title": "Dutch Grand Prix — Circuit Zandvoort",
+      "content": "Circuit Zandvoort is in Zandvoort, Netherlands. Track length is 4.259 km with 14 turns. The circuit returned to the F1 calendar in 2021 as Max Verstappen's home race. Unique features include the banked final corner (Turn 14, Arie Luyendijkbocht) at 18 degrees and the banked Turn 3 (Hugenholtz) at 19 degrees. The circuit is located right next to the North Sea beach, and sand can blow onto the track. The narrow, old-school layout makes overtaking challenging."
+    }
+  ]
+}

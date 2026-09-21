@@ -3,7 +3,7 @@ F1 AI Agent — FastAPI Server
 ============================
 Main microservice entry point for the Tool-Using F1 AI Agent.
 Powered by:
-- Gemini LLM Layer via OpenRouter (app/llm/gemini.py)
+- Hugging Face LLM Layer (app/llm/huggingface.py)
 - Structured F1 Data Tool (app/tools/f1_data_tool.py)
 - Real-time Web Search Tool (app/tools/search_tool.py)
 - Intent Detection Multi-Tool Orchestrator (app/agent.py)
@@ -29,16 +29,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.agent import F1Agent, ask_agent
-from app.llm.gemini import get_gemini_model_name, get_gemini_api_key
+from app.llm.huggingface import get_model_name, get_hf_api_key
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Configuration
 # ═══════════════════════════════════════════════════════════════════════════════
 
 AGENT_PORT = int(os.getenv("AGENT_PORT", "8000"))
-DEBUG_MODE = os.getenv("DEBUG_MODE", "false").lower() in ("true", "1", "yes")
-MODEL_NAME = get_gemini_model_name()
-API_KEY_SET = bool(get_gemini_api_key())
+MODEL_NAME = get_model_name()
+HF_KEY_SET = bool(get_hf_api_key() and get_hf_api_key().strip() not in ("", "your_huggingface_api_key_here"))
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FastAPI App
@@ -46,8 +45,8 @@ API_KEY_SET = bool(get_gemini_api_key())
 
 app = FastAPI(
     title="F1 AI Agent",
-    description="Tool-using F1 AI Agent powered by Gemini, Jolpica F1 API, and Web Search",
-    version="5.0.0",
+    description="Tool-using F1 AI Agent powered by Hugging Face, Jolpica F1 API, and Web Search",
+    version="4.0.0",
 )
 
 app.add_middleware(
@@ -78,7 +77,6 @@ class ChatResponse(BaseModel):
     sources: List[str] = []
     confidence: Optional[str] = "high"
     model: str
-    debug: Optional[Dict[str, Any]] = None
 
 
 class AskRequest(BaseModel):
@@ -96,7 +94,6 @@ class AskResponse(BaseModel):
     response: str
     reply: str
     model: str
-    debug: Optional[Dict[str, Any]] = None
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -107,7 +104,7 @@ class AskResponse(BaseModel):
 async def ask(request: AskRequest):
     """
     Direct LLM question-answering endpoint.
-    Performs intent detection, F1 data retrieval, web search, and Gemini synthesis.
+    Performs intent detection, F1 data retrieval when required, web search, and Hugging Face generation.
     """
     query = request.question or request.message or ""
     if not query.strip():
@@ -118,7 +115,7 @@ async def ask(request: AskRequest):
             sources=[],
             response="Please provide a question.",
             reply="Please provide a question.",
-            model=MODEL_NAME,
+            model=get_model_name(),
         )
 
     print(f"[AGENT] Question: {query[:100]}...")
@@ -127,9 +124,9 @@ async def ask(request: AskRequest):
     tool_used = agent_output.get("tool_used", [])
     sources = agent_output.get("sources", [])
     confidence = agent_output.get("confidence", "high")
-    debug = agent_output.get("debug") if DEBUG_MODE else None
     print(f"[AGENT] Tool Used: {tool_used} | Sources: {len(sources)} | Confidence: {confidence}")
 
+    model_name = get_model_name()
     return AskResponse(
         question=query,
         answer=answer,
@@ -138,8 +135,7 @@ async def ask(request: AskRequest):
         confidence=confidence,
         response=answer,
         reply=answer,
-        model=MODEL_NAME,
-        debug=debug,
+        model=model_name,
     )
 
 
@@ -147,7 +143,7 @@ async def ask(request: AskRequest):
 async def chat(request: ChatRequest):
     """
     Main chat endpoint for the frontend dashboard widget.
-    Routes queries to the F1 AI Agent, which synthesizes answers via Gemini.
+    Routes queries directly to the tool-using F1 AI Agent.
     """
     query = request.message or request.question or request.prompt or ""
     if not query.strip():
@@ -160,7 +156,7 @@ async def chat(request: ChatRequest):
             tool_used=[],
             sources=[],
             confidence="low",
-            model=MODEL_NAME,
+            model=get_model_name(),
         )
 
     print(f"[CHAT] Received: {query[:100]}...")
@@ -169,8 +165,8 @@ async def chat(request: ChatRequest):
     tool_used = agent_output.get("tool_used", [])
     sources = agent_output.get("sources", [])
     confidence = agent_output.get("confidence", "high")
-    debug = agent_output.get("debug") if DEBUG_MODE else None
 
+    model_name = get_model_name()
     return ChatResponse(
         reply=answer,
         response=answer,
@@ -179,36 +175,8 @@ async def chat(request: ChatRequest):
         tool_used=tool_used,
         sources=sources,
         confidence=confidence,
-        model=MODEL_NAME,
-        debug=debug,
+        model=model_name,
     )
-
-
-@app.get("/ask")
-async def ask_get():
-    """Information for GET requests on /ask."""
-    return {
-        "message": "The /ask endpoint requires a POST request with a JSON body.",
-        "example": {"question": "Who won the 2021 Mexican Grand Prix?"},
-        "docs": "/docs",
-    }
-
-
-@app.get("/api/chat")
-@app.get("/chat")
-async def chat_get():
-    """Information for GET requests on /api/chat."""
-    return {
-        "message": "The /api/chat endpoint requires a POST request with a JSON body.",
-        "example": {"message": "Who had the fastest lap at the 2021 Mexican GP?"},
-        "docs": "/docs",
-    }
-
-
-@app.post("/chat", response_model=ChatResponse)
-async def chat_alias(request: ChatRequest):
-    """Alias for /api/chat."""
-    return await chat(request)
 
 
 @app.get("/")
@@ -216,16 +184,14 @@ async def root():
     """Service info."""
     return {
         "service": "F1 AI Agent",
-        "version": "5.0.0",
+        "version": "4.0.0",
         "status": "online",
-        "model": MODEL_NAME,
-        "api_key_configured": API_KEY_SET,
-        "debug_mode": DEBUG_MODE,
+        "model": get_model_name(),
+        "hf_key_configured": HF_KEY_SET,
         "features": [
-            "Gemini LLM Synthesis via OpenRouter",
+            "Hugging Face Inference LLM Layer",
             "Jolpica F1 API Structured Data Tool",
             "Multi-Provider Web Search Tool",
-            "F1-Only Result Filtering",
             "Automated Intent Detection & Routing",
         ],
     }
@@ -250,12 +216,11 @@ if __name__ == "__main__":
 
     print()
     print("  +==================================================+")
-    print("  |           F1 AI Agent -- v5.0 (Gemini)           |")
+    print("  |              F1 AI Agent -- v4.0                 |")
     print("  |                                                  |")
     print(f"  |   Model:    {MODEL_NAME:<37}|")
     print(f"  |   Data:     Jolpica (Ergast) API                 |")
     print(f"  |   Search:   DuckDuckGo / Wikipedia               |")
-    print(f"  |   Debug:    {'ON' if DEBUG_MODE else 'OFF':<40}|")
     print(f"  |                                                  |")
     print(f"  |   URL:  http://localhost:{AGENT_PORT}                   |")
     print(f"  |   Docs: http://localhost:{AGENT_PORT}/docs              |")
